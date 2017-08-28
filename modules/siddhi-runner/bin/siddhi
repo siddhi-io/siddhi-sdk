@@ -1,9 +1,5 @@
 #!/bin/sh
-cd /home/raveen/Desktop/siddhi-sdk/modules/siddhi-runner/target/siddhi-sdk-1.0.0-SNAPSHOT/bin
-java -classpath siddhi-runner-1.0.0-SNAPSHOT.jar:../lib/* org.wso2.siddhi.runner.SiddhiRun "$@"
-#java -jar siddhi-runner-1.0.0-SNAPSHHOT.jar "$@"
+cd /home/raveen/Desktop/siddhi-sdk/modules/siddhi-runner/target/siddhi-sdk-1.0.0-SNAPSHOT/lib
+java -jar siddhi-runner-1.0.0-SNAPSHHOT.jar "$@"
 
 #TODO: Write this to work in windows environment as well
-
-#java -classpath siddhi-runner-1.0.0-SNAPSHHOT.jar:**/* org.wso2.siddhi.runner.SiddhiRun
-# run /home/raveen/IdeaProjects/SiddhiProjectCreation/lkhl.siddhi
