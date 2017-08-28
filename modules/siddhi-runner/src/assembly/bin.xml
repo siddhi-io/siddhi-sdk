@@ -27,6 +27,7 @@
             <directory>bin</directory>
             <outputDirectory>bin</outputDirectory>
             <includes>
+                <include>siddhi</include>
                 <include>**/*.sh</include>
                 <include>**/*.bat</include>
             </includes>
