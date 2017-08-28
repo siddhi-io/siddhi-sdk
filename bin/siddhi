@@ -1,6 +1,0 @@
-#!/bin/sh
-cd /home/raveen/Desktop/siddhi-sdk/lib
-java -classpath siddhi.jar:extensions/* org.wso2.siddhi.runner.SiddhiRun "$@"
-#java -jar siddhi.jar "$@"
-
-#TODO: Write this to work in windows environment as well

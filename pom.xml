@@ -25,119 +25,31 @@
         <version>5</version>
     </parent>
 
-
     <groupId>org.wso2.siddhi.sdk</groupId>
     <artifactId>siddhi-sdk-parent</artifactId>
     <packaging>pom</packaging>
-    <version>${siddhi.sdk.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>WSO2 Siddhi SDK</name>
 
     <url>http://wso2.org</url>
 
     <modules>
-        <module>modules/siddhi-distribution</module>
         <module>modules/siddhi-runner</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>${commons.logging.version}</version>
-            </dependency>
-
-            <!--siddhi dependencies start-->
-            <dependency>
-                <groupId>org.wso2.siddhi</groupId>
-                <artifactId>siddhi-runner</artifactId>
-                <version>${siddhi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.siddhi</groupId>
-                <artifactId>siddhi-core</artifactId>
-                <version>${siddhi.version}</version>
-            </dependency>
-
-            <!--- Dependencies for Siddhi related jars -->
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka_2.10</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-
-            <!--Dependencies for database feed simulation begins here-->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.connector.version}</version>
-            </dependency>
-            <!--Dependencies for  database feed simulation ends here-->
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
         </plugins>
-
-        <resources>
-            <resource>
-                <directory>bin</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
-
         <pluginManagement>
         </pluginManagement>
     </build>
 
     <properties>
-        <siddhi.version>4.0.0-M44</siddhi.version>
-        <siddhi.extension.version>1.0.0</siddhi.extension.version>
-        <siddhi.sdk.version>1.0.0-SNAPSHOT</siddhi.sdk.version>
-        <commons.logging.version>1.2</commons.logging.version>
-        <kafka-2.10.version>0.8.1.1</kafka-2.10.version>
-        <mysql.connector.version>5.1.38</mysql.connector.version>
-
-
-        <!--Siddhi Extension Versions-->
-        <siddhi.execution.string.version>4.0.2-SNAPSHOT</siddhi.execution.string.version>
-        <siddhi.execution.time.version>4.0.2-SNAPSHOT</siddhi.execution.time.version>
-        <siddhi.execution.unique.version>4.0.2-SNAPSHOT</siddhi.execution.unique.version>
-        <siddhi.execution.regex.version>4.0.2-SNAPSHOT</siddhi.execution.regex.version>
-        <siddhi.execution.kalmanfilter.version>4.0.2-SNAPSHOT</siddhi.execution.kalmanfilter.version>
-        <siddhi.execution.markov.version>4.0.3-SNAPSHOT</siddhi.execution.markov.version>
-        <siddhi.execution.sentiment.version>4.0.2-SNAPSHOT</siddhi.execution.sentiment.version>
-        <siddhi.execution.priority.version>4.0.2-SNAPSHOT</siddhi.execution.priority.version>
-        <siddhi.execution.map.version>4.0.2-SNAPSHOT</siddhi.execution.map.version>
-        <siddhi.execution.math.version>4.0.2-SNAPSHOT</siddhi.execution.math.version>
-        <siddhi.execution.stat.version>1.0.2-SNAPSHOT</siddhi.execution.stat.version>
-        <siddhi.execution.timeseries.version>4.0.2-SNAPSHOT</siddhi.execution.timeseries.version>
-        <siddhi.execution.geo.version>4.0.1-SNAPSHOT</siddhi.execution.geo.version>
-        <siddhi.script.js.version>4.0.2-SNAPSHOT</siddhi.script.js.version>
-        <siddhi.io.jms.version>1.0.6-SNAPSHOT</siddhi.io.jms.version>
-        <siddhi.io.tcp.version>2.0.3-SNAPSHOT</siddhi.io.tcp.version>
-        <siddhi.io.file.version>1.0.0-M5-SNAPSHOT</siddhi.io.file.version>
-        <siddhi.io.http.version>1.0.2-SNAPSHOT</siddhi.io.http.version>
-        <siddhi.io.kafka.version>4.0.4-SNAPSHOT</siddhi.io.kafka.version>
-        <siddhi.io.wso2event.version>4.0.1-SNAPSHOT</siddhi.io.wso2event.version>
-        <siddhi.map.xml.version>4.0.0-M10-SNAPSHOT</siddhi.map.xml.version>
-        <siddhi.map.text.version>1.0.3-SNAPSHOT</siddhi.map.text.version>
-        <siddhi.map.json.version>4.0.4-SNAPSHOT</siddhi.map.json.version>
-        <siddhi.map.binary.version>1.0.1-SNAPSHOT</siddhi.map.binary.version>
-        <siddhi.map.wso2event.version>4.0.2-SNAPSHOT</siddhi.map.wso2event.version>
-        <siddhi.store.mongodb.version>1.0.5-SNAPSHOT</siddhi.store.mongodb.version>
-        <siddhi.store.solr.version>1.0.5-SNAPSHOT</siddhi.store.solr.version>
-        <siddhi.store.rdbms.version>4.0.0-M5-SNAPSHOT</siddhi.store.rdbms.version>
-        <siddhi.execution.extrema.version>4.0.2-SNAPSHOT</siddhi.execution.extrema.version>
-
-        <commons-httpclient.version>3.1.0.wso2v2</commons-httpclient.version>
-        <commons.logging.version>1.2</commons.logging.version>
-        <apache.commons.version>1.3</apache.commons.version>
-
     </properties>
 
 </project>

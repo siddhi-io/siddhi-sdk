@@ -32,8 +32,8 @@ public class SiddhiRun {
 
         // Validate the number of arguments
         if (args.length != 2) {
-            error("Expected one argument but found " + args.length + "\n. Please try again with a valid argument: " +
-                    "<siddhi file>");
+            error("Expected two arguments but found " + args.length + "\n. Please try again with  valid arguments: " +
+                    "run <siddhi file>");
             return;
         }
 
