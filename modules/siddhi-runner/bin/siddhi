@@ -1,6 +1,13 @@
 #!/bin/sh
-cd /home/raveen/Desktop/siddhi-sdk/modules/siddhi-runner/target/siddhi-sdk-1.0.0-SNAPSHOT/bin
+current_dir=$(pwd)
+script_dir=$(dirname $0)
+
+if [ $script_dir = '.' ]
+then
+script_dir="$current_dir"
+fi
+cd $script_dir
+
 #java -jar siddhi-runner-1.0.0-SNAPSHOT.jar "$@"
 java -classpath siddhi-runner-1.0.0-SNAPSHOT.jar:../lib/* org.wso2.siddhi.runner.SiddhiRun "$@"
 #TODO: Write this to work in windows environment as well
-
