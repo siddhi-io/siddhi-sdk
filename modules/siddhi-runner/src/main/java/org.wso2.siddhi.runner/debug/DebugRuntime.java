@@ -52,7 +52,9 @@ public class DebugRuntime {
                     callbackEventsQueue.add(new DebugCallbackEvent(queryName, queryIndex, queryTerminal, event));
                 });
                 mode = Mode.DEBUG;
-            } catch (Exception e) {
+            }catch (RuntimeException e){
+                mode =Mode.FAULTY;
+            } catch (Exception e) {//TODO: Handle the exception in a proper manner
                 mode = Mode.FAULTY;
             }
         } else if (Mode.FAULTY.equals(mode)) {
@@ -97,11 +99,13 @@ public class DebugRuntime {
             } else {
                 mode = Mode.FAULTY;
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            mode = Mode.FAULTY;
+        }catch (Exception e){
             mode = Mode.FAULTY;
         }
     }
 
-    private enum Mode {RUN, DEBUG, STOP, FAULTY}
+    private enum Mode {DEBUG, STOP, FAULTY}
 
 }

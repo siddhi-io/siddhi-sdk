@@ -29,11 +29,12 @@ import java.io.*;
  * This is the main class for starting siddhi and debugging siddhi
  */
 public class Launcher {
+
     public static void main(String []args) {
 
         //TODO: Fix the skip runtime in pom file
 
-        // Validate the number of arguments
+        // Validate the number of arguments4
         if (!(args.length == 2 || args.length ==3)) {
             throw new InvalidArgumentException("Expected two or three arguments but found " + args.length + "\n. " +
                     "Please try again with  valid arguments: run <siddhi file> or debug <siddhi file> <query list>");
@@ -41,7 +42,7 @@ public class Launcher {
 
         String runningMode = args[0];
         String siddhiAppPath = args[1];
-        String queryList=args[2];
+        //String queryList=args[2];
 
         // Validate siddhiApp
         String siddhiApp=validateSiddhiApp(siddhiAppPath);
@@ -50,7 +51,7 @@ public class Launcher {
             if(runningMode.equalsIgnoreCase("run")){
                 try {
                     SiddhiRun siddhiRun=new SiddhiRun();
-                    siddhiRun.runSiddhi(siddhiAppPath);
+                    siddhiRun.runSiddhi(siddhiApp);
                 } catch (InterruptedException e) {
                     throw new InvalidExecutionStateException("Siddhi App execution error:  " + e.getMessage());
                 }

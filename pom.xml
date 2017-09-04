@@ -50,6 +50,8 @@
     </build>
 
     <properties>
+        <maven.findbugsplugin.skip>true</maven.findbugsplugin.skip>
+        <checkstyle.skip>true</checkstyle.skip>
     </properties>
 
 </project>
