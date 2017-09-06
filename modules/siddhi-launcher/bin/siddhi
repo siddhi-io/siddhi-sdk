@@ -8,6 +8,6 @@ script_dir="$current_dir"
 fi
 cd $script_dir
 
-#java -jar siddhi-runner-1.0.0-SNAPSHOT.jar "$@"
-java -classpath siddhi-runner-1.0.0-SNAPSHOT.jar:../lib/* org.wso2.siddhi.runner.Launcher "$@"
+#java -jar siddhi-launcher-1.0.0-SNAPSHOT.jar "$@"
+java -classpath siddhi-launcher-1.0.0-SNAPSHOT.jar:../lib/* org.wso2.siddhi.runner.Main "$@"
 #TODO: Write this to work in windows environment as well

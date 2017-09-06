@@ -9,11 +9,11 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>siddhi-runner</artifactId>
-    <name>Siddhi-Runner</name>
+    <artifactId>siddhi-launcher</artifactId>
+    <name>Siddhi-Launcher</name>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <description>Siddhi SDK Runner</description>
+    <description>Siddhi SDK Launcher</description>
     <url>http://wso2.org</url>
 
     <dependencies>
@@ -273,7 +273,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.wso2.siddhi.runner.Launcher</mainClass>
+                            <mainClass>org.wso2.siddhi.runner.Main</mainClass>
                         </manifest>
 
                     </archive>

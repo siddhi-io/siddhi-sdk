@@ -34,7 +34,7 @@
     <url>http://wso2.org</url>
 
     <modules>
-        <module>modules/siddhi-runner</module>
+        <module>modules/siddhi-launcher</module>
     </modules>
 
     <dependencyManagement>

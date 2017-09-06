@@ -1,61 +1,48 @@
 /*
- * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
- *
- * WSO2 Inc. licenses this file to you under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+*  Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+*
+*  WSO2 Inc. licenses this file to you under the Apache License,
+*  Version 2.0 (the "License"); you may not use this file except
+*  in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing,
+*  software distributed under the License is distributed on an
+*  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+*  KIND, either express or implied.  See the License for the
+*  specific language governing permissions and limitations
+*  under the License.
+*/
 package org.wso2.siddhi.runner;
+
 
 import org.wso2.siddhi.runner.debug.DebugRuntime;
 import org.wso2.siddhi.runner.exception.FileReadException;
-import org.wso2.siddhi.runner.exception.InvalidArgumentException;
 import org.wso2.siddhi.runner.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.runner.run.SiddhiRun;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.util.List;
 
 /**
- * This is the main class for starting siddhi and debugging siddhi
+ * Contains utility methods for executing a Siddhi program.
+ *
  */
-public class Launcher {
+public class LauncherUtils {
 
-    public static void main(String []args) {
+    public static void runProgram(Path sourcePath, boolean debugMode, String[] args) {
 
-        //TODO: Fix the skip runtime in pom file
-
-        // Validate the number of arguments
-        if (!(args.length == 2 || args.length ==3 || args.length==4)) {//TODO:Handle the arguments
-            throw new InvalidArgumentException("Expected two or three arguments but found " + args.length + "\n. " +
-                    "Please try again with  valid arguments: run <siddhi file> or debug <siddhi file> <query list>");
-        }
-
-        String runningMode = args[0];
-        String siddhiAppPath = args[1];
-        boolean debugMode=false;
-        String inputFilePath="";
-
-        if(args[2]!=null && args[4]!=null && args[2].equalsIgnoreCase("--siddhi.debug")){
-            debugMode=true;
-            inputFilePath=args[4];
-        }
-
+        String siddhiAppPath = sourcePath.toString();
+        //String inputFilePath=args[0];
 
         // Validate siddhiApp
         String siddhiApp=validateSiddhiApp(siddhiAppPath);
 
         if(!siddhiApp.equalsIgnoreCase("")){
-            if(runningMode.equalsIgnoreCase("run") && !debugMode){
+            if(!debugMode){
                 try {
                     SiddhiRun siddhiRun=new SiddhiRun();
                     siddhiRun.runSiddhi(siddhiApp);
@@ -63,10 +50,12 @@ public class Launcher {
                     throw new InvalidExecutionStateException("Siddhi App execution error:  " + e.getMessage());
                 }
 
-            }else if(runningMode.equalsIgnoreCase("run") && debugMode){
+            }else{
                 DebugRuntime siddhiDebug= new DebugRuntime(siddhiApp);
                 siddhiDebug.debug();
             }
+        }else{
+            throw new InvalidExecutionStateException("No valid SiddhiApp found in the file");
         }
     }
 
@@ -131,5 +120,26 @@ public class Launcher {
                 }
             }
         }
+    }
+
+
+    public static SLauncherException createUsageException(String errorMsg) {
+        SLauncherException launcherException = new SLauncherException();
+        launcherException.addMessage("siddhi: " + errorMsg);
+        return launcherException;
+    }
+
+    public static void printLauncherException(SLauncherException e, PrintStream outStream) {
+        List<String> errorMessages = e.getMessages();
+        errorMessages.forEach(outStream::println);
+    }
+
+    public static String makeFirstLetterLowerCase(String s) {
+        if (s == null) {
+            return null;
+        }
+        char c[] = s.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        return new String(c);
     }
 }
