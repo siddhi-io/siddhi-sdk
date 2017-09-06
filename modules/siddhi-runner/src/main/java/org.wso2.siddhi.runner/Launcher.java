@@ -34,29 +34,36 @@ public class Launcher {
 
         //TODO: Fix the skip runtime in pom file
 
-        // Validate the number of arguments4
-        if (!(args.length == 2 || args.length ==3)) {
+        // Validate the number of arguments
+        if (!(args.length == 2 || args.length ==3 || args.length==4)) {//TODO:Handle the arguments
             throw new InvalidArgumentException("Expected two or three arguments but found " + args.length + "\n. " +
                     "Please try again with  valid arguments: run <siddhi file> or debug <siddhi file> <query list>");
         }
 
         String runningMode = args[0];
         String siddhiAppPath = args[1];
-        //String queryList=args[2];
+        boolean debugMode=false;
+        String inputFilePath="";
+
+        if(args[2]!=null && args[4]!=null && args[2].equalsIgnoreCase("--siddhi.debug")){
+            debugMode=true;
+            inputFilePath=args[4];
+        }
+
 
         // Validate siddhiApp
         String siddhiApp=validateSiddhiApp(siddhiAppPath);
 
         if(!siddhiApp.equalsIgnoreCase("")){
-            if(runningMode.equalsIgnoreCase("run")){
+            if(runningMode.equalsIgnoreCase("run") && !debugMode){
                 try {
                     SiddhiRun siddhiRun=new SiddhiRun();
                     siddhiRun.runSiddhi(siddhiApp);
                 } catch (InterruptedException e) {
                     throw new InvalidExecutionStateException("Siddhi App execution error:  " + e.getMessage());
                 }
-                return;
-            }if(runningMode.equalsIgnoreCase("debug")){
+
+            }else if(runningMode.equalsIgnoreCase("run") && debugMode){
                 DebugRuntime siddhiDebug= new DebugRuntime(siddhiApp);
                 siddhiDebug.debug();
             }
