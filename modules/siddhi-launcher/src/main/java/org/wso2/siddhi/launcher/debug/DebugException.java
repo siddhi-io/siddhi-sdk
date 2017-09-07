@@ -18,7 +18,6 @@
 
 package org.wso2.siddhi.launcher.debug;
 
-
 /**
  *  Debugger exception to wrap all debug errors.
  */

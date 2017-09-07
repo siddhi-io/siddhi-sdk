@@ -17,6 +17,8 @@
 */
 package org.wso2.siddhi.launcher.debug;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -27,6 +29,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 
 import java.io.PrintStream;
 
@@ -35,8 +39,6 @@ import static org.wso2.siddhi.launcher.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
 /**
  * {@code VMDebugServer} will open a websocket server for external clients to connect.
  * The websocket server is implemented with netty websocket library.
- *
- * @since 0.88
  */
 public class VMDebugServer {
 
@@ -101,17 +103,17 @@ public class VMDebugServer {
      * @param debugSession current debugging session
      * @param status debug point information
      */
-//    public void pushMessageToClient(VMDebugSession debugSession, MessageDTO status) {
-//        ObjectMapper mapper = new ObjectMapper();
-//        String json = null;
-//        try {
-//            json = mapper.writeValueAsString(status);
-//        } catch (JsonProcessingException e) {
-//            json = DebugConstants.ERROR_JSON;
-//        }
-//        debugSession.getChannel().write(new TextWebSocketFrame(json));
-//        debugSession.getChannel().flush();
-//    }
+    public void pushMessageToClient(VMDebugSession debugSession, MessageDTO status) {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(status);
+        } catch (JsonProcessingException e) {
+            json = DebugConstants.ERROR_JSON;
+        }
+        debugSession.getChannel().write(new TextWebSocketFrame(json));
+        debugSession.getChannel().flush();
+    }
 
     private int getDebugPort() {
         String debugPort = System.getProperty(SYSTEM_PROP_SIDDHI_DEBUG);

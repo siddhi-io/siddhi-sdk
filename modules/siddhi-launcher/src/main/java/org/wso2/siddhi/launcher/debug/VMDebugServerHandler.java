@@ -31,7 +31,6 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.PrintStream;
 
 import static io.netty.handler.codec.http.HttpHeaders.Names.HOST;
@@ -41,8 +40,6 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 /**
  * {@code DebugServerHandler} Handle client connections and messaging with debug clients.
- *
- * @since 0.88
  */
 public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
 
@@ -87,19 +84,19 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
         WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
                 getWebSocketLocation(req), null, true);
         handshaker = wsFactory.newHandshaker(req);
-//        if (handshaker == null) {
-//            WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
-//        } else {
-//            VMDebugManager debugManager = VMDebugManager.getInstance();
-//            try {
-//                debugManager.addDebugSession(ctx.channel());
-//            } catch (DebugException e) {
-//                FullHttpResponse res = new DefaultFullHttpResponse(HTTP_1_1, TOO_MANY_REQUESTS);
-//                sendHttpResponse(ctx, req, res);
-//                return;
-//            }
-//            handshaker.handshake(ctx.channel(), req);
-//        }
+        if (handshaker == null) {
+            WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
+        } else {
+            VMDebugManager debugManager = VMDebugManager.getInstance();
+            try {
+                debugManager.addDebugSession(ctx.channel());
+            } catch (DebugException e) {
+                FullHttpResponse res = new DefaultFullHttpResponse(HTTP_1_1, TOO_MANY_REQUESTS);
+                sendHttpResponse(ctx, req, res);
+                return;
+            }
+            handshaker.handshake(ctx.channel(), req);
+        }
     }
 
     private void handleWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame) {
@@ -118,9 +115,9 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
                             .getName()));
         }
 
-//        String request = ((TextWebSocketFrame) frame).text();
-//        VMDebugManager debugManager = VMDebugManager.getInstance();
-//        debugManager.processDebugCommand(request);
+        String request = ((TextWebSocketFrame) frame).text();
+        VMDebugManager debugManager = VMDebugManager.getInstance();
+        debugManager.processDebugCommand(request);
     }
 
     private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {

@@ -18,11 +18,8 @@
 
 package org.wso2.siddhi.launcher.debug;
 
-
 /**
  * {@code DebugConstants} define debugger constants.
- *
- * @since 0.8.0
  */
 public class DebugConstants {
 
