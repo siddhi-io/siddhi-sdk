@@ -15,7 +15,7 @@
 *  specific language governing permissions and limitations
 *  under the License.
 */
-package org.wso2.siddhi.runner.debug;
+package org.wso2.siddhi.launcher.debug;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

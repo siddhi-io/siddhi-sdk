@@ -1,4 +1,4 @@
-package org.wso2.siddhi.runner.exception;/*
+package org.wso2.siddhi.launcher.exception;/*
  *  Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +14,17 @@ package org.wso2.siddhi.runner.exception;/*
  *  limitations under the License.
  */
 
-public class FileReadException extends RuntimeException {
+public class InvalidArgumentException extends RuntimeException {
 
-    public FileReadException(String msg) {
+    public InvalidArgumentException(String msg) {
         super(msg);
     }
 
-    public FileReadException(Exception cause) {
+    public InvalidArgumentException(Exception cause) {
         super(cause);
     }
 
-    public FileReadException(String msg, Exception cause) {
+    public InvalidArgumentException(String msg, Exception cause) {
         super(msg, cause);
     }
 

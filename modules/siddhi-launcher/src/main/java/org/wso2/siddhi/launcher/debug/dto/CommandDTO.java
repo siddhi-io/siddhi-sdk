@@ -16,11 +16,9 @@
 *  under the License.
 */
 
-package org.wso2.siddhi.runner.debug.dto;
+package org.wso2.siddhi.launcher.debug.dto;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 
 /**
  * DTO class representing commands send to debugger from the client.

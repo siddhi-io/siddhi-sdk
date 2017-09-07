@@ -215,7 +215,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/siddhi-runner-jars</outputDirectory>
+                            <outputDirectory>${project.build.directory}/siddhi-launcher-jars</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
@@ -231,12 +231,12 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wso2.siddhi.sdk</groupId>
-                                    <artifactId>siddhi-runner</artifactId>
+                                    <artifactId>siddhi-launcher</artifactId>
                                     <version>${siddhi.sdk.version}</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>${project.build.directory}/siddhi-runner-jars</outputDirectory>
+                            <outputDirectory>${project.build.directory}/siddhi-launcher-jars</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
@@ -273,7 +273,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.wso2.siddhi.runner.Main</mainClass>
+                            <mainClass>org.wso2.siddhi.launcher.Main</mainClass>
                         </manifest>
 
                     </archive>

@@ -16,10 +16,10 @@
  * under the License.
  */
 
-package org.wso2.siddhi.runner;
+package org.wso2.siddhi.launcher;
 
 import com.beust.jcommander.*;
-import org.wso2.siddhi.runner.exception.SLangRuntimeException;
+import org.wso2.siddhi.launcher.exception.SLangRuntimeException;
 
 import java.io.PrintStream;
 import java.nio.file.Path;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.wso2.siddhi.runner.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
+import static org.wso2.siddhi.launcher.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
 
 /**
  * This class executes a siddhi program.
@@ -62,18 +62,16 @@ public class Main {
             outStream.println(msg);
             Runtime.getRuntime().exit(1);
         }
-
-        RunCmd runCmd = new RunCmd();
-        JCommander cmdParser = new JCommander(runCmd);
-        cmdParser.parse(args);
     }
 
     private static Optional<SLauncherCmd> getInvokedCmd(String... args) {
         try {
+
+            // Run command
             RunCmd runCmd = new RunCmd();
             JCommander cmdParser = new JCommander(runCmd);
+            cmdParser.setProgramName("siddhi");
             cmdParser.parse(args);
-
             String parsedCmdName = cmdParser.getParsedCommand();
             // User has not specified a command. Therefore returning the main command
             // which simply prints usage information.
@@ -110,7 +108,6 @@ public class Main {
 
     /**
      * This class represents the "run" command and it holds arguments and flags specified by the user.
-     *
      */
     @Parameters(commandNames = "run", commandDescription = "compile and run Siddhi program")
     private static class RunCmd implements SLauncherCmd{
@@ -121,6 +118,7 @@ public class Main {
         @Parameter(names = "--siddhi.debug", hidden = true, description = "remote debugging port")
         private String siddhiDebugPort;
 
+        @Override
         public void execute() {
 
             boolean debugMode=false;
@@ -135,9 +133,6 @@ public class Main {
                 debugMode=true;
             }
 
-            Path sourcePath = Paths.get(argList.get(0));
-            //Path inputFilePath=Paths.get(argList.get(1));
-
             // Filter out the list of arguments given to the siddhi program.
             String[] programArgs;
             if (argList.size() >= 2) {
@@ -147,8 +142,9 @@ public class Main {
                 programArgs = new String[0];
             }
 
-            LauncherUtils.runProgram(sourcePath,debugMode,programArgs);
+            LauncherUtils.runProgram(debugMode,programArgs);
         }
     }
+
 }
 

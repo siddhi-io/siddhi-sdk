@@ -42,10 +42,10 @@
             <fileMode>444</fileMode>
         </fileSet>
         <fileSet>
-            <directory>target/siddhi-runner-jars</directory>
+            <directory>target/siddhi-launcher-jars</directory>
             <outputDirectory>lib</outputDirectory>
             <excludes>
-                <exclude>siddhi-runner-${project.version}.jar</exclude>
+                <exclude>siddhi-launcher-${project.version}.jar</exclude>
             </excludes>
             <includes>
                 <include>**/*.jar</include>
@@ -53,10 +53,10 @@
             <fileMode>664</fileMode>
         </fileSet>
         <fileSet>
-            <directory>target/siddhi-runner-jars</directory>
+            <directory>target/siddhi-launcher-jars</directory>
             <outputDirectory>bin</outputDirectory>
             <includes>
-                <include>siddhi-runner-${project.version}.jar</include>
+                <include>siddhi-launcher-${project.version}.jar</include>
             </includes>
             <fileMode>664</fileMode>
         </fileSet>

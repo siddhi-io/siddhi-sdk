@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c)  2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * WSO2 Inc. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -16,19 +16,23 @@
  * under the License.
  */
 
-package org.wso2.siddhi.runner.exception;
+package org.wso2.siddhi.launcher.exception;
 
 /**
- * Customized exception class for Siddhi Debugger
+ * This exception will be thrown in case a where it tries to run or debug an un deployed siddhi app
  */
-public class DebuggerException extends Exception {
+public class NoSuchStreamException extends RuntimeException {
 
-    /**
-     * Throws customize DebuggerException
-     *
-     * @param message Error Message
-     */
-    public DebuggerException(String message) {
-        super(message);
+    public NoSuchStreamException(String msg) {
+        super(msg);
     }
+
+    public NoSuchStreamException(Exception cause) {
+        super(cause);
+    }
+
+    public NoSuchStreamException(String msg, Exception cause) {
+        super(msg, cause);
+    }
+
 }

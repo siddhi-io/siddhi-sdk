@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package org.wso2.siddhi.runner.debug.util;
+package org.wso2.siddhi.launcher.debug.util;
 
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.core.event.ComplexEvent;

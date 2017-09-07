@@ -16,7 +16,7 @@
 *  under the License.
 */
 
-package org.wso2.siddhi.runner.debug.dto;
+package org.wso2.siddhi.launcher.debug.dto;
 
 
 import java.util.ArrayList;

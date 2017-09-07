@@ -16,13 +16,13 @@
  * under the License.
  */
 
-package org.wso2.siddhi.runner.debug;
+package org.wso2.siddhi.launcher.debug;
 
 import org.wso2.siddhi.core.SiddhiManager;
-import org.wso2.siddhi.runner.debug.util.DebugCallbackEvent;
+import org.wso2.siddhi.launcher.debug.util.DebugCallbackEvent;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
-import org.wso2.siddhi.runner.exception.InvalidExecutionStateException;
+import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

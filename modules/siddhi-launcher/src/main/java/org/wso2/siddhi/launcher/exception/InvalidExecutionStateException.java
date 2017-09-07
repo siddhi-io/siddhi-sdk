@@ -16,22 +16,22 @@
  * under the License.
  */
 
-package org.wso2.siddhi.runner.exception;
+package org.wso2.siddhi.launcher.exception;
 
 /**
- * This exception will be thrown in case a where it tries to run or debug an un deployed siddhi app
+ * This exception will be thrown in case a where it tries to run or debug a faulty Siddhi app
  */
-public class NoSuchStreamException extends RuntimeException {
+public class InvalidExecutionStateException extends RuntimeException {
 
-    public NoSuchStreamException(String msg) {
+    public InvalidExecutionStateException(String msg) {
         super(msg);
     }
 
-    public NoSuchStreamException(Exception cause) {
+    public InvalidExecutionStateException(Exception cause) {
         super(cause);
     }
 
-    public NoSuchStreamException(String msg, Exception cause) {
+    public InvalidExecutionStateException(String msg, Exception cause) {
         super(msg, cause);
     }
 

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package org.wso2.siddhi.runner.run;
+package org.wso2.siddhi.launcher.run;
 
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;

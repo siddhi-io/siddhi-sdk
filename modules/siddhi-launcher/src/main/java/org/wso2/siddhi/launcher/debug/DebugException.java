@@ -15,24 +15,20 @@
 *  specific language governing permissions and limitations
 *  under the License.
 */
-package org.wso2.siddhi.runner;
 
-import java.util.ArrayList;
-import java.util.List;
+package org.wso2.siddhi.launcher.debug;
+
 
 /**
- * Thrown to indicate that an exception occurred in Ballerina program launcher.
- *
- * @since 0.8.0
+ *  Debugger exception to wrap all debug errors.
  */
-public class SLauncherException extends RuntimeException {
-    private List<String> detailedMessages = new ArrayList<>();
+public class DebugException extends RuntimeException {
 
-    void addMessage(String message) {
-        detailedMessages.add(message);
+    DebugException(String message) {
+        super(message);
     }
 
-    List<String> getMessages() {
-        return detailedMessages;
+    DebugException(String message, Throwable e) {
+        super(message, e);
     }
 }

@@ -15,13 +15,13 @@
 *  specific language governing permissions and limitations
 *  under the License.
 */
-package org.wso2.siddhi.runner;
+package org.wso2.siddhi.launcher;
 
 
-import org.wso2.siddhi.runner.debug.DebugRuntime;
-import org.wso2.siddhi.runner.exception.FileReadException;
-import org.wso2.siddhi.runner.exception.InvalidExecutionStateException;
-import org.wso2.siddhi.runner.run.SiddhiRun;
+import org.wso2.siddhi.launcher.debug.DebugRuntime;
+import org.wso2.siddhi.launcher.exception.FileReadException;
+import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
+import org.wso2.siddhi.launcher.run.SiddhiRun;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -33,11 +33,12 @@ import java.util.List;
  */
 public class LauncherUtils {
 
-    public static void runProgram(Path sourcePath, boolean debugMode, String[] args) {
+    public static void runProgram(boolean debugMode, String[] args) {
 
-        String siddhiAppPath = sourcePath.toString();
-        //String inputFilePath=args[0];
-
+        String siddhiAppPath = args[0];
+//        if(debugMode && args[1]!=null) {
+//            String inputFilePath=args[0];
+//        }
         // Validate siddhiApp
         String siddhiApp=validateSiddhiApp(siddhiAppPath);
 
@@ -67,7 +68,7 @@ public class LauncherUtils {
     private static boolean validateSiddhiAppPath(String siddhiAppPath){
         File siddhiAppFile = new File(siddhiAppPath);
         if (!siddhiAppFile.exists() || !siddhiAppFile.isFile()) {
-            throw new InvalidExecutionStateException("Invalid siddhi app file path: \" + siddhiAppPath");
+            throw new InvalidExecutionStateException("Invalid siddhi app file path:" + siddhiAppPath);
         }
         return true;
     }
@@ -84,7 +85,7 @@ public class LauncherUtils {
             try {
                 siddhiApp = readText(siddhiAppPath);
             } catch (IOException e) {
-                throw new InvalidExecutionStateException("Failed to read siddhi app file: \" + siddhiAppPath");
+                throw new InvalidExecutionStateException("Failed to read siddhi app file:" + siddhiAppPath);
             }
         }
         return siddhiApp;

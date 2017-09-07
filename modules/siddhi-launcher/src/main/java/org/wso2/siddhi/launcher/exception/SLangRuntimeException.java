@@ -15,7 +15,7 @@
 *  specific language governing permissions and limitations
 *  under the License.
 */
-package org.wso2.siddhi.runner.exception;
+package org.wso2.siddhi.launcher.exception;
 
 /**
  * {@code SiddhiRuntimeException} represents an error happened in the Siddhi runtime.

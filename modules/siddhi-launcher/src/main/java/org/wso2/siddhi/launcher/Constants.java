@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package org.wso2.siddhi.runner;
+package org.wso2.siddhi.launcher;
 
 /**
  * Constants related to Siddhi runtime.
