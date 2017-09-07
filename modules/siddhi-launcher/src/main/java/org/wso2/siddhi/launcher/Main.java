@@ -20,10 +20,7 @@ package org.wso2.siddhi.launcher;
 
 import com.beust.jcommander.*;
 import org.wso2.siddhi.launcher.exception.SLangRuntimeException;
-
 import java.io.PrintStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,7 +29,6 @@ import static org.wso2.siddhi.launcher.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
 
 /**
  * This class executes a siddhi program.
- *
  */
 public class Main {
 

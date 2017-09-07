@@ -17,14 +17,11 @@
 */
 package org.wso2.siddhi.launcher;
 
-
 import org.wso2.siddhi.launcher.debug.DebugRuntime;
 import org.wso2.siddhi.launcher.exception.FileReadException;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.run.SiddhiRun;
-
 import java.io.*;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -122,7 +119,6 @@ public class LauncherUtils {
             }
         }
     }
-
 
     public static SLauncherException createUsageException(String errorMsg) {
         SLauncherException launcherException = new SLauncherException();
