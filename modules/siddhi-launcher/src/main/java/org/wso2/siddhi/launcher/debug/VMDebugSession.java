@@ -20,17 +20,19 @@
 package org.wso2.siddhi.launcher.debug;
 
 import io.netty.channel.Channel;
-import org.ballerinalang.bre.Context;
-import org.ballerinalang.bre.nonblocking.debugger.BreakPointInfo;
-import org.ballerinalang.bre.nonblocking.debugger.DebugSessionObserver;
-import org.ballerinalang.util.debugger.dto.BreakPointDTO;
+import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
+import org.wso2.siddhi.launcher.debug.dto.BreakPointDTO;
+import org.wso2.siddhi.launcher.exception.BreakpointNotFoundException;
+import org.wso2.siddhi.launcher.exception.ResourceNotFoundException;
+import org.wso2.siddhi.launcher.internal.DebugProcessorService;
+import org.wso2.siddhi.launcher.internal.DebuggerEventStreamService;
 import org.wso2.siddhi.launcher.internal.EditorDataHolder;
+import org.wso2.siddhi.launcher.internal.EventStreamService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -45,18 +47,15 @@ public class VMDebugSession {
 
     private ArrayList<BreakPointDTO> breakPoints;
 
-    //key - threadid
-    private Map<String, Context> contextMap;
-
     public VMDebugSession() {
-        this.contextMap = new HashMap<>();
+
     }
 
     /**
      * Sets debug points.
      *
      * @param breakPoints the debug points
-     */
+     *///TODO:for all query indexes(all breakpints) this method should run in a for loop
     public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
         this.breakPoints = breakPoints;
         for (Context bContext : this.contextMap.values()) {
@@ -67,34 +66,22 @@ public class VMDebugSession {
     /**
      * Helper method to set debug points to the given context.
      *
-     * @param bContext
+     * @param //TODO:Add parameters
      */
-    private void setBreakPoints(String siddhiAppName,Integer queryIndex,String queryTerminal) {
+    private void setBreakPoints(Integer queryIndex,String queryTerminal) {
         if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
             // acquire only specified break point
             SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
                     SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
             String queryName = (String) EditorDataHolder
-                    .getDebugProcessorService()
-                    .getSiddhiAppRuntimeHolder(siddhiAppName)
+                    .getDebugRuntime()
                     .getQueries()
                     .toArray()[queryIndex];
             EditorDataHolder
-                    .getDebugProcessorService()
-                    .getSiddhiAppRuntimeHolder(siddhiAppName)
+                    .getDebugRuntime()
                     .getDebugger()
                     .acquireBreakPoint(queryName, terminal);
-            return Response
-                    .status(Response.Status.OK)
-                    .entity(new GeneralResponse(Status.SUCCESS, "Terminal " + queryTerminal +
-                            " breakpoint acquired for query " + siddhiAppName + ":" + queryName))
-                    .build();
-        } else {
-            return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity(new GeneralResponse(Status.ERROR, "Missing Parameters"))
-                    .build();
-        }
+        } //TODO:Handle the exceptions after this
     }
 
     /**
@@ -117,17 +104,20 @@ public class VMDebugSession {
      * Method to start debugging process in all the threads.
      */
     public void startDebug() {
+
+//        serviceRegistration = bundleContext.registerService(EventStreamService.class.getName(),
+//                new DebuggerEventStreamService(), null
+
         List<String> streams = EditorDataHolder
-                .getDebugProcessorService()
-                .getSiddhiAppRuntimeHolder(siddhiAppName)
+                .getDebugRuntime()
                 .getStreams();
         List<String> queries = EditorDataHolder
-                .getDebugProcessorService()
-                .getSiddhiAppRuntimeHolder(siddhiAppName)
+                .getDebugRuntime()
                 .getQueries();
         EditorDataHolder
                 .getDebugProcessorService()
-                .debug(siddhiAppName);
+                .debug();
+        //TODO:If a debug hit appears send it as a message to client
     }
 
     /**
@@ -136,7 +126,7 @@ public class VMDebugSession {
     public void stopDebug() {
         EditorDataHolder
                 .getDebugProcessorService()
-                .stop(siddhiAppName);
+                .stop();
     }
 
     /**
@@ -147,21 +137,18 @@ public class VMDebugSession {
         this.channel = null;
     }
 
-    @Override
     public void notifyComplete() {
         VMDebugManager debugManager = VMDebugManager.getInstance();
         debugManager.notifyComplete(this);
     }
 
-    @Override
     public void notifyExit() {
         VMDebugManager debugManager = VMDebugManager.getInstance();
         debugManager.notifyExit(this);
     }
 
-    @Override
-    public void notifyHalt(BreakPointInfo breakPointInfo) {
-        VMDebugManager debugManager = VMDebugManager.getInstance();
-        debugManager.notifyDebugHit(this, breakPointInfo);
-    }
+//    public void notifyHalt(BreakPointInfo breakPointInfo) {
+//        VMDebugManager debugManager = VMDebugManager.getInstance();
+//        debugManager.notifyDebugHit(this, breakPointInfo);
+//    }
 }

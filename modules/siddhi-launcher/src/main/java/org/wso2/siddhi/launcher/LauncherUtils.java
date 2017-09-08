@@ -17,7 +17,7 @@
 */
 package org.wso2.siddhi.launcher;
 
-import org.wso2.siddhi.launcher.debug.DebugRuntime;
+import org.wso2.siddhi.launcher.debug.VMDebugManager;
 import org.wso2.siddhi.launcher.exception.FileReadException;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.run.SiddhiRun;
@@ -49,8 +49,8 @@ public class LauncherUtils {
                 }
 
             }else{
-                DebugRuntime siddhiDebug= new DebugRuntime(siddhiApp);
-                siddhiDebug.debug();
+                VMDebugManager vmDebugManager=VMDebugManager.getInstance();
+                vmDebugManager.mainInit(siddhiApp);
             }
         }else{
             throw new InvalidExecutionStateException("No valid SiddhiApp found in the file");

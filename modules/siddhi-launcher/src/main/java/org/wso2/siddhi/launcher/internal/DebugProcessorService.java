@@ -27,28 +27,24 @@ import org.wso2.siddhi.launcher.exception.NoSuchSiddhiAppException;
  */
 public class DebugProcessorService {
 
-    public DebugRuntime getSiddhiAppRuntimeHolder(String siddhiAppName) {
-        return EditorDataHolder.getSiddhiAppMap().get(siddhiAppName);
-    }
-
-    public synchronized void debug(String siddhiAppName) {
-        if (EditorDataHolder.getSiddhiAppMap().containsKey(siddhiAppName)) {
-            DebugRuntime runtimeHolder = EditorDataHolder.getSiddhiAppMap().get(siddhiAppName);
+    public synchronized void debug() {
+        if (EditorDataHolder.getDebugRuntime()!=null) {
+            DebugRuntime runtimeHolder = EditorDataHolder.getDebugRuntime();
             runtimeHolder.debug();
         } else {
             throw new NoSuchSiddhiAppException(
-                    String.format("Siddhi App %s does not exists", siddhiAppName)
+                    String.format("Siddhi App %s does not exists")
             );
         }
     }
 
-    public synchronized void stop(String siddhiAppName) {
-        if (EditorDataHolder.getSiddhiAppMap().containsKey(siddhiAppName)) {
-            DebugRuntime runtimeHolder = EditorDataHolder.getSiddhiAppMap().get(siddhiAppName);
+    public synchronized void stop() {
+        if (EditorDataHolder.getDebugRuntime()!=null) {
+            DebugRuntime runtimeHolder = EditorDataHolder.getDebugRuntime();
             runtimeHolder.stop();
         } else {
             throw new NoSuchSiddhiAppException(
-                    String.format("Siddhi App %s does not exists", siddhiAppName)
+                    String.format("Siddhi App %s does not exists")
             );
         }
     }

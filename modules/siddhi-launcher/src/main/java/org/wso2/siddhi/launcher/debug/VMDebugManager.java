@@ -20,13 +20,15 @@ package org.wso2.siddhi.launcher.debug;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
+import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.launcher.exception.SiddhiException;
+import org.wso2.siddhi.launcher.internal.DebugProcessorService;
+import org.wso2.siddhi.launcher.internal.DebugRuntime;
 import org.wso2.siddhi.launcher.internal.EditorDataHolder;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -82,25 +84,17 @@ public class VMDebugManager {
     /**
      * Initializes the debug manager single instance.
      */
-    public synchronized void serviceInit() {
+    public synchronized void mainInit(String siddhiApp) {
         if (this.debugManagerInitialized) {
             throw new SiddhiException("Debugger instance already initialized");
         }
-        // start the debug server if it is not started yet.
-        this.debugServer.startServer();
-        this.debugManagerInitialized = true;
-    }
 
-    public synchronized void mainInit(ProgramFile programFile, Context mainThreadContext) {
-        if (this.debugManagerInitialized) {
-            throw new SiddhiException("Debugger instance already initialized");
-        }
-        mainThreadContext.setAndInitDebugInfoHolder(new DebugInfoHolder());
-        mainThreadContext.setDebugEnabled(true);
-        DebuggerExecutor debuggerExecutor = new DebuggerExecutor(programFile, mainThreadContext);
-        ExecutorService executor = ThreadPoolFactory.getInstance().getWorkerExecutor();
-        mainThreadContext.getDebugInfoHolder().setDebugSessionObserver(debugSession);
-        executor.submit(debuggerExecutor);
+        EditorDataHolder.setDebugProcessorService(new DebugProcessorService());
+        SiddhiManager siddhiManager = new SiddhiManager();
+        EditorDataHolder.setSiddhiManager(siddhiManager);
+        DebugRuntime debugRuntime=new DebugRuntime(siddhiApp);
+        EditorDataHolder.setDebugRuntime(debugRuntime);
+
         // start the debug server if it is not started yet.
         this.debugServer.startServer();
         this.debugManagerInitialized = true;
@@ -135,21 +129,13 @@ public class VMDebugManager {
         switch (command.getCommand()) {
             case DebugConstants.CMD_RESUME:
                 EditorDataHolder
-                        .getDebugProcessorService()
-                        .getSiddhiAppRuntimeHolder(siddhiAppName)
+                        .getDebugRuntime()
                         .getDebugger()
                         .play();
                 break;
             case DebugConstants.CMD_STEP_OVER:
-                getHolder(command.getThreadId()).stepOver();
-                break;
-            case DebugConstants.CMD_STEP_IN:
-                getHolder(command.getThreadId()).stepIn();
-                break;
-            case DebugConstants.CMD_STEP_OUT:
                 EditorDataHolder
-                        .getDebugProcessorService()
-                        .getSiddhiAppRuntimeHolder(siddhiAppName)
+                        .getDebugRuntime()
                         .getDebugger()
                         .next();
                 break;
@@ -158,7 +144,7 @@ public class VMDebugManager {
                 debugSession.stopDebug();
                 debugSession.clearSession();
                 break;
-            case DebugConstants.CMD_SET_POINTS:
+            case DebugConstants.CMD_SET_POINTS://TODO:Control the adding breakpoints
                 // we expect { "command": "SET_POINTS", points: [{ "fileName": "sample.bal", "lineNumber" : 5 },{...}]}
                 debugSession.addDebugPoints(command.getPoints());
                 sendAcknowledge(this.debugSession, "Debug points updated");
@@ -174,13 +160,6 @@ public class VMDebugManager {
         }
     }
 
-    private DebugInfoHolder getHolder(String threadId) {
-        if (debugSession.getContext(threadId) == null) {
-            throw new DebugException(DebugConstants.MSG_INVALID_THREAD_ID);
-        }
-        return debugSession.getContext(threadId).getDebugInfoHolder();
-    }
-
     /**
      * Set debug channel.
      *
@@ -189,34 +168,6 @@ public class VMDebugManager {
     public void addDebugSession(Channel channel) throws DebugException {
         this.debugSession.setChannel(channel);
         sendAcknowledge(this.debugSession, "Channel registered.");
-    }
-
-    /**
-     *  Hold on to main thread while debugger finishes execution.
-     */
-    public void holdON() {
-        //suspend the current thread till debugging process finishes
-        try {
-            executionWaitSem.acquire();
-        } catch (InterruptedException e) {
-            // Do nothing probably someone wants to shutdown the thread.
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    /**
-     * Add {@link Context} to current execution.
-     *
-     * @param bContext context to run
-     */
-    public void setDebuggerContext(Context bContext) {
-        // if we are handling multiple connections
-        // we need to check and set to correct debugger session
-        if (!isDebugSessionActive()) {
-            throw new IllegalStateException("Debug session has not initialize, Unable to set debugger.");
-        }
-        bContext.getDebugInfoHolder().setDebugSessionObserver(debugSession);
-        this.debugSession.addContext(bContext);
     }
 
     public boolean isDebugEnabled() {
@@ -240,15 +191,15 @@ public class VMDebugManager {
      * Send a message to the debug client when a breakpoint is hit.
      *
      * @param debugSession current debugging session
-     * @param breakPointInfo info of the current break point
+     * //@param breakPointInfo info of the current break point
      */
-    public void notifyDebugHit(VMDebugSession debugSession, BreakPointInfo breakPointInfo) {
+    public void notifyDebugHit(VMDebugSession debugSession){//}, BreakPointInfo breakPointInfo) {
         MessageDTO message = new MessageDTO();
         message.setCode(DebugConstants.CODE_HIT);
         message.setMessage(DebugConstants.MSG_HIT);
-        message.setThreadId(breakPointInfo.getThreadId());
-        message.setLocation(breakPointInfo.getHaltLocation());
-        message.setFrames(breakPointInfo.getCurrentFrames());
+//        message.setThreadId(breakPointInfo.getThreadId());
+//        message.setLocation(breakPointInfo.getHaltLocation());
+//        message.setFrames(breakPointInfo.getCurrentFrames());
         debugServer.pushMessageToClient(debugSession, message);
     }
 

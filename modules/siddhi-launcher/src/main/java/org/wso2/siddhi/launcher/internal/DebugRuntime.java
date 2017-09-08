@@ -32,45 +32,20 @@ import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class DebugRuntime {
-    private String siddhiAppName;
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
     private transient LinkedBlockingQueue<DebugCallbackEvent> callbackEventsQueue;
 
-    public DebugRuntime(String siddhiAppName, String siddhiApp) {
-        this.siddhiAppName = siddhiAppName;
+    public DebugRuntime(String siddhiApp) {
         this.siddhiApp = siddhiApp;
         callbackEventsQueue = new LinkedBlockingQueue<>(10);
         createRuntime();
     }
 
-    public String getSiddhiAppName() {
-        return siddhiAppName;
-    }
-
-    public Mode getMode() {
-        return mode;
-    }
-
     public SiddhiDebugger getDebugger() {
         return debugger;
-    }
-
-    public void start() {
-        if (Mode.STOP.equals(mode)) {
-            try {
-                siddhiAppRuntime.start();
-                mode = Mode.RUN;
-            } catch (Exception e) {
-                mode = Mode.FAULTY;
-            }
-        } else if (Mode.FAULTY.equals(mode)) {
-            throw new InvalidExecutionStateException("Siddhi App is in faulty state.");
-        } else {
-            throw new InvalidExecutionStateException("Siddhi App is already running.");
-        }
     }
 
     public void debug() {
@@ -107,11 +82,6 @@ public class DebugRuntime {
         createRuntime();
     }
 
-    public void reload(String siddhiApp) {
-        this.siddhiApp = siddhiApp;
-        stop();
-    }
-
     public List<String> getStreams() {
         if (!Mode.FAULTY.equals(mode)) {
             return new ArrayList<>(siddhiAppRuntime.getStreamDefinitionMap().keySet());
@@ -142,7 +112,7 @@ public class DebugRuntime {
                 return siddhiAppRuntime.getStreamDefinitionMap().get(streamName).getAttributeList();
             } else {
                 throw new NoSuchStreamException(String.format(
-                        "Stream definition %s does not exists in Siddhi app %s", streamName, siddhiAppName));
+                        "Stream definition %s does not exists in Siddhi app %s", streamName));
             }
         } else {
             throw new InvalidExecutionStateException("Siddhi App is in faulty state.");
@@ -167,6 +137,6 @@ public class DebugRuntime {
         }
     }
 
-    private enum Mode {RUN, DEBUG, STOP, FAULTY}
+    private enum Mode {DEBUG, STOP, FAULTY}
 
 }
