@@ -20,19 +20,11 @@
 package org.wso2.siddhi.launcher.debug;
 
 import io.netty.channel.Channel;
-import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.launcher.debug.dto.BreakPointDTO;
-import org.wso2.siddhi.launcher.exception.BreakpointNotFoundException;
-import org.wso2.siddhi.launcher.exception.ResourceNotFoundException;
-import org.wso2.siddhi.launcher.internal.DebugProcessorService;
-import org.wso2.siddhi.launcher.internal.DebuggerEventStreamService;
 import org.wso2.siddhi.launcher.internal.EditorDataHolder;
-import org.wso2.siddhi.launcher.internal.EventStreamService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 /**
@@ -89,11 +81,11 @@ public class VMDebugSession {
      *
      * @return the channel
      */
-    public Channel getChannel() {
+    public synchronized Channel getChannel() {
         return channel;
     }
 
-    public  void setChannel(Channel channel) throws DebugException {
+    public synchronized void setChannel(Channel channel) throws DebugException {
         if (this.channel != null) {
             throw new DebugException("Debug session already exist");
         }
@@ -132,7 +124,7 @@ public class VMDebugSession {
     /**
      * Method to clear the channel so that another debug session can connect.
      */
-    public void clearSession() {
+    public synchronized void clearSession() {
         this.channel.close();
         this.channel = null;
     }

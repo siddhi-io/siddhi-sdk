@@ -29,6 +29,7 @@ import org.wso2.siddhi.launcher.internal.DebugRuntime;
 import org.wso2.siddhi.launcher.internal.EditorDataHolder;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -92,6 +93,10 @@ public class VMDebugManager {
         if (this.debugManagerInitialized) {
             throw new SiddhiException("Debugger instance already initialized");
         }
+//        DebuggerExecutor debuggerExecutor = new DebuggerExecutor(programFile, mainThreadContext);
+//        ExecutorService executor = ThreadPoolFactory.getInstance().getWorkerExecutor();
+//        mainThreadContext.getDebugInfoHolder().setDebugSessionObserver(debugSession);
+//        executor.submit(debuggerExecutor);
 
         EditorDataHolder.setDebugProcessorService(new DebugProcessorService());
         SiddhiManager siddhiManager = new SiddhiManager();
