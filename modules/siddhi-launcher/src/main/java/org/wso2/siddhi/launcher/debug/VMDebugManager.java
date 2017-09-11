@@ -53,6 +53,10 @@ public class VMDebugManager {
 
     private boolean debugManagerInitialized = false;
 
+    public VMDebugSession getDebugSession() {
+        return debugSession;
+    }
+
     /**
      * Instantiates a new Debug manager.
      */
@@ -84,7 +88,7 @@ public class VMDebugManager {
     /**
      * Initializes the debug manager single instance.
      */
-    public synchronized void mainInit(String siddhiApp) {
+    public synchronized void mainInit(String siddhiApp, String inputFile) {
         if (this.debugManagerInitialized) {
             throw new SiddhiException("Debugger instance already initialized");
         }

@@ -18,6 +18,8 @@
 
 package org.wso2.siddhi.launcher.internal;
 
+import org.wso2.siddhi.launcher.debug.VMDebugManager;
+import org.wso2.siddhi.launcher.debug.VMDebugSession;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.exception.NoSuchStreamException;
 import org.wso2.siddhi.launcher.util.DebugCallbackEvent;
@@ -56,6 +58,8 @@ public class DebugRuntime {
                     String[] queries = getQueries().toArray(new String[getQueries().size()]);
                     int queryIndex = Arrays.asList(queries).indexOf(queryName);
                     callbackEventsQueue.add(new DebugCallbackEvent(queryName, queryIndex, queryTerminal, event));
+                    //Sending message to client on debug hit
+                    VMDebugManager.getInstance().getDebugSession().notifyHalt();
                 });
                 mode = Mode.DEBUG;
             } catch (Exception e) {

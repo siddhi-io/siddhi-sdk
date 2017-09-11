@@ -49,8 +49,18 @@ public class LauncherUtils {
                 }
 
             }else{
+                String inputFilePath;
+                String inputFile="";
+                if(debugMode && args[1]!=null) {
+                     inputFilePath=args[0];
+                    try {
+                        inputFile = readText(inputFilePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 VMDebugManager vmDebugManager=VMDebugManager.getInstance();
-                vmDebugManager.mainInit(siddhiApp);
+                vmDebugManager.mainInit(siddhiApp,inputFile);
             }
         }else{
             throw new InvalidExecutionStateException("No valid SiddhiApp found in the file");

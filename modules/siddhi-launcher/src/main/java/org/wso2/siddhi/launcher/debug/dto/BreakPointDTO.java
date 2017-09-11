@@ -24,43 +24,33 @@ package org.wso2.siddhi.launcher.debug.dto;
  */
 public class BreakPointDTO {
 
-    private String packagePath;
+    private Integer queryIndex;
 
-    private String fileName;
-
-    private int lineNumber = -1;
+    private String queryTerminal;
 
     public BreakPointDTO(){
 
     }
 
-    public BreakPointDTO(String packagePath, String fileName, int lineNumber) {
-        this.packagePath = packagePath;
-        this.fileName = fileName;
-        this.lineNumber = lineNumber;
+    public Integer getQueryIndex() {
+        return queryIndex;
     }
 
-    public String getPackagePath() {
-        return packagePath;
+    public void setQueryIndex(Integer queryIndex) {
+        this.queryIndex = queryIndex;
     }
 
-    public void setPackagePath(String packagePath) {
-        this.packagePath = packagePath;
+    public String getQueryTerminal() {
+        return queryTerminal;
     }
 
-    public String getFileName() {
-        return fileName;
+    public void setQueryTerminal(String queryTerminal) {
+        this.queryTerminal = queryTerminal;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public BreakPointDTO(int queryIndex, String queryTerminal) {
+        this.queryIndex = queryIndex;
+        this.queryTerminal = queryTerminal;
     }
 
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
-    }
 }

@@ -39,7 +39,6 @@ import java.util.List;
  * {@code VMDebugSession} The Debug Session class will be used to hold context for each client.
  * Each client will get its own instance of debug session.
  *
- * @since 0.88
  */
 public class VMDebugSession {
 
@@ -55,33 +54,37 @@ public class VMDebugSession {
      * Sets debug points.
      *
      * @param breakPoints the debug points
-     *///TODO:for all query indexes(all breakpints) this method should run in a for loop
+     */
     public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
         this.breakPoints = breakPoints;
-        for (Context bContext : this.contextMap.values()) {
-            setBreakPoints(bContext);
+        for (BreakPointDTO breakPoint : breakPoints) {
+            setBreakPoint(breakPoint);
         }
     }
 
     /**
-     * Helper method to set debug points to the given context.
+     * Helper method to set debug point
      *
      * @param //TODO:Add parameters
      */
-    private void setBreakPoints(Integer queryIndex,String queryTerminal) {
-        if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
-            // acquire only specified break point
-            SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
-                    SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
-            String queryName = (String) EditorDataHolder
-                    .getDebugRuntime()
-                    .getQueries()
-                    .toArray()[queryIndex];
-            EditorDataHolder
-                    .getDebugRuntime()
-                    .getDebugger()
-                    .acquireBreakPoint(queryName, terminal);
-        } //TODO:Handle the exceptions after this
+    private void setBreakPoint(BreakPointDTO breakPointDTO) {
+        if(breakPointDTO!=null) {
+            Integer queryIndex = breakPointDTO.getQueryIndex();
+            String queryTerminal = breakPointDTO.getQueryTerminal();
+            if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
+                // acquire only specified break point
+                SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
+                        SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
+                String queryName = (String) EditorDataHolder
+                        .getDebugRuntime()
+                        .getQueries()
+                        .toArray()[queryIndex];
+                EditorDataHolder
+                        .getDebugRuntime()
+                        .getDebugger()
+                        .acquireBreakPoint(queryName, terminal);
+            } //TODO:Handle the exceptions after this
+        }
     }
 
     /**
@@ -147,8 +150,9 @@ public class VMDebugSession {
         debugManager.notifyExit(this);
     }
 
-//    public void notifyHalt(BreakPointInfo breakPointInfo) {
-//        VMDebugManager debugManager = VMDebugManager.getInstance();
-//        debugManager.notifyDebugHit(this, breakPointInfo);
-//    }
+    public void notifyHalt(){//BreakPointInfo breakPointInfo) {
+        //TODO:edit this
+        VMDebugManager debugManager = VMDebugManager.getInstance();
+        debugManager.notifyDebugHit(this);//, breakPointInfo);
+    }
 }
