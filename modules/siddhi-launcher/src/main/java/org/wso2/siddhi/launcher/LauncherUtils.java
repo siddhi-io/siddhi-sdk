@@ -51,7 +51,7 @@ public class LauncherUtils {
             }else{
                 String inputFilePath;
                 String inputFile="";
-                if(debugMode && args[1]!=null) {
+                if(args[1]!=null) {
                      inputFilePath=args[0];
                     try {
                         inputFile = readText(inputFilePath);

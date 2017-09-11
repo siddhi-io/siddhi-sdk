@@ -33,7 +33,7 @@ public class DebugProcessorService {
             runtimeHolder.debug();
         } else {
             throw new NoSuchSiddhiAppException(
-                    String.format("Siddhi App %s does not exists")
+                    ("Siddhi App %s does not exists")
             );
         }
     }
@@ -44,7 +44,7 @@ public class DebugProcessorService {
             runtimeHolder.stop();
         } else {
             throw new NoSuchSiddhiAppException(
-                    String.format("Siddhi App %s does not exists")
+                    ("Siddhi App %s does not exists")
             );
         }
     }

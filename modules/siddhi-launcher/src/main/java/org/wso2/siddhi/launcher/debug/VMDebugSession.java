@@ -44,8 +44,6 @@ public class VMDebugSession {
 
     private Channel channel = null;
 
-    private ArrayList<BreakPointDTO> breakPoints;
-
     public VMDebugSession() {
 
     }
@@ -56,7 +54,6 @@ public class VMDebugSession {
      * @param breakPoints the debug points
      */
     public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
-        this.breakPoints = breakPoints;
         for (BreakPointDTO breakPoint : breakPoints) {
             setBreakPoint(breakPoint);
         }
@@ -96,7 +93,7 @@ public class VMDebugSession {
         return channel;
     }
 
-    public synchronized void setChannel(Channel channel) throws DebugException {
+    public  void setChannel(Channel channel) throws DebugException {
         if (this.channel != null) {
             throw new DebugException("Debug session already exist");
         }
@@ -111,13 +108,13 @@ public class VMDebugSession {
 //        serviceRegistration = bundleContext.registerService(EventStreamService.class.getName(),
 //                new DebuggerEventStreamService(), null
 
-        List<String> streams = EditorDataHolder
-                .getDebugRuntime()
-                .getStreams();
-        List<String> queries = EditorDataHolder
-                .getDebugRuntime()
-                .getQueries();
-        EditorDataHolder
+//        List<String> streams = EditorDataHolder
+//                .getDebugRuntime()
+//                .getStreams();
+//        List<String> queries = EditorDataHolder
+//                .getDebugRuntime()
+//                .getQueries();
+        EditorDataHolder //TODO: change the editor to other name
                 .getDebugProcessorService()
                 .debug();
         //TODO:If a debug hit appears send it as a message to client
