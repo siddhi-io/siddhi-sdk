@@ -19,18 +19,30 @@
 package org.wso2.siddhi.launcher.debug;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import io.netty.channel.Channel;
+import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
+import org.wso2.siddhi.core.debugger.SiddhiDebugger;
+import org.wso2.siddhi.core.debugger.SiddhiDebuggerClient;
+import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.stream.input.InputHandler;
+import org.wso2.siddhi.core.stream.output.StreamCallback;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.launcher.exception.SiddhiException;
 import org.wso2.siddhi.launcher.internal.DebugProcessorService;
 import org.wso2.siddhi.launcher.internal.DebugRuntime;
 import org.wso2.siddhi.launcher.internal.EditorDataHolder;
+import org.wso2.siddhi.query.compiler.SiddhiCompiler;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * {@code VMDebugManager} Manages debug sessions and handle debug related actions.
@@ -44,6 +56,8 @@ public class VMDebugManager {
     private VMDebugServer debugServer;
 
     private boolean debugEnabled;
+
+    private InputHandler inputHandler=null;//TODO:remove hardcoded input handler
 
     /**
      * Object to hold debug session related context.
@@ -89,19 +103,27 @@ public class VMDebugManager {
     /**
      * Initializes the debug manager single instance.
      */
-    public synchronized void mainInit(String siddhiApp, String inputFile) {
+    public void mainInit(String siddhiApp, String inputFile) { //TODO:Add synchronizes
         if (this.debugManagerInitialized) {
             throw new SiddhiException("Debugger instance already initialized");
         }
-//        DebuggerExecutor debuggerExecutor = new DebuggerExecutor(programFile, mainThreadContext);
-//        ExecutorService executor = ThreadPoolFactory.getInstance().getWorkerExecutor();
-//        mainThreadContext.getDebugInfoHolder().setDebugSessionObserver(debugSession);
-//        executor.submit(debuggerExecutor);
 
         EditorDataHolder.setDebugProcessorService(new DebugProcessorService());
         SiddhiManager siddhiManager = new SiddhiManager();
         EditorDataHolder.setSiddhiManager(siddhiManager);
-        DebugRuntime debugRuntime=new DebugRuntime(siddhiApp);
+        //DebugRuntime debugRuntime=new DebugRuntime(siddhiApp);
+
+        //this.inputHandler = debugRuntime.getInputHandler("sensorStream");//TODO:remove hardcoded value
+
+
+        String cseEventStream = "define stream cseEventStream (symbol string, price float, " +
+                "volume int);";
+        final String query = "@info(name = 'query 1')" +
+                "from cseEventStream " +
+                "select symbol, price, volume " +
+                "insert into OutputStream; ";
+
+        DebugRuntime debugRuntime=new DebugRuntime(cseEventStream + query);
         EditorDataHolder.setDebugRuntime(debugRuntime);
 
         // start the debug server if it is not started yet.
@@ -163,6 +185,12 @@ public class VMDebugManager {
                 // This will allow client to set the breakpoints before starting the execution.
                 sendAcknowledge(this.debugSession, "Debug started.");
                 debugSession.startDebug();
+                this.inputHandler = EditorDataHolder.getDebugRuntime().getInputHandler("cseEventStream");
+                try {
+                    inputHandler.send(new Object[]{"tempID1",99.8});
+                } catch (InterruptedException e) {
+                    throw new DebugException(e.getMessage());
+                }
                 break;
             default:
                 throw new DebugException(DebugConstants.MSG_INVALID);

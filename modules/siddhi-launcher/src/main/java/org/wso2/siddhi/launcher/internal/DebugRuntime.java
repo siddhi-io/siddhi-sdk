@@ -36,6 +36,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class DebugRuntime {
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
+
+    public SiddhiAppRuntime getSiddhiAppRuntime() {
+        return siddhiAppRuntime;
+    }//TODO:remove this
+
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
     private transient LinkedBlockingQueue<DebugCallbackEvent> callbackEventsQueue;
@@ -50,6 +55,15 @@ public class DebugRuntime {
         return debugger;
     }
 
+    /**
+     * Print information message to the console.
+     *
+     * @param msg the message
+     */
+    private static void info(String msg) {
+        System.out.println("INFO: " + msg);
+    }
+
     public void debug() {
         if (Mode.STOP.equals(mode)) {
                 debugger = siddhiAppRuntime.debug();
@@ -58,7 +72,13 @@ public class DebugRuntime {
                     int queryIndex = Arrays.asList(queries).indexOf(queryName);
                     callbackEventsQueue.add(new DebugCallbackEvent(queryName, queryIndex, queryTerminal, event));
                     //Sending message to client on debug hit
+                    info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " + event);
                     VMDebugManager.getInstance().getDebugSession().notifyHalt();
+                    info(EditorDataHolder
+                            .getDebugRuntime()
+                            .getDebugger()
+                            .getQueryState(queryName).toString());
+
                 });
                 mode = Mode.DEBUG;
         } else if (Mode.FAULTY.equals(mode)) {
@@ -133,6 +153,6 @@ public class DebugRuntime {
             }
     }
 
-    private enum Mode {DEBUG, STOP, FAULTY}
+    private enum Mode { DEBUG, STOP, FAULTY}
 
 }

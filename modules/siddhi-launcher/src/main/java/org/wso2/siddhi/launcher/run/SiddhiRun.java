@@ -42,7 +42,7 @@ public class SiddhiRun {
         stopSiddhiAppRuntime(siddhiAppRuntime);
 
         //Shutting down Siddhi
-        stopSiddhiManager(siddhiManager);
+        stopSiddhiManager(siddhiManager);//TODO: Add query call backs and stream callbacks
     }
 
     private void stopSiddhiAppRuntime(SiddhiAppRuntime siddhiAppRuntime){
