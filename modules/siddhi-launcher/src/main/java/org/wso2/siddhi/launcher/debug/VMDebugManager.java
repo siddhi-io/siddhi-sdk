@@ -28,6 +28,7 @@ import org.wso2.siddhi.core.debugger.SiddhiDebuggerClient;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.stream.output.StreamCallback;
+import org.wso2.siddhi.launcher.PrintInfo;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.launcher.exception.SiddhiException;
@@ -122,13 +123,15 @@ public class VMDebugManager {
                 "from cseEventStream " +
                 "select symbol, price, volume " +
                 "insert into OutputStream; ";
-
+        PrintInfo.info("mainInit A");
         DebugRuntime debugRuntime=new DebugRuntime(cseEventStream + query);
         EditorDataHolder.setDebugRuntime(debugRuntime);
+        PrintInfo.info("mainInit A");
 
         // start the debug server if it is not started yet.
         this.debugServer.startServer();
         this.debugManagerInitialized = true;
+        debugSession.startDebug();
     }
 
     /**
@@ -184,8 +187,9 @@ public class VMDebugManager {
                 // Client needs to explicitly start the execution once connected.
                 // This will allow client to set the breakpoints before starting the execution.
                 sendAcknowledge(this.debugSession, "Debug started.");
-                debugSession.startDebug();
+
                 this.inputHandler = EditorDataHolder.getDebugRuntime().getInputHandler("cseEventStream");
+                EditorDataHolder.getDebugRuntime().getDebugger().acquireBreakPoint("query 1", SiddhiDebugger.QueryTerminal.IN);
                 try {
                     inputHandler.send(new Object[]{"tempID1",99.8});
                 } catch (InterruptedException e) {

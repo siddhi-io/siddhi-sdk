@@ -31,11 +31,7 @@ public class MessageDTO {
 
     private String message;
 
-    private String threadId;
-
     private BreakPointDTO location;
-
-    private List<FrameDTO> frames = new ArrayList<FrameDTO>();
 
     public String getCode() {
         return code;
@@ -53,34 +49,12 @@ public class MessageDTO {
         this.message = message;
     }
 
-    public String getThreadId() {
-        return threadId;
-    }
-
-    public void setThreadId(String threadId) {
-        this.threadId = threadId;
-    }
-
     public BreakPointDTO getLocation() {
         return location;
     }
-
-//    public void setLocation(NodeLocation location) {
-//        this.location = new BreakPointDTO(location.getPackageDirPath(), location.getFileName(),
-//                location.getLineNumber());
-//    }
 
     public void setLocation(BreakPointDTO location) {
         this.location = location;
     }
 
-//    public void setFrames(FrameInfo[] frameInfos) {
-//        for (FrameInfo frame: frameInfos) {
-//            frames.add(new FrameDTO(frame));
-//        }
-//    }
-
-    public List<FrameDTO> getFrames() {
-        return frames;
-    }
 }

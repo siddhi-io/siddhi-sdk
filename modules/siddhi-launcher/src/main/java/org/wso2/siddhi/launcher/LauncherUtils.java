@@ -57,6 +57,7 @@ public class LauncherUtils {
                         inputFile = readText(inputFilePath);
                     } catch (IOException e) {
                         e.printStackTrace();
+                        PrintInfo.info("runProgram debug");
                     }
                 }
                 VMDebugManager vmDebugManager=VMDebugManager.getInstance();
