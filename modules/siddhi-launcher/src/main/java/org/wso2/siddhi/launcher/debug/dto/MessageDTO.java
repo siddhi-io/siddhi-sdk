@@ -18,8 +18,8 @@
 
 package org.wso2.siddhi.launcher.debug.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Map;
 
 /**
  * DTO class representing the messages sent to client from the debugger.
@@ -30,6 +30,8 @@ public class MessageDTO {
     private String code;
 
     private String message;
+
+    private Map<String, Object> queryState;
 
     private BreakPointDTO location;
 
@@ -47,6 +49,14 @@ public class MessageDTO {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Map<String, Object> getQueryState() {
+        return queryState;
+    }
+
+    public void setQueryState(Map<String, Object> queryState) {
+        this.queryState = queryState;
     }
 
     public BreakPointDTO getLocation() {
