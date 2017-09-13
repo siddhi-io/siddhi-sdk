@@ -131,7 +131,6 @@ public class VMDebugManager {
         // start the debug server if it is not started yet.
         this.debugServer.startServer();
         this.debugManagerInitialized = true;
-        debugSession.startDebug();
     }
 
     /**
@@ -179,13 +178,15 @@ public class VMDebugManager {
                 debugSession.clearSession();
                 break;
             case DebugConstants.CMD_SET_POINTS://TODO:Control the adding breakpoints
-                // we expect { "command": "SET_POINTS", points: [{ "fileName": "sample.bal", "lineNumber" : 5 },{...}]}
+                // we expect { "command": "SET_POINTS", points: [{ "fileName": "sample.siddhi", "lineNumber" : 5 },
+                // {...}]}
                 debugSession.addDebugPoints(command.getPoints());
                 sendAcknowledge(this.debugSession, "Debug points updated");
                 break;
             case DebugConstants.CMD_START:
                 // Client needs to explicitly start the execution once connected.
                 // This will allow client to set the breakpoints before starting the execution.
+                debugSession.startDebug();
                 sendAcknowledge(this.debugSession, "Debug started.");
 
                 this.inputHandler = EditorDataHolder.getDebugRuntime().getInputHandler("cseEventStream");
@@ -234,13 +235,12 @@ public class VMDebugManager {
      * @param debugSession current debugging session
      * //@param breakPointInfo info of the current break point
      */
-    public void notifyDebugHit(VMDebugSession debugSession){//}, BreakPointInfo breakPointInfo) {
+    public void notifyDebugHit(VMDebugSession debugSession , BreakPointInfo breakPointInfo) {
         MessageDTO message = new MessageDTO();
         message.setCode(DebugConstants.CODE_HIT);
         message.setMessage(DebugConstants.MSG_HIT);
-//        message.setThreadId(breakPointInfo.getThreadId());
-//        message.setLocation(breakPointInfo.getHaltLocation());
-//        message.setFrames(breakPointInfo.getCurrentFrames());
+        message.setQueryState(breakPointInfo.getQueryState());
+        message.setLocation(breakPointInfo.getQueryIndex(),breakPointInfo.getQueryTerminal());
         debugServer.pushMessageToClient(debugSession, message);
     }
 

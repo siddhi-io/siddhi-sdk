@@ -118,7 +118,7 @@ public class VMDebugSession {
     public void stopDebug() {
         EditorDataHolder
                 .getDebugProcessorService()
-                .stop();
+                .stop(); //TODO: Release breakpoints where to put?
     }
 
     /**
@@ -134,14 +134,14 @@ public class VMDebugSession {
         debugManager.notifyComplete(this);
     }
 
-    public void notifyExit() {
+    public void notifyExit() {//TODO: Add notify complete and notify exit
         VMDebugManager debugManager = VMDebugManager.getInstance();
         debugManager.notifyExit(this);
     }
 
-    public void notifyHalt(){//BreakPointInfo breakPointInfo) {
+    public void notifyHalt(BreakPointInfo breakPointInfo) {
         //TODO:edit this
         VMDebugManager debugManager = VMDebugManager.getInstance();
-        debugManager.notifyDebugHit(this);//, breakPointInfo);
+        debugManager.notifyDebugHit(this, breakPointInfo);
     }
 }

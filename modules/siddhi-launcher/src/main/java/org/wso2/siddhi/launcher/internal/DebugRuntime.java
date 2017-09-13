@@ -18,8 +18,8 @@
 
 package org.wso2.siddhi.launcher.internal;
 
+import org.wso2.siddhi.launcher.debug.BreakPointInfo;
 import org.wso2.siddhi.launcher.debug.VMDebugManager;
-import org.wso2.siddhi.launcher.debug.VMDebugSession;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.exception.NoSuchStreamException;
 import org.wso2.siddhi.launcher.util.DebugCallbackEvent;
@@ -31,15 +31,12 @@ import org.wso2.siddhi.query.api.definition.Attribute;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class DebugRuntime {
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
-
-    public SiddhiAppRuntime getSiddhiAppRuntime() {
-        return siddhiAppRuntime;
-    }//TODO:remove this
 
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
@@ -62,7 +59,7 @@ public class DebugRuntime {
      */
     private static void info(String msg) {
         System.out.println("INFO: " + msg);
-    }
+    }//TODO:Remove this
 
     public void debug() {
         if (Mode.STOP.equals(mode)) {
@@ -73,11 +70,10 @@ public class DebugRuntime {
                     callbackEventsQueue.add(new DebugCallbackEvent(queryName, queryIndex, queryTerminal, event));
                     //Sending message to client on debug hit
                     info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " + event);
-                    VMDebugManager.getInstance().getDebugSession().notifyHalt();
-                    info(EditorDataHolder
-                            .getDebugRuntime()
-                            .getDebugger()
-                            .getQueryState(queryName).toString());
+                    Map<String, Object> queryState =EditorDataHolder.getDebugRuntime().getDebugger().getQueryState
+                            (queryName);
+                    BreakPointInfo breakPointInfo=new BreakPointInfo(queryIndex,queryTerminal.toString(),queryState);
+                    VMDebugManager.getInstance().getDebugSession().notifyHalt(breakPointInfo);
 
                 });
                 mode = Mode.DEBUG;
