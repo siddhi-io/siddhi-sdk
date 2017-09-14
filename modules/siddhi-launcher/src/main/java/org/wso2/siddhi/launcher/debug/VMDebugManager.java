@@ -37,6 +37,7 @@ import org.wso2.siddhi.launcher.internal.DebugRuntime;
 import org.wso2.siddhi.launcher.internal.EditorDataHolder;
 import org.wso2.siddhi.query.compiler.SiddhiCompiler;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -104,29 +105,33 @@ public class VMDebugManager {
     /**
      * Initializes the debug manager single instance.
      */
-    public void mainInit(String siddhiApp, String inputFile) { //TODO:Add synchronizes
+    public void mainInit(String siddhiAppPath,String siddhiApp, String inputFile) { //TODO:Add synchronizes
         if (this.debugManagerInitialized) {
             throw new SiddhiException("Debugger instance already initialized");
         }
-
+        //TODO: get the fiile name with the siidhi app path
+        File f = new File(siddhiAppPath);//"C:\\Hello\\AnotherFolder\\The File Name.PDF");
+        String fileName=f.getAbsolutePath().substring(f.getAbsolutePath().lastIndexOf("\\")+1);
+        PrintInfo.info("File Name: "+fileName);
         EditorDataHolder.setDebugProcessorService(new DebugProcessorService());
         SiddhiManager siddhiManager = new SiddhiManager();
         EditorDataHolder.setSiddhiManager(siddhiManager);
-        //DebugRuntime debugRuntime=new DebugRuntime(siddhiApp);
+        DebugRuntime debugRuntime=new DebugRuntime(fileName, siddhiApp);
+        EditorDataHolder.setDebugRuntime(debugRuntime);
 
         //this.inputHandler = debugRuntime.getInputHandler("sensorStream");//TODO:remove hardcoded value
 
 
-        String cseEventStream = "define stream cseEventStream (symbol string, price float, " +
-                "volume int);";
-        final String query = "@info(name = 'query 1')" +
-                "from cseEventStream " +
-                "select symbol, price, volume " +
-                "insert into OutputStream; ";
-        PrintInfo.info("mainInit A");
-        DebugRuntime debugRuntime=new DebugRuntime(cseEventStream + query);
-        EditorDataHolder.setDebugRuntime(debugRuntime);
-        PrintInfo.info("mainInit A");
+//        String cseEventStream = "define stream cseEventStream (symbol string, price float, " +
+//                "volume int);";
+//        final String query = "@info(name = 'query 1')" +
+//                "from cseEventStream " +
+//                "select symbol, price, volume " +
+//                "insert into OutputStream; ";
+//        PrintInfo.info("mainInit A");
+//        DebugRuntime debugRuntime=new DebugRuntime(cseEventStream + query);
+//        EditorDataHolder.setDebugRuntime(debugRuntime);
+//        PrintInfo.info("mainInit A");
 
         // start the debug server if it is not started yet.
         this.debugServer.startServer();
@@ -240,7 +245,7 @@ public class VMDebugManager {
         message.setCode(DebugConstants.CODE_HIT);
         message.setMessage(DebugConstants.MSG_HIT);
         message.setQueryState(breakPointInfo.getQueryState());
-        message.setLocation(breakPointInfo.getQueryIndex(),breakPointInfo.getQueryTerminal());
+        message.setLocation(debugSession.getFileName(),breakPointInfo.getQueryIndex(),breakPointInfo.getQueryTerminal());
         debugServer.pushMessageToClient(debugSession, message);
     }
 

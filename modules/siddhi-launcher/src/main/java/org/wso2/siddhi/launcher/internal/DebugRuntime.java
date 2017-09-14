@@ -38,12 +38,20 @@ public class DebugRuntime {
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
 
+    private transient String siddhiAppFileName;
+
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
     private transient LinkedBlockingQueue<DebugCallbackEvent> callbackEventsQueue;
 
-    public DebugRuntime(String siddhiApp) {
+
+    public String getSiddhiAppFileName() {
+        return siddhiAppFileName;
+    }
+
+    public DebugRuntime(String siddhiAppFileName, String siddhiApp) {
         this.siddhiApp = siddhiApp;
+        this.siddhiAppFileName=siddhiAppFileName;
         callbackEventsQueue = new LinkedBlockingQueue<>(10);
         createRuntime();
     }

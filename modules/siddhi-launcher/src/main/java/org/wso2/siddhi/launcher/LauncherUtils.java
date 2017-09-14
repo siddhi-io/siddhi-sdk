@@ -61,7 +61,7 @@ public class LauncherUtils {
                     }
                 }
                 VMDebugManager vmDebugManager=VMDebugManager.getInstance();
-                vmDebugManager.mainInit(siddhiApp,inputFile);
+                vmDebugManager.mainInit(siddhiAppPath,siddhiApp,inputFile);
             }
         }else{
             throw new InvalidExecutionStateException("No valid SiddhiApp found in the file");

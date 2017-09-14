@@ -27,6 +27,8 @@ public class BreakPointDTO {
 
     private String queryTerminal;
 
+    private String fileName;
+
     public BreakPointDTO(){
 
     }
@@ -47,7 +49,16 @@ public class BreakPointDTO {
         this.queryTerminal = queryTerminal;
     }
 
-    public BreakPointDTO(int queryIndex, String queryTerminal) {
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public BreakPointDTO(String fileName, int queryIndex, String queryTerminal) {
+        this.fileName=fileName;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }

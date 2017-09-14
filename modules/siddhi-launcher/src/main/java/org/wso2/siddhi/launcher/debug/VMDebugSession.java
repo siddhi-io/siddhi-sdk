@@ -36,6 +36,16 @@ public class VMDebugSession {
 
     private Channel channel = null;
 
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public VMDebugSession() {
 
     }
@@ -58,21 +68,25 @@ public class VMDebugSession {
      */
     private void setBreakPoint(BreakPointDTO breakPointDTO) {
         if(breakPointDTO!=null) {
-            Integer queryIndex = breakPointDTO.getQueryIndex();
-            String queryTerminal = breakPointDTO.getQueryTerminal();
-            if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
-                // acquire only specified break point
-                SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
-                        SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
-                String queryName = (String) EditorDataHolder
-                        .getDebugRuntime()
-                        .getQueries()
-                        .toArray()[queryIndex];
-                EditorDataHolder
-                        .getDebugRuntime()
-                        .getDebugger()
-                        .acquireBreakPoint(queryName, terminal);
-            } //TODO:Handle the exceptions after this
+            String receivedBreakpointFileName=breakPointDTO.getFileName();
+            String currentDebugFileName=EditorDataHolder.getDebugRuntime().getSiddhiAppFileName();
+            if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
+                Integer queryIndex = breakPointDTO.getQueryIndex();
+                String queryTerminal = breakPointDTO.getQueryTerminal();
+                if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
+                    // acquire only specified break point
+                    SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
+                            SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
+                    String queryName = (String) EditorDataHolder
+                            .getDebugRuntime()
+                            .getQueries()
+                            .toArray()[queryIndex];
+                    EditorDataHolder
+                            .getDebugRuntime()
+                            .getDebugger()
+                            .acquireBreakPoint(queryName, terminal);
+                } //TODO:Handle the exceptions after this
+            }
         }
     }
 
@@ -96,16 +110,6 @@ public class VMDebugSession {
      * Method to start debugging process in all the threads.
      */
     public void startDebug() {
-
-//        serviceRegistration = bundleContext.registerService(EventStreamService.class.getName(),
-//                new DebuggerEventStreamService(), null
-
-//        List<String> streams = EditorDataHolder
-//                .getDebugRuntime()
-//                .getStreams();
-//        List<String> queries = EditorDataHolder
-//                .getDebugRuntime()
-//                .getQueries();
         EditorDataHolder //TODO: change the editor to other name
                 .getDebugProcessorService()
                 .debug();
