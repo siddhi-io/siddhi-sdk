@@ -37,9 +37,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class DebugRuntime {
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
-
     private transient String siddhiAppFileName;
-
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
     private transient LinkedBlockingQueue<DebugCallbackEvent> callbackEventsQueue;

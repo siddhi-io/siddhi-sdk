@@ -70,6 +70,7 @@ public class VMDebugSession {
         if(breakPointDTO!=null) {
             String receivedBreakpointFileName=breakPointDTO.getFileName();
             String currentDebugFileName=EditorDataHolder.getDebugRuntime().getSiddhiAppFileName();
+            //Checking whether the breakpoint is applicable for current debug file
             if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
                 Integer queryIndex = breakPointDTO.getQueryIndex();
                 String queryTerminal = breakPointDTO.getQueryTerminal();
