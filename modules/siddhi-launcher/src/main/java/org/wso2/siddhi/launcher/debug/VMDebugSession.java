@@ -36,16 +36,6 @@ public class VMDebugSession {
 
     private Channel channel = null;
 
-    private String fileName;
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public VMDebugSession() {
 
     }
@@ -68,25 +58,33 @@ public class VMDebugSession {
      */
     private void setBreakPoint(BreakPointDTO breakPointDTO) {
         if(breakPointDTO!=null) {
-            String receivedBreakpointFileName=breakPointDTO.getFileName();
-            String currentDebugFileName=EditorDataHolder.getDebugRuntime().getSiddhiAppFileName();
-            //Checking whether the breakpoint is applicable for current debug file
-            if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
-                Integer queryIndex = breakPointDTO.getQueryIndex();
-                String queryTerminal = breakPointDTO.getQueryTerminal();
-                if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
-                    // acquire only specified break point
-                    SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
-                            SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
-                    String queryName = (String) EditorDataHolder
-                            .getDebugRuntime()
-                            .getQueries()
-                            .toArray()[queryIndex];
-                    EditorDataHolder
-                            .getDebugRuntime()
-                            .getDebugger()
-                            .acquireBreakPoint(queryName, terminal);
-                } //TODO:Handle the exceptions after this
+            if(breakPointDTO.getFileName()!=null && !breakPointDTO.getFileName().isEmpty() && breakPointDTO
+                    .getLineNumber()!=null){
+                String receivedBreakpointFileName=breakPointDTO.getFileName();
+                int receivedBreakpointLineNumber=breakPointDTO.getLineNumber();
+                String currentDebugFileName=EditorDataHolder.getDebugRuntime().getSiddhiAppFileName();
+                //Checking whether the breakpoint is applicable for current debug file
+                if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
+                    Integer queryIndex = breakPointDTO.getQueryIndex();
+                    String queryTerminal = breakPointDTO.getQueryTerminal();
+                    if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
+                        // acquire only specified break point
+                        SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
+                                SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
+                        String queryName = (String) EditorDataHolder
+                                .getDebugRuntime()
+                                .getQueries()
+                                .toArray()[queryIndex];
+                        EditorDataHolder
+                                .getDebugRuntime()
+                                .getDebugger()
+                                .acquireBreakPoint(queryName, terminal);
+                        BreakPointInfo breakPointInfo=new BreakPointInfo(receivedBreakpointFileName,
+                                receivedBreakpointLineNumber,queryIndex,
+                                queryTerminal);
+                        EditorDataHolder.getDebugRuntime().getBreakpointsInfo().put(queryIndex+queryTerminal,breakPointInfo);
+                    } //TODO:Handle the exceptions after this
+                }
             }
         }
     }
@@ -145,7 +143,6 @@ public class VMDebugSession {
     }
 
     public void notifyHalt(BreakPointInfo breakPointInfo) {
-        //TODO:edit this
         VMDebugManager debugManager = VMDebugManager.getInstance();
         debugManager.notifyDebugHit(this, breakPointInfo);
     }

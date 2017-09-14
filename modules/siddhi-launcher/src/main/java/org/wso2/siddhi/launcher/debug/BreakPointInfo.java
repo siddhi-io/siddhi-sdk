@@ -15,8 +15,6 @@
  */
 package org.wso2.siddhi.launcher.debug;
 
-import org.wso2.siddhi.launcher.debug.dto.BreakPointDTO;
-
 import java.util.Map;
 
 /**
@@ -28,22 +26,18 @@ public class BreakPointInfo {
 
     private String queryTerminal;
 
+    private String fileName;
+
+    private int lineNumber;
+
     private Map<String, Object> queryState;
 
     public Integer getQueryIndex() {
         return queryIndex;
     }
 
-    public void setQueryIndex(Integer queryIndex) {
-        this.queryIndex = queryIndex;
-    }
-
     public String getQueryTerminal() {
         return queryTerminal;
-    }
-
-    public void setQueryTerminal(String queryTerminal) {
-        this.queryTerminal = queryTerminal;
     }
 
     public Map<String, Object> getQueryState() {
@@ -54,10 +48,19 @@ public class BreakPointInfo {
         this.queryState = queryState;
     }
 
-    public BreakPointInfo(int queryIndex, String queryTerminal, Map<String, Object> queryState) {
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public BreakPointInfo(String fileName, int lineNumber,int queryIndex, String queryTerminal) {
+        this.fileName=fileName;
+        this.lineNumber=lineNumber;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
-        this.queryState=queryState;
     }
 
 }

@@ -245,7 +245,13 @@ public class VMDebugManager {
         message.setCode(DebugConstants.CODE_HIT);
         message.setMessage(DebugConstants.MSG_HIT);
         message.setQueryState(breakPointInfo.getQueryState());
-        message.setLocation(debugSession.getFileName(),breakPointInfo.getQueryIndex(),breakPointInfo.getQueryTerminal());
+
+        String fileName=breakPointInfo.getFileName();
+        int lineNumber=breakPointInfo.getLineNumber();
+        int queryIndex=breakPointInfo.getQueryIndex();
+        String queryTerminal=breakPointInfo.getQueryTerminal();
+
+        message.setLocation(fileName,lineNumber,queryIndex,queryTerminal);
         debugServer.pushMessageToClient(debugSession, message);
     }
 

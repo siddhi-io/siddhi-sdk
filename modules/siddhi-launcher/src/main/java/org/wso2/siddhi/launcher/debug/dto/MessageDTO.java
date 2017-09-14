@@ -63,10 +63,8 @@ public class MessageDTO {
         return location;
     }
 
-    public void setLocation(String fileName, int queryIndex, String queryTerminal) {
-        this.location = new BreakPointDTO(fileName,queryIndex,queryTerminal);
+    public void setLocation(String fileName, int line, int queryIndex, String queryTerminal) {
+        this.location = new BreakPointDTO(fileName,line,queryIndex,queryTerminal);
     }
-
-
 
 }

@@ -28,10 +28,7 @@ import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.query.api.definition.Attribute;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class DebugRuntime {
@@ -41,7 +38,11 @@ public class DebugRuntime {
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
     private transient LinkedBlockingQueue<DebugCallbackEvent> callbackEventsQueue;
+    private transient Map<String, BreakPointInfo> breakpointsInfo = new HashMap<>();
 
+    public Map<String, BreakPointInfo> getBreakpointsInfo() {
+        return breakpointsInfo;
+    }
 
     public String getSiddhiAppFileName() {
         return siddhiAppFileName;
@@ -76,11 +77,11 @@ public class DebugRuntime {
                     callbackEventsQueue.add(new DebugCallbackEvent(queryName, queryIndex, queryTerminal, event));
                     //Sending message to client on debug hit
                     info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " + event);
+                    BreakPointInfo breakPointInfo=breakpointsInfo.get(queryIndex+""+queryTerminal);
                     Map<String, Object> queryState =EditorDataHolder.getDebugRuntime().getDebugger().getQueryState
                             (queryName);
-                    BreakPointInfo breakPointInfo=new BreakPointInfo(queryIndex,queryTerminal.toString(),queryState);
+                    breakPointInfo.setQueryState(queryState);
                     VMDebugManager.getInstance().getDebugSession().notifyHalt(breakPointInfo);
-
                 });
                 mode = Mode.DEBUG;
         } else if (Mode.FAULTY.equals(mode)) {
