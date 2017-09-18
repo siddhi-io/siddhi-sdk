@@ -19,15 +19,10 @@
 package org.wso2.siddhi.launcher.debug;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import io.netty.channel.Channel;
-import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
-import org.wso2.siddhi.core.debugger.SiddhiDebuggerClient;
-import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.stream.input.InputHandler;
-import org.wso2.siddhi.core.stream.output.StreamCallback;
 import org.wso2.siddhi.launcher.PrintInfo;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
@@ -35,16 +30,10 @@ import org.wso2.siddhi.launcher.exception.SiddhiException;
 import org.wso2.siddhi.launcher.internal.DebugProcessorService;
 import org.wso2.siddhi.launcher.internal.DebugRuntime;
 import org.wso2.siddhi.launcher.internal.EditorDataHolder;
-import org.wso2.siddhi.query.compiler.SiddhiCompiler;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * {@code VMDebugManager} Manages debug sessions and handle debug related actions.
@@ -109,9 +98,8 @@ public class VMDebugManager {
         if (this.debugManagerInitialized) {
             throw new SiddhiException("Debugger instance already initialized");
         }
-        //TODO: get the fiile name with the siidhi app path
-        File f = new File(siddhiAppPath);//"C:\\Hello\\AnotherFolder\\The File Name.PDF");
-        String fileName=f.getAbsolutePath().substring(f.getAbsolutePath().lastIndexOf("\\")+1);
+        File f = new File(siddhiAppPath);
+        String fileName=f.getName();
         PrintInfo.info("File Name: "+fileName);
         EditorDataHolder.setDebugProcessorService(new DebugProcessorService());
         SiddhiManager siddhiManager = new SiddhiManager();
