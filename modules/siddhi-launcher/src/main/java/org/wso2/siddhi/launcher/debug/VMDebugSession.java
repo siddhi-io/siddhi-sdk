@@ -54,7 +54,7 @@ public class VMDebugSession {
     /**
      * Helper method to set debug point
      *
-     * @param //TODO:Add parameters
+     * @param breakPointDTO specific breakpoint
      */
     private void setBreakPoint(BreakPointDTO breakPointDTO) {
         if(breakPointDTO!=null) {

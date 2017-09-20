@@ -48,6 +48,10 @@ public class DebugRuntime {
         return siddhiAppFileName;
     }
 
+    public String getSiddhiApp() {
+        return siddhiApp;
+    }
+
     public DebugRuntime(String siddhiAppFileName, String siddhiApp) {
         this.siddhiApp = siddhiApp;
         this.siddhiAppFileName=siddhiAppFileName;

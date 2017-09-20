@@ -221,7 +221,6 @@ public class VMDebugManager {
         return (this.debugSession.getChannel() != null);
     }
 
-
     /**
      * Send a message to the debug client when a breakpoint is hit.
      *
@@ -242,7 +241,6 @@ public class VMDebugManager {
         message.setLocation(fileName,lineNumber,queryIndex,queryTerminal);
         debugServer.pushMessageToClient(debugSession, message);
     }
-
 
     /**
      * Notify client when debugger has finish execution.

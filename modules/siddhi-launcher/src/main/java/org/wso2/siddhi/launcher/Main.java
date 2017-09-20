@@ -111,6 +111,9 @@ public class Main {
         @Parameter(arity = 1, description = "arguments")
         private List<String> argList;
 
+        @Parameter(names = "--debug", hidden = true)
+        private String debugPort;
+
         @Parameter(names = "--siddhi.debug", hidden = true, description = "remote debugging port")
         private String siddhiDebugPort;
 
