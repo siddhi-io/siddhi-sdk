@@ -18,7 +18,6 @@
 package org.wso2.siddhi.launcher.util;
 
 import org.apache.log4j.Logger;
-import org.wso2.siddhi.launcher.internal.EditorDataHolder;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.query.api.definition.AbstractDefinition;
 import org.wso2.siddhi.query.api.definition.StreamDefinition;
@@ -42,18 +41,18 @@ public class SourceEditorUtils {
      * @param siddhiApp Siddhi app string
      * @return Valid siddhi app runtime
      */
-    public static SiddhiAppRuntime validateSiddhiApp(String siddhiApp) {
-        SiddhiAppRuntime siddhiAppRuntime = null;
-        try {
-            siddhiAppRuntime = EditorDataHolder.getSiddhiManager().createSiddhiAppRuntime(siddhiApp);
-            siddhiAppRuntime.start();
-        } finally {
-            if (siddhiAppRuntime != null) {
-                siddhiAppRuntime.shutdown();
-            }
-        }
-        return siddhiAppRuntime;
-    }
+//    public static SiddhiAppRuntime validateSiddhiApp(String siddhiApp) {
+//        SiddhiAppRuntime siddhiAppRuntime = null;
+//        try {
+//            siddhiAppRuntime = EditorDataHolder.getSiddhiManager().createSiddhiAppRuntime(siddhiApp);
+//            siddhiAppRuntime.start();
+//        } finally {
+//            if (siddhiAppRuntime != null) {
+//                siddhiAppRuntime.shutdown();
+//            }
+//        }
+//        return siddhiAppRuntime;
+//    }
 
     /**
      * Get the definition of the inner streams in the partitions

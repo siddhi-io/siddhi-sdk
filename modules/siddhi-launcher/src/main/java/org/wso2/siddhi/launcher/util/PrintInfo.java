@@ -1,4 +1,4 @@
-package org.wso2.siddhi.launcher.exception;/*
+/*
  *  Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,20 +13,16 @@ package org.wso2.siddhi.launcher.exception;/*
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+package org.wso2.siddhi.launcher.util;
 
-public class InvalidArgumentException extends RuntimeException {
+public class PrintInfo {
 
-    public InvalidArgumentException(String msg) {
-        super(msg);
+    /**
+     * Print information message to the console.
+     *
+     * @param msg the message
+     */
+    public static void info(String msg) {
+        System.out.println("INFO: " + msg);
     }
-
-    public InvalidArgumentException(Exception cause) {
-        super(cause);
-    }
-
-    public InvalidArgumentException(String msg, Exception cause) {
-        super(msg, cause);
-    }
-
 }
-

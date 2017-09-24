@@ -23,13 +23,13 @@ package org.wso2.siddhi.launcher.debug.dto;
  */
 public class BreakPointDTO {
 
-    private int queryIndex;
-
-    private String queryTerminal;
-
     private String fileName;
 
     private int lineNumber;
+
+    private int queryIndex;
+
+    private String queryTerminal;
 
     public BreakPointDTO(){
 

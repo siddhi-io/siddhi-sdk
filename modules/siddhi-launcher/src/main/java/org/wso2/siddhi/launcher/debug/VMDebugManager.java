@@ -21,15 +21,12 @@ package org.wso2.siddhi.launcher.debug;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
 import org.wso2.siddhi.core.SiddhiManager;
-import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.core.stream.input.InputHandler;
-import org.wso2.siddhi.launcher.PrintInfo;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
+import org.wso2.siddhi.launcher.exception.DebugException;
 import org.wso2.siddhi.launcher.exception.SiddhiException;
-import org.wso2.siddhi.launcher.internal.DebugProcessorService;
 import org.wso2.siddhi.launcher.internal.DebugRuntime;
-import org.wso2.siddhi.launcher.internal.EditorDataHolder;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,8 +45,6 @@ public class VMDebugManager {
 
     private boolean debugEnabled;
 
-    private InputHandler inputHandler=null;//TODO:remove hardcoded input handler
-
     /**
      * Object to hold debug session related context.
      */
@@ -59,8 +54,14 @@ public class VMDebugManager {
 
     private boolean debugManagerInitialized = false;
 
+    private static SiddhiManager siddhiManager=new SiddhiManager();
+
     public VMDebugSession getDebugSession() {
         return debugSession;
+    }
+
+    public SiddhiManager getSiddhiManager() {
+        return siddhiManager;
     }
 
     /**
@@ -100,26 +101,8 @@ public class VMDebugManager {
         }
         File f = new File(siddhiAppPath);
         String fileName=f.getName();
-        PrintInfo.info("File Name: "+fileName);
-        EditorDataHolder.setDebugProcessorService(new DebugProcessorService());
-        SiddhiManager siddhiManager = new SiddhiManager();
-        EditorDataHolder.setSiddhiManager(siddhiManager);
         DebugRuntime debugRuntime=new DebugRuntime(fileName, siddhiApp);
-        EditorDataHolder.setDebugRuntime(debugRuntime);
-
-        //this.inputHandler = debugRuntime.getInputHandler("sensorStream");//TODO:remove hardcoded value
-
-
-//        String cseEventStream = "define stream cseEventStream (symbol string, price float, " +
-//                "volume int);";
-//        final String query = "@info(name = 'query 1')" +
-//                "from cseEventStream " +
-//                "select symbol, price, volume " +
-//                "insert into OutputStream; ";
-//        PrintInfo.info("mainInit A");
-//        DebugRuntime debugRuntime=new DebugRuntime(cseEventStream + query);
-//        EditorDataHolder.setDebugRuntime(debugRuntime);
-//        PrintInfo.info("mainInit A");
+        debugSession.setDebugRuntime(debugRuntime);
 
         // start the debug server if it is not started yet.
         this.debugServer.startServer();
@@ -151,16 +134,15 @@ public class VMDebugManager {
             //invalid message will be passed
             throw new DebugException(DebugConstants.MSG_INVALID);
         }
-
         switch (command.getCommand()) {
             case DebugConstants.CMD_RESUME:
-                EditorDataHolder
+                debugSession
                         .getDebugRuntime()
                         .getDebugger()
                         .play();
                 break;
             case DebugConstants.CMD_STEP_OVER:
-                EditorDataHolder
+                debugSession
                         .getDebugRuntime()
                         .getDebugger()
                         .next();
@@ -170,25 +152,26 @@ public class VMDebugManager {
                 debugSession.stopDebug();
                 debugSession.clearSession();
                 break;
-            case DebugConstants.CMD_SET_POINTS://TODO:Control the adding breakpoints
-                // we expect { "command": "SET_POINTS", points: [{ "fileName": "sample.siddhi", "lineNumber" : 5 },
-                // {...}]}
+            case DebugConstants.CMD_SET_POINTS:
+                // we expect { "command": "SET_POINTS", points: [{ "fileName": "sample.siddhi", "lineNumber" : 5,
+                // "queryIndex": 0, "queryTerminal": "IN" }, {...}]}
                 debugSession.addDebugPoints(command.getPoints());
                 sendAcknowledge(this.debugSession, "Debug points updated");
+                break;
+            case DebugConstants.CMD_SEND_EVENT:
+                InputHandler inputHandler = debugSession.getDebugRuntime().getInputHandler("sensorStream");
+                try {
+                    inputHandler.send(new Object[]{"tempID1",99.8});
+                } catch (InterruptedException e) {
+                    throw new DebugException(e.getMessage());
+                }
+                sendAcknowledge(this.debugSession, "Event Sent.");
                 break;
             case DebugConstants.CMD_START:
                 // Client needs to explicitly start the execution once connected.
                 // This will allow client to set the breakpoints before starting the execution.
                 debugSession.startDebug();
                 sendAcknowledge(this.debugSession, "Debug started.");
-
-                this.inputHandler = EditorDataHolder.getDebugRuntime().getInputHandler("cseEventStream");
-                EditorDataHolder.getDebugRuntime().getDebugger().acquireBreakPoint("query 1", SiddhiDebugger.QueryTerminal.IN);
-                try {
-                    inputHandler.send(new Object[]{"tempID1",99.8});
-                } catch (InterruptedException e) {
-                    throw new DebugException(e.getMessage());
-                }
                 break;
             default:
                 throw new DebugException(DebugConstants.MSG_INVALID);

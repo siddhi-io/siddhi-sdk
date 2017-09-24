@@ -16,18 +16,18 @@
 *  under the License.
 */
 
-package org.wso2.siddhi.launcher.debug;
+package org.wso2.siddhi.launcher.exception;
 
 /**
  *  Debugger exception to wrap all debug errors.
  */
 public class DebugException extends RuntimeException {
 
-    DebugException(String message) {
+    public DebugException(String message) {
         super(message);
     }
 
-    DebugException(String message, Throwable e) {
+    public DebugException(String message, Throwable e) {
         super(message, e);
     }
 }

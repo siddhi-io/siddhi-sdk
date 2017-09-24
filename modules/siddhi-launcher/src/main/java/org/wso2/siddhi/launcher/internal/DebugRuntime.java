@@ -18,8 +18,10 @@
 
 package org.wso2.siddhi.launcher.internal;
 
+import org.wso2.siddhi.launcher.util.PrintInfo;
 import org.wso2.siddhi.launcher.debug.BreakPointInfo;
 import org.wso2.siddhi.launcher.debug.VMDebugManager;
+import org.wso2.siddhi.launcher.debug.VMDebugSession;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.exception.NoSuchStreamException;
 import org.wso2.siddhi.launcher.util.DebugCallbackEvent;
@@ -35,6 +37,11 @@ public class DebugRuntime {
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
     private transient String siddhiAppFileName;
+
+    public void setSiddhiAppRuntime(SiddhiAppRuntime siddhiAppRuntime) {
+        this.siddhiAppRuntime = siddhiAppRuntime;
+    }
+
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
     private transient LinkedBlockingQueue<DebugCallbackEvent> callbackEventsQueue;
@@ -48,10 +55,6 @@ public class DebugRuntime {
         return siddhiAppFileName;
     }
 
-    public String getSiddhiApp() {
-        return siddhiApp;
-    }
-
     public DebugRuntime(String siddhiAppFileName, String siddhiApp) {
         this.siddhiApp = siddhiApp;
         this.siddhiAppFileName=siddhiAppFileName;
@@ -63,15 +66,6 @@ public class DebugRuntime {
         return debugger;
     }
 
-    /**
-     * Print information message to the console.
-     *
-     * @param msg the message
-     */
-    private static void info(String msg) {
-        System.out.println("INFO: " + msg);
-    }//TODO:Remove this
-
     public void debug() {
         if (Mode.STOP.equals(mode)) {
                 debugger = siddhiAppRuntime.debug();
@@ -80,9 +74,10 @@ public class DebugRuntime {
                     int queryIndex = Arrays.asList(queries).indexOf(queryName);
                     callbackEventsQueue.add(new DebugCallbackEvent(queryName, queryIndex, queryTerminal, event));
                     //Sending message to client on debug hit
-                    info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " + event);
+                    PrintInfo.info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " +
+                            event);
                     BreakPointInfo breakPointInfo=breakpointsInfo.get(queryIndex+""+queryTerminal);
-                    Map<String, Object> queryState =EditorDataHolder.getDebugRuntime().getDebugger().getQueryState
+                    Map<String, Object> queryState =this.debugger.getQueryState
                             (queryName);
                     breakPointInfo.setQueryState(queryState);
                     VMDebugManager.getInstance().getDebugSession().notifyHalt(breakPointInfo);
@@ -95,7 +90,7 @@ public class DebugRuntime {
         }
     }
 
-    public void stop() {
+    public void stop(VMDebugSession vmDebugSession) {
         if (debugger != null) {
             debugger.releaseAllBreakPoints();
             debugger.play();
@@ -152,8 +147,10 @@ public class DebugRuntime {
 
     private void createRuntime() {
             if (siddhiApp != null && !siddhiApp.isEmpty()) {
-                siddhiAppRuntime = EditorDataHolder.getSiddhiManager()
+                siddhiAppRuntime = VMDebugManager.getInstance().getSiddhiManager()
                         .createSiddhiAppRuntime(siddhiApp);
+                this.setSiddhiAppRuntime(siddhiAppRuntime);
+                PrintInfo.info(siddhiApp);
                 mode = Mode.STOP;
             } else {
                 mode = Mode.FAULTY;

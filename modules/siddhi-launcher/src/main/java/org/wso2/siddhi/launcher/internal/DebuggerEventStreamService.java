@@ -20,6 +20,7 @@ package org.wso2.siddhi.launcher.internal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.siddhi.launcher.debug.VMDebugSession;
 import org.wso2.siddhi.launcher.exception.NoSuchStreamException;
 import org.wso2.siddhi.launcher.exception.ResourceNotFoundException;
 import org.wso2.siddhi.core.event.Event;
@@ -33,9 +34,19 @@ import java.util.List;
 public class DebuggerEventStreamService implements EventStreamService {
     private static Logger log = LoggerFactory.getLogger(DebuggerEventStreamService.class);
 
+    private VMDebugSession debugSession;
+
+    public VMDebugSession getDebugSession() {
+        return debugSession;
+    }
+
+    public void setDebugSession(VMDebugSession debugSession) {
+        this.debugSession = debugSession;
+    }
+
     @Override
     public List<String> getStreamNames(String siddhiAppName) {
-        DebugRuntime runtimeHolder = EditorDataHolder.getDebugRuntime();
+        DebugRuntime runtimeHolder = debugSession.getDebugRuntime();
         if (runtimeHolder != null) {
             return runtimeHolder.getStreams();
         } else {
@@ -46,7 +57,7 @@ public class DebuggerEventStreamService implements EventStreamService {
 
     @Override
     public List<Attribute> getStreamAttributes(String siddhiAppName, String streamName) throws ResourceNotFoundException {
-        DebugRuntime runtimeHolder = EditorDataHolder.getDebugRuntime();
+        DebugRuntime runtimeHolder = debugSession.getDebugRuntime();
         if (runtimeHolder != null) {
             try {
                 return runtimeHolder.getStreamAttributes(streamName);
@@ -62,7 +73,7 @@ public class DebuggerEventStreamService implements EventStreamService {
 
     @Override
     public void pushEvent(String siddhiAppName, String streamName, Event event) {
-        DebugRuntime runtimeHolder = EditorDataHolder.getDebugRuntime();
+        DebugRuntime runtimeHolder = debugSession.getDebugRuntime();
         if (runtimeHolder != null) {
             try {
                 runtimeHolder.getInputHandler(streamName).send(event);

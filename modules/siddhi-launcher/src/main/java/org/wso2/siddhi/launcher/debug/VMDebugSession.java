@@ -22,10 +22,10 @@ package org.wso2.siddhi.launcher.debug;
 import io.netty.channel.Channel;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.launcher.debug.dto.BreakPointDTO;
-import org.wso2.siddhi.launcher.internal.EditorDataHolder;
+import org.wso2.siddhi.launcher.exception.DebugException;
+import org.wso2.siddhi.launcher.internal.DebugRuntime;
 
 import java.util.ArrayList;
-
 
 /**
  * {@code VMDebugSession} The Debug Session class will be used to hold context for each client.
@@ -35,6 +35,16 @@ import java.util.ArrayList;
 public class VMDebugSession {
 
     private Channel channel = null;
+
+    private DebugRuntime debugRuntime=null;
+
+    public DebugRuntime getDebugRuntime() {
+        return debugRuntime;
+    }
+
+    public void setDebugRuntime(DebugRuntime debugRuntime) {
+        this.debugRuntime = debugRuntime;
+    }
 
     public VMDebugSession() {
 
@@ -62,7 +72,7 @@ public class VMDebugSession {
                     .getLineNumber()!=null){
                 String receivedBreakpointFileName=breakPointDTO.getFileName();
                 int receivedBreakpointLineNumber=breakPointDTO.getLineNumber();
-                String currentDebugFileName=EditorDataHolder.getDebugRuntime().getSiddhiAppFileName();
+                String currentDebugFileName=this.debugRuntime.getSiddhiAppFileName();
                 //Checking whether the breakpoint is applicable for current debug file
                 if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
                     Integer queryIndex = breakPointDTO.getQueryIndex();
@@ -71,18 +81,14 @@ public class VMDebugSession {
                         // acquire only specified break point
                         SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
                                 SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
-                        String queryName = (String) EditorDataHolder
-                                .getDebugRuntime()
-                                .getQueries()
-                                .toArray()[queryIndex];
-                        EditorDataHolder
-                                .getDebugRuntime()
-                                .getDebugger()
-                                .acquireBreakPoint(queryName, terminal);
+
+                        String queryName = (String) debugRuntime.getQueries().toArray()[queryIndex];
+                        debugRuntime.getDebugger().acquireBreakPoint(queryName, terminal);
+
                         BreakPointInfo breakPointInfo=new BreakPointInfo(receivedBreakpointFileName,
                                 receivedBreakpointLineNumber,queryIndex,
                                 queryTerminal);
-                        EditorDataHolder.getDebugRuntime().getBreakpointsInfo().put(queryIndex+queryTerminal,breakPointInfo);
+                        debugRuntime.getBreakpointsInfo().put(queryIndex+queryTerminal,breakPointInfo);
                     } //TODO:Handle the exceptions after this
                 }
             }
@@ -109,19 +115,14 @@ public class VMDebugSession {
      * Method to start debugging process in all the threads.
      */
     public void startDebug() {
-        EditorDataHolder //TODO: change the editor to other name
-                .getDebugProcessorService()
-                .debug();
-        //TODO:If a debug hit appears send it as a message to client
+        debugRuntime.debug();
     }
 
     /**
      * Method to stop debugging process in all the threads.
      */
     public void stopDebug() {
-        EditorDataHolder
-                .getDebugProcessorService()
-                .stop(); //TODO: Release breakpoints where to put?
+        debugRuntime.stop(this);//TODO: Release breakpoints where to put?
     }
 
     /**

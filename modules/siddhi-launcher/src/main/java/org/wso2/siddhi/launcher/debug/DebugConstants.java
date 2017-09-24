@@ -58,4 +58,5 @@ public class DebugConstants {
     public static final String DEBUG_MESSAGE = "Siddhi remote debugger is activated on port : ";
     public static final String ERROR_JSON = "{ \"error\": true }";
     public static final String DEBUG_SERVER_ERROR = "Debug Server Error. Closing client connection.";
+    public static final String CMD_SEND_EVENT ="SEND_EVENT";
 }

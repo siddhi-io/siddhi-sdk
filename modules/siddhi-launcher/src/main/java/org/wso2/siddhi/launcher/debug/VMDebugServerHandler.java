@@ -31,6 +31,8 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.siddhi.launcher.exception.DebugException;
+
 import java.io.PrintStream;
 
 import static io.netty.handler.codec.http.HttpHeaders.Names.HOST;
