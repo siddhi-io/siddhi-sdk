@@ -214,6 +214,8 @@ public class VMDebugManager {
         MessageDTO message = new MessageDTO();
         message.setCode(DebugConstants.CODE_HIT);
         message.setMessage(DebugConstants.MSG_HIT);
+        message.setEventInfo(breakPointInfo.getEventInfo());
+        message.setQueryName(breakPointInfo.getQueryName());
         message.setQueryState(breakPointInfo.getQueryState());
 
         String fileName=breakPointInfo.getFileName();

@@ -35,8 +35,6 @@ public class DebugConstants {
     public static final String CMD_SET_POINTS = "SET_POINTS";
     public static final String CMD_STEP_OVER = "STEP_OVER";
     public static final String CMD_RESUME = "RESUME";
-    public static final String CMD_STEP_IN = "STEP_IN";
-    public static final String CMD_STEP_OUT = "STEP_OUT";
 
     // messages sent back to client
     public static final String CODE_HIT = "DEBUG_HIT";
@@ -44,7 +42,6 @@ public class DebugConstants {
 
     public static final String CODE_INVALID = "INVALID";
     public static final String MSG_INVALID = "Invalid Command";
-    public static final String MSG_INVALID_THREAD_ID = "Invalid Thread ID";
 
     public static final String CODE_ACK = "ACK";
 

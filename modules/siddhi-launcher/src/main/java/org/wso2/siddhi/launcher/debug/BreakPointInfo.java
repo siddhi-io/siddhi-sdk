@@ -24,13 +24,33 @@ public class BreakPointInfo {
 
     private int queryIndex;
 
+    private String queryName;
+
     private String queryTerminal;
 
     private String fileName;
 
     private int lineNumber;
 
+    private Object eventInfo;
+
+    public Object getEventInfo() {
+        return eventInfo;
+    }
+
+    public void setEventInfo(Object eventInfo) {
+        this.eventInfo = eventInfo;
+    }
+
     private Map<String, Object> queryState;
+
+    public String getQueryName() {
+        return queryName;
+    }
+
+    public void setQueryName(String queryName) {
+        this.queryName = queryName;
+    }
 
     public Integer getQueryIndex() {
         return queryIndex;

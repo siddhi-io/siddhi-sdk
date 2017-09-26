@@ -31,6 +31,10 @@ public class MessageDTO {
 
     private String message;
 
+    private String queryName;
+
+    private Object eventInfo;
+
     private Map<String, Object> queryState;
 
     private BreakPointDTO location;
@@ -65,6 +69,22 @@ public class MessageDTO {
 
     public void setLocation(String fileName, int line, int queryIndex, String queryTerminal) {
         this.location = new BreakPointDTO(fileName,line,queryIndex,queryTerminal);
+    }
+
+    public String getQueryName() {
+        return queryName;
+    }
+
+    public void setQueryName(String queryName) {
+        this.queryName = queryName;
+    }
+
+    public Object getEventInfo() {
+        return eventInfo;
+    }
+
+    public void setEventInfo(Object eventInfo) {
+        this.eventInfo = eventInfo;
     }
 
 }

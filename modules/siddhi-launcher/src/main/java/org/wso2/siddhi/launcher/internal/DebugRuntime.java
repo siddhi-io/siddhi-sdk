@@ -80,6 +80,8 @@ public class DebugRuntime {
                     Map<String, Object> queryState =this.debugger.getQueryState
                             (queryName);
                     breakPointInfo.setQueryState(queryState);
+                    breakPointInfo.setQueryName(queryName);
+                    breakPointInfo.setEventInfo(event);
                     VMDebugManager.getInstance().getDebugSession().notifyHalt(breakPointInfo);
                 });
                 mode = Mode.DEBUG;
@@ -150,7 +152,6 @@ public class DebugRuntime {
                 siddhiAppRuntime = VMDebugManager.getInstance().getSiddhiManager()
                         .createSiddhiAppRuntime(siddhiApp);
                 this.setSiddhiAppRuntime(siddhiAppRuntime);
-                PrintInfo.info(siddhiApp);
                 mode = Mode.STOP;
             } else {
                 mode = Mode.FAULTY;

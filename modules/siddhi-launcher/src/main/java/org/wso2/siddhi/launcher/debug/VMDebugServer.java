@@ -30,7 +30,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import org.wso2.siddhi.launcher.util.PrintInfo;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 
 import java.io.PrintStream;
@@ -67,7 +66,6 @@ public class VMDebugServer {
                 VMDebugServer.this.startListning();
             }
         };
-        PrintInfo.info("start server A");
         (new Thread(run)).start();
     }
 

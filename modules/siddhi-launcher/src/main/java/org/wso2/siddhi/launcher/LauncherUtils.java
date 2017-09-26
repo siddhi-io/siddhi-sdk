@@ -21,7 +21,6 @@ import org.wso2.siddhi.launcher.debug.VMDebugManager;
 import org.wso2.siddhi.launcher.exception.FileReadException;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.run.SiddhiRun;
-import org.wso2.siddhi.launcher.util.PrintInfo;
 
 import java.io.*;
 import java.util.List;
@@ -59,7 +58,6 @@ public class LauncherUtils {
                         inputFile = readText(inputFilePath);
                     } catch (IOException e) {
                         e.printStackTrace();
-                        PrintInfo.info("runProgram debug");
                     }
                 }
                 VMDebugManager vmDebugManager=VMDebugManager.getInstance();
