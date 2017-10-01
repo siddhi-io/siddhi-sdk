@@ -17,12 +17,27 @@
     <url>http://wso2.org</url>
 
     <dependencies>
+        <!--siddhi launcher Module dependencies-->
         <dependency>
             <groupId>org.wso2.siddhi</groupId>
             <artifactId>siddhi-core</artifactId>
             <version>${siddhi.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.64</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.4.1</version>
+        </dependency>
         <!--Execution Extensions-->
         <dependency>
             <groupId>org.wso2.extension.siddhi.execution.string</groupId>
@@ -98,11 +113,6 @@
             <groupId>org.wso2.extension.siddhi.execution.streamingml</groupId>
             <artifactId>siddhi-execution-streamingml</artifactId>
             <version>${siddhi.execution.streamingml.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.wso2.extension.siddhi.execution.unitconversion</groupId>
-            <artifactId>siddhi-execution-unitconversion</artifactId>
-            <version>${siddhi.execution.unitconversion.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.extension.siddhi.script.js</groupId>
