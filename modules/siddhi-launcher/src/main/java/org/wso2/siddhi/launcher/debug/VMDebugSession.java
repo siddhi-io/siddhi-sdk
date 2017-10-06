@@ -55,10 +55,19 @@ public class VMDebugSession {
      *
      * @param breakPoints the debug points
      */
-    public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
-        for (BreakPointDTO breakPoint : breakPoints) {
-            setBreakPoint(breakPoint);
+    public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints, String type) {
+        if(type.equalsIgnoreCase("IN")){
+            debugRuntime.getInBreakpointsMap().clear();
+            for (BreakPointDTO breakPoint : breakPoints) {
+                setBreakPoint(breakPoint);
+            }
+        }else if(type.equalsIgnoreCase("OUT")){
+            debugRuntime.getOutBreakpointsMap().clear();
+            for (BreakPointDTO breakPoint : breakPoints) {
+                setBreakPoint(breakPoint);
+            }
         }
+
     }
 
     /**
@@ -81,14 +90,15 @@ public class VMDebugSession {
                         // acquire only specified break point
                         SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
                                 SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
-
                         String queryName = (String) debugRuntime.getQueries().toArray()[queryIndex];
                         debugRuntime.getDebugger().acquireBreakPoint(queryName, terminal);
-
                         BreakPointInfo breakPointInfo=new BreakPointInfo(receivedBreakpointFileName,
-                                receivedBreakpointLineNumber,queryIndex,
-                                queryTerminal);
-                        debugRuntime.getBreakpointsInfo().put(queryIndex+queryTerminal,breakPointInfo);
+                                receivedBreakpointLineNumber,queryIndex, queryTerminal);
+                        if(queryTerminal.equalsIgnoreCase("in")){
+                            debugRuntime.getInBreakpointsMap().put(queryIndex+queryTerminal,breakPointInfo);
+                        }else{
+                            debugRuntime.getOutBreakpointsMap().put(queryIndex+queryTerminal,breakPointInfo);
+                        }
                     } //TODO:Handle the exceptions after this
                 }
             }
@@ -122,7 +132,7 @@ public class VMDebugSession {
      * Method to stop debugging process in all the threads.
      */
     public void stopDebug() {
-        debugRuntime.stop(this);//TODO: Release breakpoints where to put?
+        debugRuntime.stop();
     }
 
     /**

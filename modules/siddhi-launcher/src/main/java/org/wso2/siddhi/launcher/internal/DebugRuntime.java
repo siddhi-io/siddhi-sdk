@@ -21,34 +21,34 @@ package org.wso2.siddhi.launcher.internal;
 import org.wso2.siddhi.launcher.util.PrintInfo;
 import org.wso2.siddhi.launcher.debug.BreakPointInfo;
 import org.wso2.siddhi.launcher.debug.VMDebugManager;
-import org.wso2.siddhi.launcher.debug.VMDebugSession;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.exception.NoSuchStreamException;
-import org.wso2.siddhi.launcher.util.DebugCallbackEvent;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.query.api.definition.Attribute;
 
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class DebugRuntime {
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
     private transient String siddhiAppFileName;
-
-    public void setSiddhiAppRuntime(SiddhiAppRuntime siddhiAppRuntime) {
-        this.siddhiAppRuntime = siddhiAppRuntime;
-    }
-
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
-    private transient LinkedBlockingQueue<DebugCallbackEvent> callbackEventsQueue;
-    private transient Map<String, BreakPointInfo> breakpointsInfo = new HashMap<>();
+    private transient Map<String, BreakPointInfo> inBreakpointsMap = new HashMap<>();
+    private transient Map<String, BreakPointInfo> outBreakpointsMap = new HashMap<>();
 
-    public Map<String, BreakPointInfo> getBreakpointsInfo() {
-        return breakpointsInfo;
+    public Map<String, BreakPointInfo> getInBreakpointsMap() {
+        return inBreakpointsMap;
+    }
+
+    public Map<String, BreakPointInfo> getOutBreakpointsMap() {
+        return outBreakpointsMap;
+    }
+
+    private void setSiddhiAppRuntime(SiddhiAppRuntime siddhiAppRuntime) {
+        this.siddhiAppRuntime = siddhiAppRuntime;
     }
 
     public String getSiddhiAppFileName() {
@@ -58,7 +58,6 @@ public class DebugRuntime {
     public DebugRuntime(String siddhiAppFileName, String siddhiApp) {
         this.siddhiApp = siddhiApp;
         this.siddhiAppFileName=siddhiAppFileName;
-        callbackEventsQueue = new LinkedBlockingQueue<>(10);
         createRuntime();
     }
 
@@ -72,13 +71,20 @@ public class DebugRuntime {
                 debugger.setDebuggerCallback((event, queryName, queryTerminal, debugger) -> {
                     String[] queries = getQueries().toArray(new String[getQueries().size()]);
                     int queryIndex = Arrays.asList(queries).indexOf(queryName);
-                    callbackEventsQueue.add(new DebugCallbackEvent(queryName, queryIndex, queryTerminal, event));
                     //Sending message to client on debug hit
                     PrintInfo.info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " +
-                            event);
-                    BreakPointInfo breakPointInfo=breakpointsInfo.get(queryIndex+""+queryTerminal);
-                    Map<String, Object> queryState =this.debugger.getQueryState
-                            (queryName);
+                            event);//TODO:remove this after testing
+                    Map<String, Object> queryState = this.debugger.getQueryState(queryName);
+                    BreakPointInfo breakPointInfo=null;
+                    if(inBreakpointsMap.get(queryIndex+""+queryTerminal)!=null) {
+                        breakPointInfo = inBreakpointsMap.get(queryIndex + "" + queryTerminal);
+                    }else if(outBreakpointsMap.get(queryIndex+""+queryTerminal)!=null) {
+                        breakPointInfo = outBreakpointsMap.get(queryIndex + "" + queryTerminal);
+                    }else{
+                        //Setting the line number to -1 to identify when a debug hit occured in step over action in
+                        // a  unregistered breakpoint
+                        breakPointInfo=new BreakPointInfo(siddhiAppFileName,-1,queryIndex,queryTerminal.toString());
+                    }
                     breakPointInfo.setQueryState(queryState);
                     breakPointInfo.setQueryName(queryName);
                     breakPointInfo.setEventInfo(event);
@@ -92,7 +98,7 @@ public class DebugRuntime {
         }
     }
 
-    public void stop(VMDebugSession vmDebugSession) {
+    public void stop() {
         if (debugger != null) {
             debugger.releaseAllBreakPoints();
             debugger.play();
@@ -102,7 +108,6 @@ public class DebugRuntime {
             siddhiAppRuntime.shutdown();
             siddhiAppRuntime = null;
         }
-        callbackEventsQueue.clear();
         createRuntime();
     }
 
@@ -141,10 +146,6 @@ public class DebugRuntime {
         } else {
             throw new InvalidExecutionStateException("Siddhi App is in faulty state.");
         }
-    }
-
-    public LinkedBlockingQueue<DebugCallbackEvent> getCallbackEventsQueue() {
-        return callbackEventsQueue;
     }
 
     private void createRuntime() {

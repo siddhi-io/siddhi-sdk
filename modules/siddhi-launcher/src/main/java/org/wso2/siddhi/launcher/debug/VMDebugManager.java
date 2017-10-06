@@ -19,31 +19,34 @@
 package org.wso2.siddhi.launcher.debug;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.channel.Channel;
 import org.wso2.siddhi.core.SiddhiManager;
+import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.launcher.exception.DebugException;
 import org.wso2.siddhi.launcher.exception.SiddhiException;
 import org.wso2.siddhi.launcher.internal.DebugRuntime;
+import org.wso2.siddhi.launcher.util.PrintInfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * {@code VMDebugManager} Manages debug sessions and handle debug related actions.
  */
 public class VMDebugManager {
-    /**
-     * The Execution sem. used to block debugger till client connects.
-     */
-    private volatile Semaphore executionWaitSem;
 
     private VMDebugServer debugServer;
-
-    private boolean debugEnabled;
 
     /**
      * Object to hold debug session related context.
@@ -68,7 +71,6 @@ public class VMDebugManager {
      * Instantiates a new Debug manager.
      */
     private VMDebugManager() {
-        executionWaitSem = new Semaphore(0);
         debugServer = new VMDebugServer();
         debugSession = new VMDebugSession();
     }
@@ -95,7 +97,7 @@ public class VMDebugManager {
     /**
      * Initializes the debug manager single instance.
      */
-    public void mainInit(String siddhiAppPath,String siddhiApp, String inputFile) { //TODO:Add synchronizes
+    public void mainInit(String siddhiAppPath,String siddhiApp, String inputFile) {
         if (this.debugManagerInitialized) {
             throw new SiddhiException("Debugger instance already initialized");
         }
@@ -153,23 +155,28 @@ public class VMDebugManager {
                 debugSession.clearSession();
                 break;
             case DebugConstants.CMD_SET_POINTS:
-                // we expect { "command": "SET_POINTS", points: [{ "fileName": "sample.siddhi", "lineNumber" : 5,
-                // "queryIndex": 0, "queryTerminal": "IN" }, {...}]}
-                debugSession.addDebugPoints(command.getPoints());
+                // we expect { "command": "SET_POINTS","type":"IN",points: [{ "fileName": "sample.siddhi",
+                // "lineNumber" : 5,"queryIndex": 0, "queryTerminal": "IN" }, {...}]}
+                String breakpointType=command.getBreakpointType();
+                debugSession.addDebugPoints(command.getPoints(), breakpointType);
                 sendAcknowledge(this.debugSession, "Debug points updated");
                 break;
             case DebugConstants.CMD_SEND_EVENT:
-                InputHandler inputHandler = debugSession.getDebugRuntime().getInputHandler("sensorStream");
-                try {
-                    inputHandler.send(new Object[]{"tempID1",99.8});
-                } catch (InterruptedException e) {
-                    throw new DebugException(e.getMessage());
-                }
+                ExecutorService executorService = Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder()
+                                .setNameFormat("Debugger-scheduler-thread-%d").build());
+                executorService.execute(() -> {
+                    try {
+                        InputHandler inputHandler = debugSession.getDebugRuntime().getInputHandler("sensorStream");
+                        inputHandler.send(new Object[]{"tempID1",99.8});
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new RuntimeException(e);
+                    }
+                });
                 sendAcknowledge(this.debugSession, "Event Sent.");
                 break;
             case DebugConstants.CMD_START:
                 // Client needs to explicitly start the execution once connected.
-                // This will allow client to set the breakpoints before starting the execution.
                 debugSession.startDebug();
                 sendAcknowledge(this.debugSession, "Debug started.");
                 break;
@@ -186,18 +193,6 @@ public class VMDebugManager {
     public void addDebugSession(Channel channel) throws DebugException {
         this.debugSession.setChannel(channel);
         sendAcknowledge(this.debugSession, "Channel registered.");
-    }
-
-    public boolean isDebugEnabled() {
-        return debugEnabled;
-    }
-
-    public void setDebugEnabled(boolean debugEnabled) {
-        this.debugEnabled = debugEnabled;
-    }
-
-    public void releaseExecutionLock() {
-        this.executionWaitSem.release();
     }
 
     public boolean isDebugSessionActive() {

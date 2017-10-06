@@ -28,6 +28,8 @@ public class CommandDTO {
 
     private String command;
 
+    private String breakpointType;
+
     private ArrayList<BreakPointDTO> points;
 
     public String getCommand() {
@@ -44,6 +46,14 @@ public class CommandDTO {
 
     public void setPoints(ArrayList<BreakPointDTO> points) {
         this.points = points;
+    }
+
+    public String getBreakpointType() {
+        return breakpointType;
+    }
+
+    public void setBreakpointType(String breakpointType) {
+        this.breakpointType = breakpointType;
     }
 
 }
