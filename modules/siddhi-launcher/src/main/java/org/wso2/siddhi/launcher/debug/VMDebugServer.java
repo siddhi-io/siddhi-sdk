@@ -66,7 +66,9 @@ public class VMDebugServer {
                 VMDebugServer.this.startListning();
             }
         };
-        (new Thread(run)).start();
+        Thread thread=new Thread((run));
+        thread.setName("Message Listener");
+        thread.start();
     }
 
     private void startListning() {
