@@ -88,6 +88,34 @@ public class VMDebugSession {
     }
 
     /**
+     * Sets debug points.
+     *
+     * @param breakPoints the debug points
+     */
+    public void removeDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
+        for (BreakPointDTO breakPointDTO : breakPoints) {
+            if(breakPointDTO!=null) {
+                if(breakPointDTO.getFileName()!=null && !breakPointDTO.getFileName().isEmpty()){
+                    String receivedBreakpointFileName=breakPointDTO.getFileName();
+                    String currentDebugFileName=this.debugRuntime.getSiddhiAppFileName();
+                    //Checking whether the breakpoint is applicable for current debug file
+                    if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
+                        Integer queryIndex = breakPointDTO.getQueryIndex();
+                        String queryTerminal = breakPointDTO.getQueryTerminal();
+                        if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
+                            // acquire only specified break point
+                            SiddhiDebugger.QueryTerminal terminal = ("in".equalsIgnoreCase(queryTerminal)) ?
+                                    SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
+                            String queryName = (String) debugRuntime.getQueries().toArray()[queryIndex];
+                            debugRuntime.getDebugger().releaseBreakPoint(queryName, terminal);
+                        } //TODO:Handle the exceptions after this
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Gets channel.
      *
      * @return the channel

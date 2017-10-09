@@ -155,10 +155,16 @@ public class VMDebugManager {
                 debugSession.clearSession();
                 break;
             case DebugConstants.CMD_SET_POINTS:
-                // we expect { "command": "SET_POINTS","type":"IN",points: [{ "fileName": "sample.siddhi",
+                // we expect { "command": "SET_POINTS",points: [{ "fileName": "sample.siddhi",
                 // "lineNumber" : 5,"queryIndex": 0, "queryTerminal": "IN" }, {...}]}
                 debugSession.addDebugPoints(command.getPoints());
                 sendAcknowledge(this.debugSession, "Debug points updated");
+                break;
+            case DebugConstants.CMD_REMOVE_BREAKPOINT:
+                // we expect { "command": "REMOVE_BREAKPOINT",points: [{ "fileName": "sample.siddhi",
+                // "lineNumber" : 5,"queryIndex": 0, "queryTerminal": "IN" }]}
+                debugSession.removeDebugPoints(command.getPoints());
+                sendAcknowledge(this.debugSession, "Debug point removed");
                 break;
             case DebugConstants.CMD_SEND_EVENT:
                 ExecutorService executorService = Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder()

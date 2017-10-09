@@ -35,6 +35,7 @@ public class DebugConstants {
     public static final String CMD_SET_POINTS = "SET_POINTS";
     public static final String CMD_STEP_OVER = "STEP_OVER";
     public static final String CMD_RESUME = "RESUME";
+    public static final String CMD_REMOVE_BREAKPOINT="REMOVE_BREAKPOINT";
 
     // messages sent back to client
     public static final String CODE_HIT = "DEBUG_HIT";
