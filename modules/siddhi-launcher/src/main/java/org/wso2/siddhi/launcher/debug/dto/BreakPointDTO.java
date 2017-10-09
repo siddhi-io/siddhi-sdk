@@ -25,8 +25,6 @@ public class BreakPointDTO {
 
     private String fileName;
 
-    private int lineNumber;
-
     private int queryIndex;
 
     private String queryTerminal;
@@ -59,17 +57,8 @@ public class BreakPointDTO {
         this.fileName = fileName;
     }
 
-    public Integer getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(Integer lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-
-    public BreakPointDTO(String fileName, int lineNumber, int queryIndex, String queryTerminal) {
+    public BreakPointDTO(String fileName, int queryIndex, String queryTerminal) {
         this.fileName=fileName;
-        this.lineNumber=lineNumber;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }

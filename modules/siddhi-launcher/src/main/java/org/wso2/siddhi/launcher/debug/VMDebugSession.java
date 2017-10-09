@@ -55,19 +55,10 @@ public class VMDebugSession {
      *
      * @param breakPoints the debug points
      */
-    public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints, String type) {
-        if(type.equalsIgnoreCase("IN")){
-            debugRuntime.getInBreakpointsMap().clear();
+    public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
             for (BreakPointDTO breakPoint : breakPoints) {
                 setBreakPoint(breakPoint);
             }
-        }else if(type.equalsIgnoreCase("OUT")){
-            debugRuntime.getOutBreakpointsMap().clear();
-            for (BreakPointDTO breakPoint : breakPoints) {
-                setBreakPoint(breakPoint);
-            }
-        }
-
     }
 
     /**
@@ -77,10 +68,8 @@ public class VMDebugSession {
      */
     private void setBreakPoint(BreakPointDTO breakPointDTO) {
         if(breakPointDTO!=null) {
-            if(breakPointDTO.getFileName()!=null && !breakPointDTO.getFileName().isEmpty() && breakPointDTO
-                    .getLineNumber()!=null){
+            if(breakPointDTO.getFileName()!=null && !breakPointDTO.getFileName().isEmpty()){
                 String receivedBreakpointFileName=breakPointDTO.getFileName();
-                int receivedBreakpointLineNumber=breakPointDTO.getLineNumber();
                 String currentDebugFileName=this.debugRuntime.getSiddhiAppFileName();
                 //Checking whether the breakpoint is applicable for current debug file
                 if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
@@ -92,13 +81,6 @@ public class VMDebugSession {
                                 SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
                         String queryName = (String) debugRuntime.getQueries().toArray()[queryIndex];
                         debugRuntime.getDebugger().acquireBreakPoint(queryName, terminal);
-                        BreakPointInfo breakPointInfo=new BreakPointInfo(receivedBreakpointFileName,
-                                receivedBreakpointLineNumber,queryIndex, queryTerminal);
-                        if(queryTerminal.equalsIgnoreCase("in")){
-                            debugRuntime.getInBreakpointsMap().put(queryIndex+queryTerminal,breakPointInfo);
-                        }else{
-                            debugRuntime.getOutBreakpointsMap().put(queryIndex+queryTerminal,breakPointInfo);
-                        }
                     } //TODO:Handle the exceptions after this
                 }
             }

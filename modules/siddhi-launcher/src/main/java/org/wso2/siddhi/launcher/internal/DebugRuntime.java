@@ -36,16 +36,6 @@ public class DebugRuntime {
     private transient String siddhiAppFileName;
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
-    private transient Map<String, BreakPointInfo> inBreakpointsMap = new HashMap<>();
-    private transient Map<String, BreakPointInfo> outBreakpointsMap = new HashMap<>();
-
-    public Map<String, BreakPointInfo> getInBreakpointsMap() {
-        return inBreakpointsMap;
-    }
-
-    public Map<String, BreakPointInfo> getOutBreakpointsMap() {
-        return outBreakpointsMap;
-    }
 
     private void setSiddhiAppRuntime(SiddhiAppRuntime siddhiAppRuntime) {
         this.siddhiAppRuntime = siddhiAppRuntime;
@@ -75,16 +65,7 @@ public class DebugRuntime {
                     PrintInfo.info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " +
                             event);//TODO:remove this after testing
                     Map<String, Object> queryState = this.debugger.getQueryState(queryName);
-                    BreakPointInfo breakPointInfo=null;
-                    if(inBreakpointsMap.get(queryIndex+""+queryTerminal)!=null) {
-                        breakPointInfo = inBreakpointsMap.get(queryIndex + "" + queryTerminal);
-                    }else if(outBreakpointsMap.get(queryIndex+""+queryTerminal)!=null) {
-                        breakPointInfo = outBreakpointsMap.get(queryIndex + "" + queryTerminal);
-                    }else{
-                        //Setting the line number to -1 to identify when a debug hit occured in step over action in
-                        // a  unregistered breakpoint
-                        breakPointInfo=new BreakPointInfo(siddhiAppFileName,-1,queryIndex,queryTerminal.toString());
-                    }
+                    BreakPointInfo breakPointInfo=new BreakPointInfo(siddhiAppFileName,queryIndex,queryTerminal.toString());
                     breakPointInfo.setQueryState(queryState);
                     breakPointInfo.setQueryName(queryName);
                     breakPointInfo.setEventInfo(event);
@@ -160,5 +141,4 @@ public class DebugRuntime {
     }
 
     private enum Mode { DEBUG, STOP, FAULTY}
-
 }

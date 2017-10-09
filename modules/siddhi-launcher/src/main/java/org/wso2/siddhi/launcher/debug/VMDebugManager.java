@@ -157,8 +157,7 @@ public class VMDebugManager {
             case DebugConstants.CMD_SET_POINTS:
                 // we expect { "command": "SET_POINTS","type":"IN",points: [{ "fileName": "sample.siddhi",
                 // "lineNumber" : 5,"queryIndex": 0, "queryTerminal": "IN" }, {...}]}
-                String breakpointType=command.getBreakpointType();
-                debugSession.addDebugPoints(command.getPoints(), breakpointType);
+                debugSession.addDebugPoints(command.getPoints());
                 sendAcknowledge(this.debugSession, "Debug points updated");
                 break;
             case DebugConstants.CMD_SEND_EVENT:
@@ -214,11 +213,10 @@ public class VMDebugManager {
         message.setQueryState(breakPointInfo.getQueryState());
 
         String fileName=breakPointInfo.getFileName();
-        int lineNumber=breakPointInfo.getLineNumber();
         int queryIndex=breakPointInfo.getQueryIndex();
         String queryTerminal=breakPointInfo.getQueryTerminal();
 
-        message.setLocation(fileName,lineNumber,queryIndex,queryTerminal);
+        message.setLocation(fileName,queryIndex,queryTerminal);
         debugServer.pushMessageToClient(debugSession, message);
     }
 

@@ -30,8 +30,6 @@ public class BreakPointInfo {
 
     private String fileName;
 
-    private int lineNumber;
-
     private Object eventInfo;
 
     public Object getEventInfo() {
@@ -68,17 +66,12 @@ public class BreakPointInfo {
         this.queryState = queryState;
     }
 
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
     public String getFileName() {
         return fileName;
     }
 
-    public BreakPointInfo(String fileName, int lineNumber,int queryIndex, String queryTerminal) {
+    public BreakPointInfo(String fileName,int queryIndex, String queryTerminal) {
         this.fileName=fileName;
-        this.lineNumber=lineNumber;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }
