@@ -34,12 +34,8 @@ public class LauncherUtils {
     public static void runProgram(boolean debugMode, String[] args) {
 
         String siddhiAppPath = args[0];
-//        if(debugMode && args[1]!=null) {
-//            String inputFilePath=args[0];
-//        }
         // Validate siddhiApp
         String siddhiApp=validateSiddhiApp(siddhiAppPath);
-
         if(!siddhiApp.equalsIgnoreCase("")){
             if(!debugMode){
                 try {
@@ -48,12 +44,11 @@ public class LauncherUtils {
                 } catch (InterruptedException e) {
                     throw new InvalidExecutionStateException("Siddhi App execution error:  " + e.getMessage());
                 }
-
             }else{
                 String inputFilePath;
                 String inputFile="";
                 if(args[1]!=null) {
-                     inputFilePath=args[0];
+                     inputFilePath=args[1];
                     try {
                         inputFile = readText(inputFilePath);
                     } catch (IOException e) {

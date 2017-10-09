@@ -37,6 +37,10 @@ public class DebugRuntime {
     private transient SiddhiAppRuntime siddhiAppRuntime;
     private transient SiddhiDebugger debugger;
 
+    public SiddhiAppRuntime getSiddhiAppRuntime() {
+        return siddhiAppRuntime;
+    }
+
     private void setSiddhiAppRuntime(SiddhiAppRuntime siddhiAppRuntime) {
         this.siddhiAppRuntime = siddhiAppRuntime;
     }
