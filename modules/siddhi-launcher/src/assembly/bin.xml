@@ -44,19 +44,8 @@
         <fileSet>
             <directory>target/siddhi-launcher-jars</directory>
             <outputDirectory>lib</outputDirectory>
-            <excludes>
-                <exclude>siddhi-launcher-${project.version}.jar</exclude>
-            </excludes>
             <includes>
                 <include>**/*.jar</include>
-            </includes>
-            <fileMode>664</fileMode>
-        </fileSet>
-        <fileSet>
-            <directory>target/siddhi-launcher-jars</directory>
-            <outputDirectory>bin</outputDirectory>
-            <includes>
-                <include>siddhi-launcher-${project.version}.jar</include>
             </includes>
             <fileMode>664</fileMode>
         </fileSet>
