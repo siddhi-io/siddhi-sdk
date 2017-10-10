@@ -36,21 +36,5 @@ public class SiddhiRun {
         //Starting event processing
         siddhiAppRuntime.start();
 
-        Thread.sleep(500);
-
-        //Shutting down the runtime
-        stopSiddhiAppRuntime(siddhiAppRuntime);
-
-        //Shutting down Siddhi
-        stopSiddhiManager(siddhiManager);//TODO: Add query call backs and stream callbacks
-    }
-
-    private void stopSiddhiAppRuntime(SiddhiAppRuntime siddhiAppRuntime){
-        //Shutting down the runtime
-        siddhiAppRuntime.shutdown();
-    }
-    private void stopSiddhiManager(SiddhiManager siddhiManager){
-        //Shutting down the runtime
-        siddhiManager.shutdown();
     }
 }
