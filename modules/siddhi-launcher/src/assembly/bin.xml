@@ -42,6 +42,11 @@
             <fileMode>444</fileMode>
         </fileSet>
         <fileSet>
+            <directory>samples</directory>
+            <outputDirectory>samples</outputDirectory>
+            <fileMode>644</fileMode>
+        </fileSet>
+        <fileSet>
             <directory>target/siddhi-launcher-jars</directory>
             <outputDirectory>lib</outputDirectory>
             <includes>
