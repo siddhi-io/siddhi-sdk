@@ -21,6 +21,7 @@ import org.wso2.siddhi.launcher.debug.VMDebugManager;
 import org.wso2.siddhi.launcher.exception.FileReadException;
 import org.wso2.siddhi.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.launcher.run.SiddhiRun;
+import org.wso2.siddhi.launcher.util.PrintInfo;
 
 import java.io.*;
 import java.util.List;
@@ -47,12 +48,12 @@ public class LauncherUtils {
             }else{
                 String inputFilePath;
                 String inputFile="";
-                if(args[1]!=null) {
+                if(!(args[1]==null || args[1].equalsIgnoreCase(""))) {
                      inputFilePath=args[1];
                     try {
                         inputFile = readText(inputFilePath);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        PrintInfo.error(e.getMessage());
                     }
                 }
                 VMDebugManager vmDebugManager=VMDebugManager.getInstance();
@@ -117,11 +118,7 @@ public class LauncherUtils {
             throw new FileReadException("Error in reading the file " + path+" "+e.getMessage());
         } finally {
             if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    throw new FileReadException("Error when closing the input reader of " + path+" "+e.getMessage());
-                }
+                reader.close();
             }
         }
     }
