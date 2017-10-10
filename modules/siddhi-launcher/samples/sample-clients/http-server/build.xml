@@ -32,7 +32,7 @@
     <path id="javac.classpath">
         <pathelement path="${class.dir}"/>
         <fileset dir="${lib.dir}"/>
-        <fileset dir="${carbon.home}/wso2/lib/plugins">
+        <fileset dir="${carbon.home}/lib">
             <include name="org.apache.commons.logging_*.jar"/>
             <include name="org.apache.commons.collections4*.jar"/>
             <include name="io.netty.*.jar"/>
