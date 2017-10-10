@@ -145,7 +145,7 @@ if [ "$CMD" = "--debug" ]; then
   echo "Please start the remote debugging client to continue..."
 fi
 
-SIDDHI_HOME_XBOOTCLASSPATH=""
+SIDDHI_XBOOTCLASSPATH=""
 for f in "$SIDDHI_HOME"/lib/*.jar
 do
     if [ "$f" != "$SIDDHI_HOME/lib/*.jar" ];then
