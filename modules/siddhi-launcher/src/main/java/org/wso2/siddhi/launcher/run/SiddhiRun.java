@@ -18,6 +18,7 @@ package org.wso2.siddhi.launcher.run;
 
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
+import org.wso2.siddhi.launcher.util.PrintInfo;
 
 public class SiddhiRun {
 
@@ -27,14 +28,20 @@ public class SiddhiRun {
 
     public void runSiddhi(String siddhiApp) throws InterruptedException {
 
-        // Creating Siddhi Manager
-        SiddhiManager siddhiManager = new SiddhiManager();
+        while (true) {
+            try {
+                // Creating Siddhi Manager
+                SiddhiManager siddhiManager = new SiddhiManager();
 
-        //Generating runtime
-        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(siddhiApp);
+                //Generating runtime
+                SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(siddhiApp);
 
-        //Starting event processing
-        siddhiAppRuntime.start();
-
+                //Starting event processing
+                siddhiAppRuntime.start();
+            }catch(Exception e){
+                PrintInfo.error(e.getMessage());
+                break;
+            }
+        }
     }
 }

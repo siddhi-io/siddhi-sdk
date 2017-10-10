@@ -172,7 +172,7 @@ public class VMDebugManager {
                     inputFeeder.start();
                     sendAcknowledge(this.debugSession, "Input feeder started.");
                 }else{
-                    PrintInfo.info("Error: Input file is empty or null");
+                    PrintInfo.info("Input file is empty or null");
                 }
                 break;
             case DebugConstants.CMD_START:
@@ -302,7 +302,7 @@ public class VMDebugManager {
                     try {
                         Thread.sleep(Integer.parseInt(line));
                     } catch (InterruptedException e) {
-                        PrintInfo.info("ERROR: "+"Error in waiting for " + line + " milliseconds");
+                        PrintInfo.error("Error in waiting for " + line + " milliseconds");
                     }
                 } else {
                     // The inout format is: <stream name>=<data in json object[] format>
@@ -314,7 +314,7 @@ public class VMDebugManager {
                     try {
                         siddhiAppRuntime.getInputHandler(streamName).send(data);
                     } catch (InterruptedException e) {
-                        PrintInfo.info("ERROR: "+"Error in sending event " + event + " to Siddhi");
+                        PrintInfo.error("Error in sending event " + event + " to Siddhi");
                     }
                 }
             }
@@ -356,7 +356,7 @@ public class VMDebugManager {
             try {
                 this.thread.join();
             } catch (InterruptedException e) {
-                PrintInfo.info("ERROR: "+"Error in joining the main thread behind the input feeder");
+                PrintInfo.error("Error in joining the main thread behind the input feeder");
             }
         }
     }
