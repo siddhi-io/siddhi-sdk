@@ -44,9 +44,6 @@ public class SiddhiRun {
                     InputFeeder inputFeeder = new InputFeeder(siddhiAppRuntime, inputFile);
                     //starting input feeder
                     inputFeeder.start();
-                    inputFeeder.join();
-                    //after executing input feeder stopping it
-                    inputFeeder.stop();
                 }
             }catch(Exception e){
                 PrintInfo.error(e.getMessage());

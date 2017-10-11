@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package org.wso2.siddhi.launcher.internal;
+package org.wso2.siddhi.launcher.debug.internal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

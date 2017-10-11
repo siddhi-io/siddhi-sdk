@@ -34,7 +34,7 @@ import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 
 import java.io.PrintStream;
 
-import static org.wso2.siddhi.launcher.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
+import static org.wso2.siddhi.launcher.util.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
 
 /**
  * {@code VMDebugServer} will open a websocket server for external clients to connect.

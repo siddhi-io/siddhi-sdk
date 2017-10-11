@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.siddhi.launcher.internal;
+package org.wso2.siddhi.launcher.debug.internal;
 
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.launcher.exception.ResourceNotFoundException;

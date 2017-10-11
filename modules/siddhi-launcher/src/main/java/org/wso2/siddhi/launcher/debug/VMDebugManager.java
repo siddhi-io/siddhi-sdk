@@ -25,7 +25,7 @@ import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.launcher.exception.DebugException;
 import org.wso2.siddhi.launcher.exception.SiddhiException;
-import org.wso2.siddhi.launcher.internal.DebugRuntime;
+import org.wso2.siddhi.launcher.debug.internal.DebugRuntime;
 import org.wso2.siddhi.launcher.util.InputFeeder;
 import org.wso2.siddhi.launcher.util.PrintInfo;
 

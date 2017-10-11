@@ -20,13 +20,14 @@ package org.wso2.siddhi.launcher;
 
 import com.beust.jcommander.*;
 import org.wso2.siddhi.launcher.exception.SLangRuntimeException;
+import org.wso2.siddhi.launcher.exception.SLauncherException;
 
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.wso2.siddhi.launcher.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
+import static org.wso2.siddhi.launcher.util.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
 
 /**
  * This class executes a siddhi program.

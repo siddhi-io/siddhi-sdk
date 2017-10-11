@@ -23,7 +23,7 @@ import io.netty.channel.Channel;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.launcher.debug.dto.BreakPointDTO;
 import org.wso2.siddhi.launcher.exception.DebugException;
-import org.wso2.siddhi.launcher.internal.DebugRuntime;
+import org.wso2.siddhi.launcher.debug.internal.DebugRuntime;
 
 import java.util.ArrayList;
 

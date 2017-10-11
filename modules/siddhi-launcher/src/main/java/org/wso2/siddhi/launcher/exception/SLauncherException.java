@@ -15,7 +15,7 @@
 *  specific language governing permissions and limitations
 *  under the License.
 */
-package org.wso2.siddhi.launcher;
+package org.wso2.siddhi.launcher.exception;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +27,11 @@ import java.util.List;
 public class SLauncherException extends RuntimeException {
     private List<String> detailedMessages = new ArrayList<>();
 
-    void addMessage(String message) {
+    public void addMessage(String message) {
         detailedMessages.add(message);
     }
 
-    List<String> getMessages() {
+    public List<String> getMessages() {
         return detailedMessages;
     }
 }

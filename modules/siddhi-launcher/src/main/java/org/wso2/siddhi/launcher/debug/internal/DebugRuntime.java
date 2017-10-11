@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package org.wso2.siddhi.launcher.internal;
+package org.wso2.siddhi.launcher.debug.internal;
 
 import org.wso2.siddhi.launcher.util.PrintInfo;
 import org.wso2.siddhi.launcher.debug.BreakPointInfo;
