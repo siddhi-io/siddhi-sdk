@@ -18,6 +18,7 @@ package org.wso2.siddhi.launcher.run;
 
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
+import org.wso2.siddhi.launcher.util.InputFeeder;
 import org.wso2.siddhi.launcher.util.PrintInfo;
 
 public class SiddhiRun {
@@ -26,7 +27,7 @@ public class SiddhiRun {
 
     }
 
-    public void runSiddhi(String siddhiApp) throws InterruptedException {
+    public void runSiddhi(String siddhiApp, String inputFile) throws InterruptedException {
 
         while (true) {
             try {
@@ -38,6 +39,15 @@ public class SiddhiRun {
 
                 //Starting event processing
                 siddhiAppRuntime.start();
+
+                if(!(inputFile==null || inputFile.equalsIgnoreCase(""))) {
+                    InputFeeder inputFeeder = new InputFeeder(siddhiAppRuntime, inputFile);
+                    //starting input feeder
+                    inputFeeder.start();
+                    inputFeeder.join();
+                    //after executing input feeder stopping it
+                    inputFeeder.stop();
+                }
             }catch(Exception e){
                 PrintInfo.error(e.getMessage());
                 break;

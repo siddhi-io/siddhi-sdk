@@ -37,25 +37,27 @@ public class LauncherUtils {
         String siddhiAppPath = args[0];
         // Validate siddhiApp
         String siddhiApp=validateSiddhiApp(siddhiAppPath);
+
+        String inputFilePath;
+        String inputFile="";
+        if(!(args[1]==null || args[1].equalsIgnoreCase(""))) {
+            inputFilePath=args[1];
+            try {
+                inputFile = readText(inputFilePath);
+            } catch (IOException e) {
+                PrintInfo.error(e.getMessage());
+            }
+        }
+
         if(!siddhiApp.equalsIgnoreCase("")){
             if(!debugMode){
                 try {
                     SiddhiRun siddhiRun=new SiddhiRun();
-                    siddhiRun.runSiddhi(siddhiApp);
+                    siddhiRun.runSiddhi(siddhiApp,inputFile);
                 } catch (InterruptedException e) {
                     throw new InvalidExecutionStateException("Siddhi App execution error:  " + e.getMessage());
                 }
             }else{
-                String inputFilePath;
-                String inputFile="";
-                if(!(args[1]==null || args[1].equalsIgnoreCase(""))) {
-                     inputFilePath=args[1];
-                    try {
-                        inputFile = readText(inputFilePath);
-                    } catch (IOException e) {
-                        PrintInfo.error(e.getMessage());
-                    }
-                }
                 VMDebugManager vmDebugManager=VMDebugManager.getInstance();
                 vmDebugManager.mainInit(siddhiAppPath,siddhiApp,inputFile);
             }

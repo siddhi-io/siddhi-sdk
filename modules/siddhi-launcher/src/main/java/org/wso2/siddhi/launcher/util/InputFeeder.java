@@ -44,6 +44,7 @@ public class InputFeeder implements Runnable {
     private Thread thread;
 
     public InputFeeder(SiddhiAppRuntime siddhiAppRuntime, String input) {
+        thread = new Thread(this);
         this.siddhiAppRuntime = siddhiAppRuntime;
         this.input = input;
     }
@@ -106,7 +107,6 @@ public class InputFeeder implements Runnable {
     public void start() {
         if (!this.running.get()) {
             this.running.set(true);
-            thread = new Thread(this);
             thread.start();
         }
     }
