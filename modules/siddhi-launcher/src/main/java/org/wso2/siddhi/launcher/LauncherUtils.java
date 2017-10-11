@@ -134,9 +134,9 @@ public class LauncherUtils {
             }
             return builder.toString();
         } catch (FileNotFoundException e) {
-            throw new FileReadException("The file " + path + " does not exist "+e.getMessage());
+            throw new FileReadException("The file " + path + " does not exist: "+e.getMessage());
         } catch (IOException e) {
-            throw new FileReadException("Error in reading the file " + path+" "+e.getMessage());
+            throw new FileReadException("Error in reading the file " + path+": "+e.getMessage());
         } finally {
             if (reader != null) {
                 reader.close();
