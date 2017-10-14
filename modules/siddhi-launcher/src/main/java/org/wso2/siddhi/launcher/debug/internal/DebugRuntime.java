@@ -67,7 +67,7 @@ public class DebugRuntime {
                     int queryIndex = Arrays.asList(queries).indexOf(queryName);
                     //Sending message to client on debug hit
                     PrintInfo.info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " +
-                            event);//TODO:remove this after testing
+                            event);
                     Map<String, Object> queryState = this.debugger.getQueryState(queryName);
                     BreakPointInfo breakPointInfo=new BreakPointInfo(siddhiAppFileName,queryIndex,queryTerminal.toString());
                     breakPointInfo.setQueryState(queryState);

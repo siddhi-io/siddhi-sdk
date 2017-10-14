@@ -61,11 +61,7 @@ public class VMDebugServer {
      */
     public void startServer() {
         //lets start the server in a new thread.
-        Runnable run = new Runnable() {
-            public void run() {
-                VMDebugServer.this.startListning();
-            }
-        };
+        Runnable run = VMDebugServer.this::startListning;
         Thread thread=new Thread((run));
         thread.setName("Message Listener");
         thread.start();
@@ -79,8 +75,6 @@ public class VMDebugServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    //todo activate debug logs once implemented.
-                    //.handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new DebugServerInitializer());
             Channel ch = b.bind(port).sync().channel();
 
@@ -91,7 +85,6 @@ public class VMDebugServer {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         } catch (InterruptedException e) {
-            // todo need to log the error.
             Thread.currentThread().interrupt();
         } finally {
             bossGroup.shutdownGracefully();
@@ -107,7 +100,7 @@ public class VMDebugServer {
      */
     public void pushMessageToClient(VMDebugSession debugSession, MessageDTO status) {
         ObjectMapper mapper = new ObjectMapper();
-        String json = null;
+        String json;
         try {
             json = mapper.writeValueAsString(status);
         } catch (JsonProcessingException e) {

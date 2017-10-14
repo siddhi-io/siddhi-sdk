@@ -65,7 +65,7 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest req) {
         // Handle a bad request.
-        if (!req.getDecoderResult().isSuccess()) {
+        if (!req.decoderResult().isSuccess()) {
             sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HTTP_1_1, BAD_REQUEST));
             return;
         }
@@ -76,7 +76,7 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
             return;
         }
 
-        if (!DebugConstants.DEBUG_WEBSOCKET_PATH.equals(req.getUri())) {
+        if (!DebugConstants.DEBUG_WEBSOCKET_PATH.equals(req.uri())) {
             FullHttpResponse res = new DefaultFullHttpResponse(HTTP_1_1, NOT_FOUND);
             sendHttpResponse(ctx, req, res);
             return;
@@ -124,7 +124,7 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
         // Generate an error page if response getStatus code is not OK (200).
-        if (res.getStatus().code() != OK.code()) {
+        if (res.status().code() != OK.code()) {
             ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);
             res.content().writeBytes(buf);
             buf.release();
@@ -151,7 +151,6 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     private static String getWebSocketLocation(FullHttpRequest req) {
-        //@todo implement ssl
         String location =  req.headers().get(HOST) + DebugConstants.DEBUG_WEBSOCKET_PATH;
         return "ws://" + location;
     }

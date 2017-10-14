@@ -24,7 +24,6 @@ import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.launcher.exception.DebugException;
-import org.wso2.siddhi.launcher.exception.SiddhiException;
 import org.wso2.siddhi.launcher.debug.internal.DebugRuntime;
 import org.wso2.siddhi.launcher.util.InputFeeder;
 import org.wso2.siddhi.launcher.util.PrintInfo;
@@ -92,7 +91,7 @@ public class VMDebugManager {
      */
     public void mainInit(String siddhiAppPath,String siddhiApp, String inputFile) {
         if (this.debugManagerInitialized) {
-            throw new SiddhiException("Debugger instance already initialized");
+            throw new DebugException("Debugger instance already initialized");
         }
         File f = new File(siddhiAppPath);
         String fileName=f.getName();
@@ -192,7 +191,7 @@ public class VMDebugManager {
         sendAcknowledge(this.debugSession, "Channel registered.");
     }
 
-    public boolean isDebugSessionActive() {
+    private boolean isDebugSessionActive() {
         return (this.debugSession.getChannel() != null);
     }
 
@@ -251,7 +250,7 @@ public class VMDebugManager {
      * @param debugSession current debugging session
      * @param messageText message to send to the client
      */
-    public void sendAcknowledge(VMDebugSession debugSession, String messageText) {
+    private void sendAcknowledge(VMDebugSession debugSession, String messageText) {
         MessageDTO message = new MessageDTO();
         message.setCode(DebugConstants.CODE_ACK);
         message.setMessage(messageText);

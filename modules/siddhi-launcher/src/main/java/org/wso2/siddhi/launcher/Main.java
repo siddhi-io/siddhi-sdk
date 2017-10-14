@@ -55,7 +55,7 @@ public class Main {
             if (msg == null) {
                 msg = "siddhi: internal error occurred";
             } else {
-                msg = "siddhi: " + LauncherUtils.makeFirstLetterLowerCase(msg);
+                msg = "siddhi: " + LauncherUtils.makeFirstLetterLowerCase(e.toString());
             }
             outStream.println(msg);
             Runtime.getRuntime().exit(1);

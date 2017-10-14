@@ -304,7 +304,6 @@
                             <addClasspath>true</addClasspath>
                             <mainClass>org.wso2.siddhi.launcher.Main</mainClass>
                         </manifest>
-
                     </archive>
                 </configuration>
             </plugin>

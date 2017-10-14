@@ -81,7 +81,7 @@ public class VMDebugSession {
                                 SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
                         String queryName = (String) debugRuntime.getQueries().toArray()[queryIndex];
                         debugRuntime.getDebugger().acquireBreakPoint(queryName, terminal);
-                    } //TODO:Handle the exceptions after this
+                    }
                 }
             }
         }
@@ -108,7 +108,7 @@ public class VMDebugSession {
                                     SiddhiDebugger.QueryTerminal.IN : SiddhiDebugger.QueryTerminal.OUT;
                             String queryName = (String) debugRuntime.getQueries().toArray()[queryIndex];
                             debugRuntime.getDebugger().releaseBreakPoint(queryName, terminal);
-                        } //TODO:Handle the exceptions after this
+                        }
                     }
                 }
             }
@@ -158,7 +158,7 @@ public class VMDebugSession {
         debugManager.notifyComplete(this);
     }
 
-    public void notifyExit() {//TODO: Add notify complete and notify exit
+    public void notifyExit() {
         VMDebugManager debugManager = VMDebugManager.getInstance();
         debugManager.notifyExit(this);
     }
