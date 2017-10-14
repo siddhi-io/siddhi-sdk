@@ -23,17 +23,17 @@
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
-            <version>1.64</version>
+            <version>${jcommander.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.7.4</version>
+            <version>${jackson.core.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.4.1</version>
+            <version>${jackson.databind.version}</version>
         </dependency>
         <!--Execution Extensions-->
         <dependency>
@@ -357,8 +357,11 @@
         </plugins>
     </build>
     <properties>
-        <siddhi.version>4.0.0-M78</siddhi.version>
+        <siddhi.version>4.0.0-M105</siddhi.version>
         <siddhi.sdk.version>1.0.0-SNAPSHOT</siddhi.sdk.version>
+        <jcommander.version>1.64</jcommander.version>
+        <jackson.core.version>2.7.4</jackson.core.version>
+        <jackson.databind.version>2.4.1</jackson.databind.version>
         <!--Siddhi Extension Versions-->
         <siddhi.execution.math.version>4.0.3</siddhi.execution.math.version>
         <siddhi.execution.unitconversion.version>1.0.2</siddhi.execution.unitconversion.version>

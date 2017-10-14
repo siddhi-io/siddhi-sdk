@@ -1,1 +1,1 @@
-Siddhi version: 4.0.0-SNAPSHOT
+Siddhi-SDK version: 1.0.0-SNAPSHOT

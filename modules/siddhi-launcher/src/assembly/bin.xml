@@ -47,6 +47,16 @@
             <fileMode>644</fileMode>
         </fileSet>
         <fileSet>
+            <directory>conf</directory>
+            <outputDirectory>conf</outputDirectory>
+            <fileMode>644</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>logs</directory>
+            <outputDirectory>logs</outputDirectory>
+            <fileMode>644</fileMode>
+        </fileSet>
+        <fileSet>
             <directory>target/siddhi-launcher-jars</directory>
             <outputDirectory>lib</outputDirectory>
             <includes>
