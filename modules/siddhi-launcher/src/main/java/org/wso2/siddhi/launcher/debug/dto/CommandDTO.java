@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 /**
  * DTO class representing commands send to debugger from the client.
- *
  */
 public class CommandDTO {
 

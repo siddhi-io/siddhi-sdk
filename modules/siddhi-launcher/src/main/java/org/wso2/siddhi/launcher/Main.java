@@ -18,7 +18,11 @@
 
 package org.wso2.siddhi.launcher;
 
-import com.beust.jcommander.*;
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.MissingCommandException;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
+import com.beust.jcommander.Parameters;
 import org.wso2.siddhi.launcher.exception.SLangRuntimeException;
 import org.wso2.siddhi.launcher.exception.SLauncherException;
 
@@ -108,7 +112,7 @@ public class Main {
      * This class represents the "run" command and it holds arguments and flags specified by the user.
      */
     @Parameters(commandNames = "run", commandDescription = "compile and run Siddhi program")
-    private static class RunCmd implements SLauncherCmd{
+    private static class RunCmd implements SLauncherCmd {
 
         @Parameter(arity = 1, description = "arguments")
         private List<String> argList;
@@ -122,16 +126,16 @@ public class Main {
         @Override
         public void execute() {
 
-            boolean debugMode=false;
+            boolean debugMode = false;
 
             if (argList == null || argList.size() == 0) {
                 throw new RuntimeException("no siddhi program given");
             }
 
             // Enable remote debugging
-            if (siddhiDebugPort != null ) {
+            if (siddhiDebugPort != null) {
                 System.setProperty(SYSTEM_PROP_SIDDHI_DEBUG, siddhiDebugPort);
-                debugMode=true;
+                debugMode = true;
             }
 
             // Filter out the list of arguments given to the siddhi program.
@@ -143,7 +147,7 @@ public class Main {
                 programArgs = new String[0];
             }
 
-            LauncherUtils.runProgram(debugMode,programArgs);
+            LauncherUtils.runProgram(debugMode, programArgs);
         }
     }
 

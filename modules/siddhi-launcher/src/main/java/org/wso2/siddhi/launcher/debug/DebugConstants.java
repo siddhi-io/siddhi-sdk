@@ -35,7 +35,7 @@ public class DebugConstants {
     public static final String CMD_SET_POINTS = "SET_POINTS";
     public static final String CMD_STEP_OVER = "STEP_OVER";
     public static final String CMD_RESUME = "RESUME";
-    public static final String CMD_REMOVE_BREAKPOINT="REMOVE_BREAKPOINT";
+    public static final String CMD_REMOVE_BREAKPOINT = "REMOVE_BREAKPOINT";
 
     // messages sent back to client
     public static final String CODE_HIT = "DEBUG_HIT";
@@ -56,5 +56,5 @@ public class DebugConstants {
     public static final String DEBUG_MESSAGE = "Siddhi remote debugger is activated on port : ";
     public static final String ERROR_JSON = "{ \"error\": true }";
     public static final String DEBUG_SERVER_ERROR = "Debug Server Error. Closing client connection.";
-    public static final String CMD_SEND_EVENT ="SEND_EVENT";
+    public static final String CMD_SEND_EVENT = "SEND_EVENT";
 }

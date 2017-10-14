@@ -22,21 +22,20 @@ package org.wso2.siddhi.launcher.debug;
 import io.netty.channel.Channel;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.launcher.debug.dto.BreakPointDTO;
-import org.wso2.siddhi.launcher.exception.DebugException;
 import org.wso2.siddhi.launcher.debug.internal.DebugRuntime;
+import org.wso2.siddhi.launcher.exception.DebugException;
 
 import java.util.ArrayList;
 
 /**
  * {@code VMDebugSession} The Debug Session class will be used to hold context for each client.
  * Each client will get its own instance of debug session.
- *
  */
 public class VMDebugSession {
 
     private Channel channel = null;
 
-    private DebugRuntime debugRuntime=null;
+    private DebugRuntime debugRuntime = null;
 
     public DebugRuntime getDebugRuntime() {
         return debugRuntime;
@@ -56,23 +55,23 @@ public class VMDebugSession {
      * @param breakPoints the debug points
      */
     public void addDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
-            for (BreakPointDTO breakPoint : breakPoints) {
-                setBreakPoint(breakPoint);
-            }
+        for (BreakPointDTO breakPoint : breakPoints) {
+            setBreakPoint(breakPoint);
+        }
     }
 
     /**
-     * Helper method to set debug point
+     * Helper method to set debug point.
      *
      * @param breakPointDTO specific breakpoint
      */
     private void setBreakPoint(BreakPointDTO breakPointDTO) {
-        if(breakPointDTO!=null) {
-            if(breakPointDTO.getFileName()!=null && !breakPointDTO.getFileName().isEmpty()){
-                String receivedBreakpointFileName=breakPointDTO.getFileName();
-                String currentDebugFileName=this.debugRuntime.getSiddhiAppFileName();
+        if (breakPointDTO != null) {
+            if (breakPointDTO.getFileName() != null && !breakPointDTO.getFileName().isEmpty()) {
+                String receivedBreakpointFileName = breakPointDTO.getFileName();
+                String currentDebugFileName = this.debugRuntime.getSiddhiAppFileName();
                 //Checking whether the breakpoint is applicable for current debug file
-                if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
+                if (currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
                     Integer queryIndex = breakPointDTO.getQueryIndex();
                     String queryTerminal = breakPointDTO.getQueryTerminal();
                     if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {
@@ -94,12 +93,12 @@ public class VMDebugSession {
      */
     public void removeDebugPoints(ArrayList<BreakPointDTO> breakPoints) {
         for (BreakPointDTO breakPointDTO : breakPoints) {
-            if(breakPointDTO!=null) {
-                if(breakPointDTO.getFileName()!=null && !breakPointDTO.getFileName().isEmpty()){
-                    String receivedBreakpointFileName=breakPointDTO.getFileName();
-                    String currentDebugFileName=this.debugRuntime.getSiddhiAppFileName();
+            if (breakPointDTO != null) {
+                if (breakPointDTO.getFileName() != null && !breakPointDTO.getFileName().isEmpty()) {
+                    String receivedBreakpointFileName = breakPointDTO.getFileName();
+                    String currentDebugFileName = this.debugRuntime.getSiddhiAppFileName();
                     //Checking whether the breakpoint is applicable for current debug file
-                    if(currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
+                    if (currentDebugFileName.equalsIgnoreCase(receivedBreakpointFileName)) {
                         Integer queryIndex = breakPointDTO.getQueryIndex();
                         String queryTerminal = breakPointDTO.getQueryTerminal();
                         if (queryIndex != null && queryTerminal != null && !queryTerminal.isEmpty()) {

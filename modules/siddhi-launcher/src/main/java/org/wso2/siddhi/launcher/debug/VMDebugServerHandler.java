@@ -49,6 +49,27 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private WebSocketServerHandshaker handshaker;
 
+    private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
+        // Generate an error page if response getStatus code is not OK (200).
+        if (res.status().code() != OK.code()) {
+            ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);
+            res.content().writeBytes(buf);
+            buf.release();
+            HttpHeaders.setContentLength(res, res.content().readableBytes());
+        }
+
+        // Send the response and close the connection if necessary.
+        ChannelFuture f = ctx.channel().writeAndFlush(res);
+        if (!HttpHeaders.isKeepAlive(req) || res.getStatus().code() != OK.code()) {
+            f.addListener(ChannelFutureListener.CLOSE);
+        }
+    }
+
+    private static String getWebSocketLocation(FullHttpRequest req) {
+        String location = req.headers().get(HOST) + DebugConstants.DEBUG_WEBSOCKET_PATH;
+        return "ws://" + location;
+    }
+
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) {
         if (msg instanceof FullHttpRequest) {
@@ -114,28 +135,12 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
         }
         if (!(frame instanceof TextWebSocketFrame)) {
             throw new DebugException(String.format("%s frame types not supported", frame.getClass()
-                            .getName()));
+                    .getName()));
         }
 
         String request = ((TextWebSocketFrame) frame).text();
         VMDebugManager debugManager = VMDebugManager.getInstance();
         debugManager.processDebugCommand(request);
-    }
-
-    private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
-        // Generate an error page if response getStatus code is not OK (200).
-        if (res.status().code() != OK.code()) {
-            ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);
-            res.content().writeBytes(buf);
-            buf.release();
-            HttpHeaders.setContentLength(res, res.content().readableBytes());
-        }
-
-        // Send the response and close the connection if necessary.
-        ChannelFuture f = ctx.channel().writeAndFlush(res);
-        if (!HttpHeaders.isKeepAlive(req) || res.getStatus().code() != OK.code()) {
-            f.addListener(ChannelFutureListener.CLOSE);
-        }
     }
 
     @Override
@@ -148,11 +153,6 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
         if (logger.isDebugEnabled()) {
             logger.debug(DebugConstants.DEBUG_SERVER_ERROR, cause);
         }
-    }
-
-    private static String getWebSocketLocation(FullHttpRequest req) {
-        String location =  req.headers().get(HOST) + DebugConstants.DEBUG_WEBSOCKET_PATH;
-        return "ws://" + location;
     }
 }
 

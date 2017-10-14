@@ -22,7 +22,6 @@ import java.util.List;
 
 /**
  * Thrown to indicate that an exception occurred in Siddhi program launcher.
- *
  */
 public class SLauncherException extends RuntimeException {
     private List<String> detailedMessages = new ArrayList<>();

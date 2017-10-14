@@ -19,7 +19,6 @@ package org.wso2.siddhi.launcher.exception;
 
 /**
  * {@code SiddhiRuntimeException} represents an error happened in the Siddhi runtime.
- *
  */
 public class SLangRuntimeException extends RuntimeException {
 

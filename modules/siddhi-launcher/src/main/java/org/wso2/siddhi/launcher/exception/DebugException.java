@@ -19,7 +19,7 @@
 package org.wso2.siddhi.launcher.exception;
 
 /**
- *  Debugger exception to wrap all debug errors.
+ * Debugger exception to wrap all debug errors.
  */
 public class DebugException extends RuntimeException {
 

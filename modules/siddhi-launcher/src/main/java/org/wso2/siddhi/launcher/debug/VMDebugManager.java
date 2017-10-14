@@ -23,8 +23,8 @@ import io.netty.channel.Channel;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.launcher.debug.dto.MessageDTO;
-import org.wso2.siddhi.launcher.exception.DebugException;
 import org.wso2.siddhi.launcher.debug.internal.DebugRuntime;
+import org.wso2.siddhi.launcher.exception.DebugException;
 import org.wso2.siddhi.launcher.util.InputFeeder;
 import org.wso2.siddhi.launcher.util.PrintInfo;
 
@@ -36,28 +36,15 @@ import java.io.IOException;
  */
 public class VMDebugManager {
 
+    private static VMDebugManager debugManagerInstance = null;
+    private static SiddhiManager siddhiManager = new SiddhiManager();
     private VMDebugServer debugServer;
-
     /**
      * Object to hold debug session related context.
      */
     private VMDebugSession debugSession;
-
-    private static VMDebugManager debugManagerInstance = null;
-
     private boolean debugManagerInitialized = false;
-
-    private static SiddhiManager siddhiManager=new SiddhiManager();
-
-    private InputFeeder inputFeeder =null;
-
-    public VMDebugSession getDebugSession() {
-        return debugSession;
-    }
-
-    public SiddhiManager getSiddhiManager() {
-        return siddhiManager;
-    }
+    private InputFeeder inputFeeder = null;
 
     /**
      * Instantiates a new Debug manager.
@@ -86,19 +73,27 @@ public class VMDebugManager {
         return debugManagerInstance;
     }
 
+    public VMDebugSession getDebugSession() {
+        return debugSession;
+    }
+
+    public SiddhiManager getSiddhiManager() {
+        return siddhiManager;
+    }
+
     /**
      * Initializes the debug manager single instance.
      */
-    public void mainInit(String siddhiAppPath,String siddhiApp, String inputFile) {
+    public void mainInit(String siddhiAppPath, String siddhiApp, String inputFile) {
         if (this.debugManagerInitialized) {
             throw new DebugException("Debugger instance already initialized");
         }
         File f = new File(siddhiAppPath);
-        String fileName=f.getName();
-        DebugRuntime debugRuntime=new DebugRuntime(fileName, siddhiApp);
+        String fileName = f.getName();
+        DebugRuntime debugRuntime = new DebugRuntime(fileName, siddhiApp);
         debugSession.setDebugRuntime(debugRuntime);
-        if(!(inputFile==null || inputFile.equalsIgnoreCase(""))){
-            inputFeeder=new InputFeeder(debugRuntime.getSiddhiAppRuntime(), inputFile);
+        if (!(inputFile == null || inputFile.equalsIgnoreCase(""))) {
+            inputFeeder = new InputFeeder(debugRuntime.getSiddhiAppRuntime(), inputFile);
         }
         // start the debug server if it is not started yet.
         this.debugServer.startServer();
@@ -144,7 +139,7 @@ public class VMDebugManager {
                         .next();
                 break;
             case DebugConstants.CMD_STOP:
-                if(inputFeeder!=null) {
+                if (inputFeeder != null) {
                     inputFeeder.stop();
                 }
                 // When stopping the debug session, it will clear all debug points and resume all threads.
@@ -164,10 +159,10 @@ public class VMDebugManager {
                 sendAcknowledge(this.debugSession, "Debug point removed");
                 break;
             case DebugConstants.CMD_SEND_EVENT:
-                if(inputFeeder!=null){
+                if (inputFeeder != null) {
                     inputFeeder.start();
                     sendAcknowledge(this.debugSession, "Input feeder started.");
-                }else{
+                } else {
                     PrintInfo.info("Input file is empty or null");
                 }
                 break;
@@ -199,9 +194,9 @@ public class VMDebugManager {
      * Send a message to the debug client when a breakpoint is hit.
      *
      * @param debugSession current debugging session
-     * //@param breakPointInfo info of the current break point
+     *                     //@param breakPointInfo info of the current break point
      */
-    public void notifyDebugHit(VMDebugSession debugSession , BreakPointInfo breakPointInfo) {
+    public void notifyDebugHit(VMDebugSession debugSession, BreakPointInfo breakPointInfo) {
         MessageDTO message = new MessageDTO();
         message.setCode(DebugConstants.CODE_HIT);
         message.setMessage(DebugConstants.MSG_HIT);
@@ -209,11 +204,11 @@ public class VMDebugManager {
         message.setQueryName(breakPointInfo.getQueryName());
         message.setQueryState(breakPointInfo.getQueryState());
 
-        String fileName=breakPointInfo.getFileName();
-        int queryIndex=breakPointInfo.getQueryIndex();
-        String queryTerminal=breakPointInfo.getQueryTerminal();
+        String fileName = breakPointInfo.getFileName();
+        int queryIndex = breakPointInfo.getQueryIndex();
+        String queryTerminal = breakPointInfo.getQueryTerminal();
 
-        message.setLocation(fileName,queryIndex,queryTerminal);
+        message.setLocation(fileName, queryIndex, queryTerminal);
         debugServer.pushMessageToClient(debugSession, message);
     }
 
@@ -248,7 +243,7 @@ public class VMDebugManager {
      * Send a generic acknowledge message to the client.
      *
      * @param debugSession current debugging session
-     * @param messageText message to send to the client
+     * @param messageText  message to send to the client
      */
     private void sendAcknowledge(VMDebugSession debugSession, String messageText) {
         MessageDTO message = new MessageDTO();

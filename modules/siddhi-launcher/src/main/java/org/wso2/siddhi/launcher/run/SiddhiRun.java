@@ -21,9 +21,12 @@ import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.launcher.util.InputFeeder;
 import org.wso2.siddhi.launcher.util.PrintInfo;
 
+/**
+ * Handles the run mode for a siddhi app.
+ */
 public class SiddhiRun {
 
-    public SiddhiRun(){
+    public SiddhiRun() {
 
     }
 
@@ -40,13 +43,13 @@ public class SiddhiRun {
                 //Starting event processing
                 siddhiAppRuntime.start();
 
-                if(!(inputFile==null || inputFile.equalsIgnoreCase(""))) {
+                if (!(inputFile == null || inputFile.equalsIgnoreCase(""))) {
                     InputFeeder inputFeeder = new InputFeeder(siddhiAppRuntime, inputFile);
                     //starting input feeder
                     inputFeeder.start();
                     break;
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 PrintInfo.error(e.getMessage());
                 break;
             }

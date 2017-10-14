@@ -43,7 +43,7 @@ import static org.wso2.siddhi.launcher.util.Constants.SYSTEM_PROP_SIDDHI_DEBUG;
 public class VMDebugServer {
 
     /**
-     *  Debug server initializer class.
+     * Debug server initializer class.
      */
     static class DebugServerInitializer extends ChannelInitializer<SocketChannel> {
 
@@ -62,7 +62,7 @@ public class VMDebugServer {
     public void startServer() {
         //lets start the server in a new thread.
         Runnable run = VMDebugServer.this::startListning;
-        Thread thread=new Thread((run));
+        Thread thread = new Thread((run));
         thread.setName("Message Listener");
         thread.start();
     }
@@ -96,7 +96,7 @@ public class VMDebugServer {
      * Push message to client.
      *
      * @param debugSession current debugging session
-     * @param status debug point information
+     * @param status       debug point information
      */
     public void pushMessageToClient(VMDebugSession debugSession, MessageDTO status) {
         ObjectMapper mapper = new ObjectMapper();

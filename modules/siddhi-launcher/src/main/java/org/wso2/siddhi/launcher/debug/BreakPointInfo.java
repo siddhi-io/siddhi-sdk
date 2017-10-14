@@ -70,8 +70,8 @@ public class BreakPointInfo {
         return fileName;
     }
 
-    public BreakPointInfo(String fileName,int queryIndex, String queryTerminal) {
-        this.fileName=fileName;
+    public BreakPointInfo(String fileName, int queryIndex, String queryTerminal) {
+        this.fileName = fileName;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }

@@ -20,16 +20,16 @@ package org.wso2.siddhi.launcher.debug.internal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.launcher.debug.VMDebugSession;
 import org.wso2.siddhi.launcher.exception.NoSuchStreamException;
 import org.wso2.siddhi.launcher.exception.ResourceNotFoundException;
-import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.query.api.definition.Attribute;
 
 import java.util.List;
 
 /**
- * Class which provides necessary apis for event stream related operations
+ * Class which provides necessary apis for event stream related operations.
  */
 public class DebuggerEventStreamService implements EventStreamService {
     private static Logger log = LoggerFactory.getLogger(DebuggerEventStreamService.class);
@@ -56,7 +56,8 @@ public class DebuggerEventStreamService implements EventStreamService {
     }
 
     @Override
-    public List<Attribute> getStreamAttributes(String siddhiAppName, String streamName) throws ResourceNotFoundException {
+    public List<Attribute> getStreamAttributes(String siddhiAppName, String streamName) throws
+            ResourceNotFoundException {
         DebugRuntime runtimeHolder = debugSession.getDebugRuntime();
         if (runtimeHolder != null) {
             try {

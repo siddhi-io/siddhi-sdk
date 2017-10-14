@@ -26,62 +26,67 @@ import org.wso2.siddhi.launcher.exception.SLauncherException;
 import org.wso2.siddhi.launcher.run.SiddhiRun;
 import org.wso2.siddhi.launcher.util.PrintInfo;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.List;
 
 /**
  * Contains utility methods for executing a Siddhi program.
- *
  */
 public class LauncherUtils {
 
-    private static SiddhiManager siddhiManager=new SiddhiManager();
+    private static SiddhiManager siddhiManager = new SiddhiManager();
 
     public static void runProgram(boolean debugMode, String[] args) {
 
-        if(args.length==0 || args[0]==null){
+        if (args.length == 0 || args[0] == null) {
             throw new InvalidExecutionStateException("No Siddhi App Path given");
         }
         String siddhiAppPath = args[0];
         // Validate siddhiApp
-        String siddhiApp=validateSiddhiApp(siddhiAppPath);
+        String siddhiApp = validateSiddhiApp(siddhiAppPath);
         String inputFilePath;
-        String inputFile="";
-        if(!(args.length==1 || args[1]==null || args[1].equalsIgnoreCase(""))) {
-            inputFilePath=args[1];
+        String inputFile = "";
+        if (!(args.length == 1 || args[1] == null || args[1].equalsIgnoreCase(""))) {
+            inputFilePath = args[1];
             try {
                 inputFile = readText(inputFilePath);
             } catch (IOException e) {
                 throw new InvalidExecutionStateException("Failed to read events from input file:" + inputFilePath);
             }
-        }else {
+        } else {
             PrintInfo.info("Event Input file is not provided or file is empty");
         }
 
-        if(!siddhiApp.equals("")){
-            if(!debugMode){
+        if (!siddhiApp.equals("")) {
+            if (!debugMode) {
                 try {
-                    SiddhiRun siddhiRun=new SiddhiRun();
-                    siddhiRun.runSiddhi(siddhiApp,inputFile);
+                    SiddhiRun siddhiRun = new SiddhiRun();
+                    siddhiRun.runSiddhi(siddhiApp, inputFile);
                 } catch (InterruptedException e) {
                     throw new InvalidExecutionStateException("Siddhi App execution error:  " + e.getMessage());
                 }
-            }else{
-                VMDebugManager vmDebugManager=VMDebugManager.getInstance();
-                vmDebugManager.mainInit(siddhiAppPath,siddhiApp,inputFile);
+            } else {
+                VMDebugManager vmDebugManager = VMDebugManager.getInstance();
+                vmDebugManager.mainInit(siddhiAppPath, siddhiApp, inputFile);
             }
-        }else{
+        } else {
             throw new InvalidExecutionStateException("No valid SiddhiApp found in the file");
         }
         siddhiManager.shutdown();
     }
 
     /**
-     * Validates the Siddhi App path
+     * Validates the Siddhi App path.
      *
      * @param siddhiAppPath path to the siddhiApp file
      */
-    private static boolean validateSiddhiAppPath(String siddhiAppPath){
+    private static boolean validateSiddhiAppPath(String siddhiAppPath) {
         File siddhiAppFile = new File(siddhiAppPath);
         if (!siddhiAppFile.exists() || !siddhiAppFile.isFile()) {
             throw new InvalidExecutionStateException("Invalid siddhi app file path:" + siddhiAppPath);
@@ -90,14 +95,14 @@ public class LauncherUtils {
     }
 
     /**
-     * Validates the Siddhi App
+     * Validates the Siddhi App.
      *
      * @param siddhiAppPath path to the siddhiApp file
      */
-    private static String validateSiddhiApp(String siddhiAppPath){
-        String siddhiApp="";
-        boolean isValidSiddhiAppPath=validateSiddhiAppPath(siddhiAppPath);
-        if(isValidSiddhiAppPath){
+    private static String validateSiddhiApp(String siddhiAppPath) {
+        String siddhiApp = "";
+        boolean isValidSiddhiAppPath = validateSiddhiAppPath(siddhiAppPath);
+        if (isValidSiddhiAppPath) {
             try {
                 siddhiApp = readText(siddhiAppPath);
                 SiddhiAppRuntime siddhiAppRuntime = null;
@@ -105,7 +110,7 @@ public class LauncherUtils {
                     siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(siddhiApp);
                     siddhiAppRuntime.start();
                 } finally {
-                    if (siddhiManager!=null && siddhiAppRuntime != null) {
+                    if (siddhiManager != null && siddhiAppRuntime != null) {
                         siddhiAppRuntime.shutdown();
                     }
                 }
@@ -134,9 +139,9 @@ public class LauncherUtils {
             }
             return builder.toString();
         } catch (FileNotFoundException e) {
-            throw new FileReadException("The file " + path + " does not exist: "+e.getMessage());
+            throw new FileReadException("The file " + path + " does not exist: " + e.getMessage());
         } catch (IOException e) {
-            throw new FileReadException("Error in reading the file " + path+": "+e.getMessage());
+            throw new FileReadException("Error in reading the file " + path + ": " + e.getMessage());
         } finally {
             if (reader != null) {
                 reader.close();

@@ -23,7 +23,6 @@ import java.util.Map;
 
 /**
  * DTO class representing the messages sent to client from the debugger.
- *
  */
 public class MessageDTO {
 
@@ -68,7 +67,7 @@ public class MessageDTO {
     }
 
     public void setLocation(String fileName, int queryIndex, String queryTerminal) {
-        this.location = new BreakPointDTO(fileName,queryIndex,queryTerminal);
+        this.location = new BreakPointDTO(fileName, queryIndex, queryTerminal);
     }
 
     public String getQueryName() {

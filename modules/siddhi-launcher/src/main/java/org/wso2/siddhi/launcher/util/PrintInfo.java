@@ -15,6 +15,9 @@
  */
 package org.wso2.siddhi.launcher.util;
 
+/**
+ * PrintInfo class to print important messages to console.
+ */
 public class PrintInfo {
 
     /**
@@ -26,6 +29,11 @@ public class PrintInfo {
         System.out.println("INFO: " + msg);
     }
 
+    /**
+     * Print error message to the console.
+     *
+     * @param msg the message
+     */
     public static void error(String msg) {
         System.err.println("ERROR: " + msg);
     }
