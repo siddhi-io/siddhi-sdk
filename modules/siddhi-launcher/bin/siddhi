@@ -15,11 +15,11 @@
 #  limitations under the License.
 
 # ----------------------------------------------------------------------------
-# Startup Script for Siddhi
+# Startup Script for Siddhi SDK
 #
 # Environment Variable Prerequisites
 #
-#   SIDDHI_HOME         (Optional) Home of Siddhi installation.
+#   SIDDHI_HOME         (Optional) Home of Siddhi SDK installation.
 #
 #   JAVA_HOME           Must point at your Java Development Kit installation.
 #
