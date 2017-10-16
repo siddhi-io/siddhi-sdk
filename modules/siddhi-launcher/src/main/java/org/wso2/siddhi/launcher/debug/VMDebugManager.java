@@ -194,7 +194,7 @@ public class VMDebugManager {
      * Send a message to the debug client when a breakpoint is hit.
      *
      * @param debugSession current debugging session
-     *                     //@param breakPointInfo info of the current break point
+     * @param breakPointInfo info of the current break point
      */
     public void notifyDebugHit(VMDebugSession debugSession, BreakPointInfo breakPointInfo) {
         MessageDTO message = new MessageDTO();
