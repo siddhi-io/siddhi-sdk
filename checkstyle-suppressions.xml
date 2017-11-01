@@ -23,8 +23,8 @@
 
 <suppressions>
 
-    <suppress checks=".*" files=".*/org/wso2/siddhi/launcher/debug/VMDebugServerHandler.java" />
+    <suppress checks=".*" files=".*/org/wso2/siddhi/sdk/launcher/debug/VMDebugServerHandler.java" />
 
-    <suppress checks="Regexp" files=".*/org/wso2/siddhi/launcher/util/PrintInfo.java"/>
+    <suppress checks="Regexp" files=".*/org/wso2/siddhi/sdk/launcher/util/PrintInfo.java"/>
 
 </suppressions>

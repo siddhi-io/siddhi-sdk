@@ -302,7 +302,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.wso2.siddhi.launcher.Main</mainClass>
+                            <mainClass>org.wso2.siddhi.sdk.launcher.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -357,7 +357,7 @@
         </plugins>
     </build>
     <properties>
-        <siddhi.version>4.0.0-M105</siddhi.version>
+        <siddhi.version>4.0.0-M120</siddhi.version>
         <siddhi.sdk.version>1.0.0-SNAPSHOT</siddhi.sdk.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
