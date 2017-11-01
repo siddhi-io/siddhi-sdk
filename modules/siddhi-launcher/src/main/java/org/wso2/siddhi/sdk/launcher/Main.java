@@ -23,6 +23,7 @@ import com.beust.jcommander.MissingCommandException;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.Parameters;
+import org.apache.log4j.Logger;
 import org.wso2.siddhi.sdk.launcher.exception.FileReadException;
 import org.wso2.siddhi.sdk.launcher.exception.SLauncherException;
 import org.wso2.siddhi.sdk.launcher.util.Constants;
@@ -37,6 +38,11 @@ import java.util.Optional;
  */
 public class Main {
 
+    /**
+     * Logger to log events.
+     */
+    private static final Logger log = Logger.getLogger(Main.class);
+
     private static final String JC_UNKNOWN_OPTION_PREFIX = "Unknown option:";
     private static final String JC_EXPECTED_A_VALUE_AFTER_PARAMETER_PREFIX = "Expected a value after parameter";
 
@@ -46,6 +52,7 @@ public class Main {
 
         try {
             Optional<SLauncherCmd> optionalInvokedCmd = getInvokedCmd(args);
+            log.error("cdd");
             optionalInvokedCmd.ifPresent(sLauncherCmd -> {
                 try {
                     sLauncherCmd.execute();
