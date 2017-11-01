@@ -49,10 +49,8 @@ public class Main {
     private static PrintStream outStream = System.err;
 
     public static void main(String... args) {
-
         try {
             Optional<SLauncherCmd> optionalInvokedCmd = getInvokedCmd(args);
-            log.error("cdd");
             optionalInvokedCmd.ifPresent(sLauncherCmd -> {
                 try {
                     sLauncherCmd.execute();

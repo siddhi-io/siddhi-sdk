@@ -30,6 +30,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.util.internal.logging.InternalLoggerFactory;
+import io.netty.util.internal.logging.Log4JLoggerFactory;
 import org.wso2.siddhi.sdk.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.sdk.launcher.util.Constants;
 
@@ -45,6 +47,7 @@ public class VMDebugServer {
      * Start the web socket server.
      */
     public void startServer() {
+        InternalLoggerFactory.setDefaultFactory(new Log4JLoggerFactory());
         //lets start the server in a new thread.
         Runnable run = VMDebugServer.this::startListning;
         Thread thread = new Thread((run));

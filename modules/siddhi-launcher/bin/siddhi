@@ -186,8 +186,7 @@ $JAVACMD \
 	-classpath "$SIDDHI_CLASSPATH" \
 	-Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" \
 	-Dsiddhi.home=$SIDDHI_HOME \
-  	-Djava.util.logging.config.file="$SIDDHI_HOME/conf/logging.properties" \
-	-Dlog4j.configuration="$SIDDHI_HOME/conf/log4j.properties" \
+	-Dlog4j.configuration=file:$SIDDHI_HOME/conf/log4j.properties \
 	-Djava.io.tmpdir="$SIDDHI_HOME/tmp" \
 	-Denable.nonblocking=false \
 	-Djava.security.egd=file:/dev/./urandom \
