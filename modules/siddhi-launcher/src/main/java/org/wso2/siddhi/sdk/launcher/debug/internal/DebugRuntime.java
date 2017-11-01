@@ -18,6 +18,7 @@
 
 package org.wso2.siddhi.sdk.launcher.debug.internal;
 
+import org.apache.log4j.Logger;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.debugger.SiddhiDebugger;
 import org.wso2.siddhi.core.stream.input.InputHandler;
@@ -26,7 +27,6 @@ import org.wso2.siddhi.sdk.launcher.debug.BreakPointInfo;
 import org.wso2.siddhi.sdk.launcher.debug.VMDebugManager;
 import org.wso2.siddhi.sdk.launcher.exception.InvalidExecutionStateException;
 import org.wso2.siddhi.sdk.launcher.exception.NoSuchStreamException;
-import org.wso2.siddhi.sdk.launcher.util.PrintInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +37,9 @@ import java.util.Map;
  * The DebugRuntime which handles the siddhi debugger for each siddhi app.
  */
 public class DebugRuntime {
+
+    private static final Logger log = Logger.getLogger(DebugRuntime.class);
+
     private Mode mode = Mode.STOP;
     private transient String siddhiApp;
     private transient String siddhiAppFileName;
@@ -72,7 +75,7 @@ public class DebugRuntime {
                 String[] queries = getQueries().toArray(new String[getQueries().size()]);
                 int queryIndex = Arrays.asList(queries).indexOf(queryName);
                 //Sending message to client on debug hit
-                PrintInfo.info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " +
+                log.info("@Debug: Query: " + queryName + ", Terminal: " + queryTerminal + ", Event: " +
                         event);
                 Map<String, Object> queryState = this.debugger.getQueryState(queryName);
                 BreakPointInfo breakPointInfo = new BreakPointInfo(siddhiAppFileName, queryIndex, queryTerminal
@@ -151,5 +154,5 @@ public class DebugRuntime {
         }
     }
 
-    private enum Mode { DEBUG, STOP, FAULTY }
+    private enum Mode { DEBUG, STOP, FAULTY}
 }

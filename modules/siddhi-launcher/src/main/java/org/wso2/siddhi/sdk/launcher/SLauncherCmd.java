@@ -17,12 +17,10 @@
  */
 package org.wso2.siddhi.sdk.launcher;
 
-import org.wso2.siddhi.sdk.launcher.exception.FileReadException;
-
 /**
  * {@code SLauncherCmd} represents a Siddhi launcher command.
  */
 public interface SLauncherCmd {
 
-    void execute() throws FileReadException;
+    void execute();
 }

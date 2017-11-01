@@ -18,7 +18,7 @@ package org.wso2.siddhi.sdk.launcher.exception;
 /**
  * FileReadException exception to wrap all file read errors.
  */
-public class FileReadException extends Exception {
+public class FileReadException extends RuntimeException {
 
     public FileReadException(String msg) {
         super(msg);

@@ -16,15 +16,17 @@
 
 package org.wso2.siddhi.sdk.launcher.run;
 
+import org.apache.log4j.Logger;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.sdk.launcher.util.InputFeeder;
-import org.wso2.siddhi.sdk.launcher.util.PrintInfo;
 
 /**
  * Handles the run mode for a siddhi app.
  */
 public class SiddhiRun {
+
+    private static final Logger log = Logger.getLogger(SiddhiRun.class);
 
     // Creating Siddhi Manager
     private static SiddhiManager siddhiManager = new SiddhiManager();
@@ -50,7 +52,7 @@ public class SiddhiRun {
                     break;
                 }
             } catch (Exception e) {
-                PrintInfo.error(e.getMessage());
+                log.error("Internal Siddhi Error Occurred: " + e);
                 break;
             }
         }

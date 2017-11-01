@@ -24,11 +24,9 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.Parameters;
 import org.apache.log4j.Logger;
-import org.wso2.siddhi.sdk.launcher.exception.FileReadException;
 import org.wso2.siddhi.sdk.launcher.exception.SLauncherException;
 import org.wso2.siddhi.sdk.launcher.util.Constants;
 
-import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,25 +44,17 @@ public class Main {
     private static final String JC_UNKNOWN_OPTION_PREFIX = "Unknown option:";
     private static final String JC_EXPECTED_A_VALUE_AFTER_PARAMETER_PREFIX = "Expected a value after parameter";
 
-    private static PrintStream outStream = System.err;
-
     public static void main(String... args) {
         try {
+            log.debug("jkhbv");
             Optional<SLauncherCmd> optionalInvokedCmd = getInvokedCmd(args);
-            optionalInvokedCmd.ifPresent(sLauncherCmd -> {
-                try {
-                    sLauncherCmd.execute();
-                } catch (FileReadException e) {
-                    outStream.println(e);
-                    Runtime.getRuntime().exit(1);
-                }
-            });
+            optionalInvokedCmd.ifPresent(SLauncherCmd::execute);
         } catch (SLauncherException e) {
-            outStream.println(e.getMessage());
+            log.error(e.getMessage());
             Runtime.getRuntime().exit(1);
         } catch (Throwable e) {
             String msg = "siddhi: " + e.toString();
-            outStream.println(msg);
+            log.error(msg);
             Runtime.getRuntime().exit(1);
         }
     }
@@ -97,7 +87,6 @@ public class Main {
             } else if (msg.startsWith(JC_EXPECTED_A_VALUE_AFTER_PARAMETER_PREFIX)) {
                 String flag = msg.substring(JC_EXPECTED_A_VALUE_AFTER_PARAMETER_PREFIX.length());
                 throw LauncherUtils.createUsageException("flag '" + flag.trim() + "' needs an argument");
-//TODO:add errors to log file
             } else {
                 // Make the first character of the error message lower case
                 throw LauncherUtils.createUsageException(msg);
@@ -121,7 +110,7 @@ public class Main {
         private String siddhiDebugPort;
 
         @Override
-        public void execute() throws FileReadException {
+        public void execute() {
             boolean debugMode = false;
             if (argList == null || argList.size() == 0) {
                 throw new RuntimeException("No Siddhi app provided");

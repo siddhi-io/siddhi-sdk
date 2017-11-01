@@ -20,13 +20,13 @@ package org.wso2.siddhi.sdk.launcher.debug;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.Channel;
+import org.apache.log4j.Logger;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.sdk.launcher.debug.dto.CommandDTO;
 import org.wso2.siddhi.sdk.launcher.debug.dto.MessageDTO;
 import org.wso2.siddhi.sdk.launcher.debug.internal.DebugRuntime;
 import org.wso2.siddhi.sdk.launcher.exception.DebugException;
 import org.wso2.siddhi.sdk.launcher.util.InputFeeder;
-import org.wso2.siddhi.sdk.launcher.util.PrintInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +35,8 @@ import java.io.IOException;
  * {@code VMDebugManager} Manages debug sessions and handle debug related actions.
  */
 public class VMDebugManager {
+
+    private static final Logger log = Logger.getLogger(VMDebugManager.class);
 
     private static VMDebugManager debugManagerInstance = null;
     private static SiddhiManager siddhiManager = new SiddhiManager();
@@ -163,7 +165,7 @@ public class VMDebugManager {
                     inputFeeder.start();
                     sendAcknowledge(debugSession, "Input feeder started.");
                 } else {
-                    PrintInfo.info("Input file is empty or null");
+                    log.info("Input file is empty or null");
                 }
                 break;
             case DebugConstants.CMD_START:
@@ -173,6 +175,7 @@ public class VMDebugManager {
                 break;
             default:
                 throw new DebugException(DebugConstants.MSG_INVALID);
+                //TODO:Add debug logs wherever possible. ex:when reaching a breakpoint,sending/receive commands etc.
         }
     }
 

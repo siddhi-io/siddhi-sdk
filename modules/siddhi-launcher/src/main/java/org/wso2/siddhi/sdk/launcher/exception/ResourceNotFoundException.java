@@ -23,6 +23,7 @@ import java.util.Locale;
 public class ResourceNotFoundException extends Exception {
     private String resourceName;
     private ResourceType resourceType;
+
     public ResourceNotFoundException(String message, ResourceType resourceType, String resourceName) {
         super(message);
         this.resourceType = resourceType;

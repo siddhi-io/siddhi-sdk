@@ -17,6 +17,7 @@ package org.wso2.siddhi.sdk.launcher.util;
 
 
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 
 import java.util.Scanner;
@@ -26,6 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * A runnable class to feed the input to the Siddhi runtime.
  */
 public class InputFeeder implements Runnable {
+
+    private static final Logger log = Logger.getLogger(InputFeeder.class);
 
     /**
      * Method name used to specify delay in input.
@@ -65,7 +68,7 @@ public class InputFeeder implements Runnable {
                 try {
                     Thread.sleep(Integer.parseInt(line));
                 } catch (InterruptedException e) {
-                    PrintInfo.error("Error in waiting for " + line + " milliseconds");
+                    log.error("Error in waiting for " + line + " milliseconds" + ":" + e);
                 }
             } else {
                 // The inout format is: <stream name>=<data in json object[] format>
@@ -73,11 +76,11 @@ public class InputFeeder implements Runnable {
                 String streamName = components[0];
                 String event = components[1];
                 Object[] data = gson.fromJson(event, Object[].class);
-                PrintInfo.info("@Send: Stream: " + streamName + ", Event: " + event);
+                log.info("@Send: Stream: " + streamName + ", Event: " + event);
                 try {
                     siddhiAppRuntime.getInputHandler(streamName).send(data);
                 } catch (InterruptedException e) {
-                    PrintInfo.error("Error in sending event " + event + " to Siddhi");
+                    log.error("Error in sending event " + event + " to Siddhi" + ":" + e);
                 }
             }
         }
@@ -118,7 +121,7 @@ public class InputFeeder implements Runnable {
         try {
             thread.join();
         } catch (InterruptedException e) {
-            PrintInfo.error("Error in joining the main thread behind the input feeder");
+            log.error("Error in joining the main thread behind the input feeder");
         }
     }
 }
