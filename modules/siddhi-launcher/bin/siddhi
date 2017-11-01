@@ -153,7 +153,6 @@ do
     fi
 done
 
-JAVA_ENDORSED_DIRS="$JAVA_HOME/jre/lib/endorsed":"$JAVA_HOME/lib/endorsed"
 
 SIDDHI_CLASSPATH=""
 for f in "$SIDDHI_HOME"/lib/*.jar
@@ -188,8 +187,9 @@ $JAVACMD \
 	-Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" \
 	-Dsiddhi.home=$SIDDHI_HOME \
   	-Djava.util.logging.config.file="$SIDDHI_HOME/conf/logging.properties" \
+	-Dlog4j.configuration="$SIDDHI_HOME/conf/log4j.properties" \
 	-Djava.io.tmpdir="$SIDDHI_HOME/tmp" \
 	-Denable.nonblocking=false \
 	-Djava.security.egd=file:/dev/./urandom \
 	-Dfile.encoding=UTF8 \
-	org.wso2.siddhi.launcher.Main "$@"
+	org.wso2.siddhi.sdk.launcher.Main "$@"

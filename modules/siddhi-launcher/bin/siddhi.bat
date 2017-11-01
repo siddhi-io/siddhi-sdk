@@ -120,8 +120,8 @@ set CMD_LINE_ARGS=-Xbootclasspath/a:%SIDDHI_XBOOTCLASSPATH% -Xms256m -Xmx1024m -
 -XX:HeapDumpPath="%SIDDHI_HOME%\heap-dump.hprof"  -Dcom.sun.management.jmxremote -classpath %SIDDHI_CLASSPATH%
 %JAVA_OPTS% -Djava.endorsed.dirs=%JAVA_ENDORSED%  -Dsiddhi.home="%SIDDHI_HOME%"  -Djava
 .command="%JAVA_HOME%\bin\java" -Djava.opts="%JAVA_OPTS%" -Djava.io.tmpdir="%SIDDHI_HOME%\tmp" -Denable
-.nonblocking=false -Dfile.encoding=UTF8 -Djava.util.logging.config
-.file="%SIDDHI_HOME%\conf\logging.properties"
+.nonblocking=false -Dfile.encoding=UTF8 -Djava.util.logging.config.file="%SIDDHI_HOME%\conf\logging.properties" -Dlog4j
+.configuration="%SIDDHI_HOME%\conf\log4j.properties"
 
 
 :runJava
