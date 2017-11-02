@@ -175,7 +175,6 @@ public class VMDebugManager {
                 break;
             default:
                 throw new DebugException(DebugConstants.MSG_INVALID);
-                //TODO:Add debug logs wherever possible. ex:when reaching a breakpoint,sending/receive commands etc.
         }
     }
 
