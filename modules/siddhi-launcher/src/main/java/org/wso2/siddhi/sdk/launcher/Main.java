@@ -46,7 +46,6 @@ public class Main {
 
     public static void main(String... args) {
         try {
-            log.debug("jkhbv");
             Optional<SLauncherCmd> optionalInvokedCmd = getInvokedCmd(args);
             optionalInvokedCmd.ifPresent(SLauncherCmd::execute);
         } catch (SLauncherException e) {
