@@ -18,7 +18,7 @@
 
 <project default="run">
 
-    <property name="carbon.home" value="../../../"/>
+    <property name="siddhi.home" value="../../../"/>
     <property name="src.dir" value="src/main/java"/>
     <property name="temp.dir" value="temp"/>
     <property name="class.dir" value="${temp.dir}/classes"/>
@@ -33,7 +33,7 @@
     <path id="javac.classpath">
         <pathelement path="${class.dir}"/>
         <fileset dir="${lib.dir}"/>
-        <fileset dir="${carbon.home}/lib">
+        <fileset dir="${siddhi.home}/lib">
             <include name="org.apache.commons.logging_*.jar"/>
             <include name="kafka_2.11-0.9.0.1.jar"/>
             <include name="kafka-clients-0.9.0.1.jar"/>

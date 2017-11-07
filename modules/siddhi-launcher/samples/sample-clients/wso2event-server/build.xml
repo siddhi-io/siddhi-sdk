@@ -19,7 +19,7 @@
 
 <project default="run">
 
-    <property name="carbon.home" value="../../../"/>
+    <property name="siddhi.home" value="../../../"/>
     <property name="src.dir" value="src/main/java"/>
     <property name="resources.dir" value="src/main/resources"/>
     <property name="temp.dir" value="temp"/>
@@ -32,7 +32,7 @@
 
     <path id="javac.classpath">
         <pathelement path="${class.dir}"/>
-        <fileset dir="${carbon.home}/lib">
+        <fileset dir="${siddhi.home}/lib">
             <include name="org.apache.commons.logging_*.jar"/>
             <include name="com.google.gson_*.jar"/>
             <include name="com.google.guava_*.jar"/>
