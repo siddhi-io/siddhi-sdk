@@ -46,7 +46,7 @@ public class DebugConstants {
     public static final String DEBUG_SERVER_ERROR = "Debug Server Error. Closing client connection.";
     public static final String CMD_SEND_EVENT = "SEND_EVENT";
     //default debugger port where websocket server will listen
-    static final String DEFAULT_DEBUG_PORT = "5006";
+    public static final String DEFAULT_DEBUG_PORT = "5006";
     //debugger web-socket path.
-    static final String DEBUG_WEBSOCKET_PATH = "/debug";
+    public static final String DEBUG_WEBSOCKET_PATH = "/debug";
 }
