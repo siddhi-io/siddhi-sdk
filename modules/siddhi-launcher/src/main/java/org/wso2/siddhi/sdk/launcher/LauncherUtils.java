@@ -36,7 +36,7 @@ import java.io.InputStreamReader;
  */
 public class LauncherUtils {
 
-    private static final Logger log = Logger.getLogger(Main.class);
+    private static final Logger log = Logger.getLogger(LauncherUtils.class);
 
     public static void runProgram(boolean isDebugEnabled, String[] args) {
 
