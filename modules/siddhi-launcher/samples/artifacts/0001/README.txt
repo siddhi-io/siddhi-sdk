@@ -22,7 +22,7 @@ Kafka libs to be added and converted to OSGI from {KafkaHome}/libs are as follow
 
 7. Navigate to {KafkaHome} and run bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic kafka_result_topic
 
-8. Navigate to project file and run kafka-sample.siddhi.
+8. Navigate to project file in intellij IDEA ide and select run(from the drop down menu) to run kafka-sample.siddhi.
 
 9. Navigate to {SiddhiLauncherHome}/samples/sample-clients/kafka-consumer and run ant command without arguments
 
