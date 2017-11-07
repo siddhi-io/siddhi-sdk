@@ -49,7 +49,7 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private WebSocketServerHandshaker handshaker;
 
-    private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
+    private void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
         // Generate an error page if response getStatus code is not OK (200).
         if (res.status().code() != OK.code()) {
             ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);
@@ -65,7 +65,7 @@ public class VMDebugServerHandler extends SimpleChannelInboundHandler<Object> {
         }
     }
 
-    private static String getWebSocketLocation(FullHttpRequest req) {
+    private String getWebSocketLocation(FullHttpRequest req) {
         String location = req.headers().get(HOST) + DebugConstants.DEBUG_WEBSOCKET_PATH;
         return "ws://" + location;
     }

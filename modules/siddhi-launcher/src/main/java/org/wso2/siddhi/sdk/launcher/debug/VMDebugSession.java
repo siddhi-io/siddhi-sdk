@@ -37,10 +37,6 @@ public class VMDebugSession {
 
     private DebugRuntime debugRuntime = null;
 
-    public VMDebugSession() {
-
-    }
-
     public DebugRuntime getDebugRuntime() {
         return debugRuntime;
     }
