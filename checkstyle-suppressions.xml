@@ -22,9 +22,6 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-
-    <suppress checks=".*" files=".*.org.wso2.siddhi.sdk.launcher.debug.VMDebugServerHandler.java" />
-
-    <suppress checks="Regexp" files=".*.org.wso2.siddhi.sdk.launcher.util.PrintInfo.java"/>
-
+    <suppress checks="AvoidStarImport" files=".*[\\/]org[\\/]wso2[\\/]siddhi[\\/]sdk[\\/]launcher[\\/]debug[\\/]VMDebugServerHandler.java" />
 </suppressions>
+
