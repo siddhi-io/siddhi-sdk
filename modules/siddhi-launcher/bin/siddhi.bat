@@ -60,19 +60,16 @@ rem ----- update classpath -----------------------------------------------------
 
 setlocal EnableDelayedExpansion
 set SIDDHI_CLASSPATH=
-FOR %%C in ("%SIDDHI_HOME%\lib\*.jar") DO set SIDDHI_CLASSPATH=!SIDDHI_CLASSPATH!;
-"%SIDDHI_HOME%\lib\%%~nC%%~xC"
 
-set SIDDHI_HOME="%JAVA_HOME%\lib\tools.jar";%SIDDHI_CLASSPATH%;
+FOR %%D in ("%SIDDHI_HOME%\lib\*.jar") DO set SIDDHI_CLASSPATH=!SIDDHI_CLASSPATH!;"%SIDDHI_HOME%/lib/%%~nD%%~xD"
 
-FOR %%D in ("%SIDDHI_HOME%\lib\*.jar") DO set SIDDHI_CLASSPATH=!SIDDHI_CLASSPATH!;
-"%SIDDHI_HOME%\lib\%%~nD%%~xD"
+set SIDDHI_CLASSPATH="%JAVA_HOME%\lib\tools.jar";%SIDDHI_CLASSPATH%;
 
+echo SIDDHI_CLASSPATH
 rem ----- Process the input command -------------------------------------------
 
 rem Slurp the command line arguments. This loop allows for an unlimited number
 rem of arguments (up to the command line limit, anyway).
-
 :setupArgs
 if ""%1""=="""" goto doneStart
 
@@ -82,7 +79,6 @@ if ""%1""==""--debug""  goto commandDebug
 
 shift
 goto setupArgs
-
 
 rem ----- commandDebug ---------------------------------------------------------
 :commandDebug
@@ -103,28 +99,19 @@ if "%OS%"=="Windows_NT" @setlocal
 if "%OS%"=="WINNT" @setlocal
 goto runServer
 
-
 rem ----------------- Execute The Requested Command ----------------------------
-
 :runServer
 
 set CMD=%*
 
 rem ---------- Add jars to classpath ----------------
 
-set SIDDHI_CLASSPATH=.\lib;%SIDDHI_CLASSPATH%
+set JAVA_ENDORSED="%JAVA_HOME%\jre\lib\endorsed";"%JAVA_HOME%\lib\endorsed"
 
-set JAVA_ENDORSED=".\bre\lib\bootstrap\endorsed";"%JAVA_HOME%\jre\lib\endorsed";"%JAVA_HOME%\lib\endorsed"
-
-set CMD_LINE_ARGS=-Xbootclasspath/a:%SIDDHI_XBOOTCLASSPATH% -Xms256m -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError
--XX:HeapDumpPath="%SIDDHI_HOME%\heap-dump.hprof"  -Dcom.sun.management.jmxremote -classpath %SIDDHI_CLASSPATH%
-%JAVA_OPTS% -Djava.endorsed.dirs=%JAVA_ENDORSED%  -Dsiddhi.home="%SIDDHI_HOME%"  -Djava
-.command="%JAVA_HOME%\bin\java" -Djava.opts="%JAVA_OPTS%" -Djava.io.tmpdir="%SIDDHI_HOME%\tmp" -Denable
-.nonblocking=false -Dfile.encoding=UTF8 -Dlog4j.configuration="%SIDDHI_HOME%\conf\log4j.properties"
-
+set CMD_LINE_ARGS=-Xbootclasspath/a:%SIDDHI_XBOOTCLASSPATH% -Xms256m -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="%SIDDHI_HOME%\heap-dump.hprof" -Dcom.sun.management.jmxremote %JAVA_OPTS% -Djava.endorsed.dirs=%JAVA_ENDORSED% -Dsiddhi.home="%SIDDHI_HOME%" -classpath %SIDDHI_CLASSPATH% -Djava.command="%JAVA_HOME%\bin\java" -Djava.opts="%JAVA_OPTS%" -Djava.io.tmpdir="%SIDDHI_HOME%\tmp" -Denable.nonblocking=false -Dfile.encoding=UTF8 -Dlog4j.configuration=file:"%SIDDHI_HOME%\conf\log4j.properties"
 
 :runJava
-"%JAVA_HOME%\bin\java" %CMD_LINE_ARGS% org.wso2.siddhi.launcher.Main %CMD%
+"%JAVA_HOME%\bin\java" %CMD_LINE_ARGS% org.wso2.siddhi.sdk.launcher.Main %CMD%
 :end
 goto endlocal
 

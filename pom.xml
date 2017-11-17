@@ -306,7 +306,7 @@
     </build>
 
     <properties>
-        <siddhi.version>4.0.0-M120</siddhi.version>
+        <siddhi.version>4.0.0-alpha14</siddhi.version>
         <siddhi.sdk.version>1.0.0-SNAPSHOT</siddhi.sdk.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
@@ -335,11 +335,11 @@
 
         <siddhi.io.file.version>1.0.0</siddhi.io.file.version>
         <siddhi.io.tcp.version>2.0.9</siddhi.io.tcp.version>
-        <siddhi.io.jms.version>1.0.13</siddhi.io.jms.version>
+        <siddhi.io.jms.version>1.0.14</siddhi.io.jms.version>
         <siddhi.io.email.version>1.0.1</siddhi.io.email.version>
         <siddhi.io.rabbitmq.version>1.0.7</siddhi.io.rabbitmq.version>
         <siddhi.io.mqtt.version>1.0.11</siddhi.io.mqtt.version>
-        <siddhi.io.kafka.version>4.0.12</siddhi.io.kafka.version>
+        <siddhi.io.kafka.version>4.0.13</siddhi.io.kafka.version>
         <siddhi.io.wso2event.version>4.0.5</siddhi.io.wso2event.version>
         <siddhi.io.http.version>1.0.7</siddhi.io.http.version>
 
@@ -351,7 +351,7 @@
         <siddhi.map.keyvalue.version>1.0.5</siddhi.map.keyvalue.version>
 
         <siddhi.store.mongodb.version>1.0.8</siddhi.store.mongodb.version>
-        <siddhi.store.rdbms.version>4.0.0</siddhi.store.rdbms.version>
+        <siddhi.store.rdbms.version>4.0.2</siddhi.store.rdbms.version>
         <siddhi.store.solr.version>1.0.8</siddhi.store.solr.version>
         <siddhi.store.hbase.version>4.0.0</siddhi.store.hbase.version>
 
