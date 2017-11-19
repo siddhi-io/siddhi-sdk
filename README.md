@@ -28,6 +28,11 @@ Siddhi SDK
 
 ---
 
+
+## Getting started
+
+Please refer the [Getting Started](getting-started) section.
+
 ## How to Contribute
  
   * Please report issues at <a target="_blank" href="https://github.com/wso2/siddhi-sdk/issues">GitHub Issue 
