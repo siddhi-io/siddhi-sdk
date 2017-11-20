@@ -9,7 +9,6 @@
     </parent>
     <artifactId>siddhi-launcher</artifactId>
     <name>Siddhi-Launcher</name>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Siddhi SDK Launcher</description>
     <url>http://wso2.org</url>

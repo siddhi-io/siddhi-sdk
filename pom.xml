@@ -306,7 +306,7 @@
     </build>
 
     <properties>
-        <siddhi.version>4.0.0-alpha14</siddhi.version>
+        <siddhi.version>4.0.0-alpha16</siddhi.version>
         <siddhi.sdk.version>1.0.0-SNAPSHOT</siddhi.sdk.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
