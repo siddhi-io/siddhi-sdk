@@ -224,7 +224,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>copy2</id>
+                        <id>copy</id>
                         <phase>package</phase>
                         <goals>
                             <goal>copy</goal>
@@ -234,7 +234,7 @@
                                 <artifactItem>
                                     <groupId>org.wso2.siddhi.sdk</groupId>
                                     <artifactId>siddhi-launcher</artifactId>
-                                    <version>${siddhi.sdk.version}</version>
+                                    <version>${project.version}</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
