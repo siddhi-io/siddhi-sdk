@@ -27,7 +27,7 @@
     <groupId>org.wso2.siddhi.sdk</groupId>
     <artifactId>siddhi-sdk-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>WSO2 Siddhi SDK</name>
 
     <url>http://wso2.org</url>
@@ -172,6 +172,11 @@
                 <artifactId>siddhi-execution-graph</artifactId>
                 <version>${siddhi.execution.graph.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wso2.extension.siddhi.execution.tensorflow</groupId>
+                <artifactId>siddhi-execution-tensorflow</artifactId>
+                <version>${siddhi.execution.tensorflow.version}</version>
+            </dependency>
             <!--IO Extensions-->
             <dependency>
                 <groupId>org.wso2.extension.siddhi.io.jms</groupId>
@@ -245,6 +250,11 @@
                 <artifactId>siddhi-map-keyvalue</artifactId>
                 <version>${siddhi.map.keyvalue.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.wso2.extension.siddhi.map.csv</groupId>
+                <artifactId>siddhi-map-csv</artifactId>
+                <version>${siddhi.map.csv.version}</version>
+            </dependency>
             <!--Store Extensions-->
             <dependency>
                 <groupId>org.wso2.extension.siddhi.store.solr</groupId>
@@ -265,12 +275,6 @@
                 <groupId>org.wso2.extension.siddhi.store.hbase</groupId>
                 <artifactId>siddhi-store-hbase</artifactId>
                 <version>${siddhi.store.hbase.version}</version>
-            </dependency>
-            <!--TODO remove after fixing jms-->
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-jms_1.1_spec</artifactId>
-                <version>1.1.1</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.extension.siddhi.io.mqtt</groupId>
@@ -312,56 +316,59 @@
     </build>
 
     <properties>
-        <siddhi.version>4.0.0-beta</siddhi.version>
+        <siddhi.version>4.1.2</siddhi.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
         <jackson.databind.version>2.4.1</jackson.databind.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
         <project.scm.id>scm-server</project.scm.id>
+
         <!--Siddhi Extension Versions-->
-        <siddhi.execution.math.version>4.0.9</siddhi.execution.math.version>
-        <siddhi.execution.unitconversion.version>1.0.7</siddhi.execution.unitconversion.version>
-        <siddhi.execution.regex.version>4.0.6</siddhi.execution.regex.version>
-        <siddhi.execution.streamingml.version>1.0.8</siddhi.execution.streamingml.version>
-        <siddhi.execution.timeseries.version>4.0.6</siddhi.execution.timeseries.version>
-        <siddhi.execution.string.version>4.0.6</siddhi.execution.string.version>
-        <siddhi.execution.extrema.version>4.0.5</siddhi.execution.extrema.version>
-        <siddhi.execution.time.version>4.0.6</siddhi.execution.time.version>
-        <siddhi.execution.unique.version>4.0.16</siddhi.execution.unique.version>
-        <siddhi.execution.priority.version>4.0.4</siddhi.execution.priority.version>
-        <siddhi.execution.markov.version>4.0.6</siddhi.execution.markov.version>
-        <siddhi.execution.geo.version>4.0.5</siddhi.execution.geo.version>
-        <siddhi.execution.map.version>4.0.6</siddhi.execution.map.version>
-        <siddhi.execution.sentiment.version>4.0.6</siddhi.execution.sentiment.version>
-        <siddhi.execution.reorder.version>4.0.11</siddhi.execution.reorder.version>
-        <siddhi.execution.stats.version>1.0.6</siddhi.execution.stats.version>
-        <siddhi.execution.kalmanfilter.version>4.0.5</siddhi.execution.kalmanfilter.version>
-        <siddhi.execution.approximate.version>1.0.3</siddhi.execution.approximate.version>
-        <siddhi.execution.graph.version>1.0.3</siddhi.execution.graph.version>
+        <siddhi.execution.math.version>4.0.14</siddhi.execution.math.version>
+        <siddhi.execution.unitconversion.version>1.0.11</siddhi.execution.unitconversion.version>
+        <siddhi.execution.regex.version>4.0.10</siddhi.execution.regex.version>
+        <siddhi.execution.streamingml.version>1.0.12</siddhi.execution.streamingml.version>
+        <siddhi.execution.timeseries.version>4.0.10</siddhi.execution.timeseries.version>
+        <siddhi.execution.string.version>4.0.10</siddhi.execution.string.version>
+        <siddhi.execution.extrema.version>4.0.9</siddhi.execution.extrema.version>
+        <siddhi.execution.time.version>4.0.10</siddhi.execution.time.version>
+        <siddhi.execution.unique.version>4.0.21</siddhi.execution.unique.version>
+        <siddhi.execution.priority.version>4.0.8</siddhi.execution.priority.version>
+        <siddhi.execution.markov.version>4.0.10</siddhi.execution.markov.version>
+        <siddhi.execution.geo.version>4.0.8</siddhi.execution.geo.version>
+        <siddhi.execution.map.version>4.0.10</siddhi.execution.map.version>
+        <siddhi.execution.sentiment.version>4.0.10</siddhi.execution.sentiment.version>
+        <siddhi.execution.reorder.version>4.0.15</siddhi.execution.reorder.version>
+        <siddhi.execution.stats.version>1.0.10</siddhi.execution.stats.version>
+        <siddhi.execution.kalmanfilter.version>4.0.9</siddhi.execution.kalmanfilter.version>
+        <siddhi.execution.approximate.version>1.0.11</siddhi.execution.approximate.version>
+        <siddhi.execution.graph.version>1.0.7</siddhi.execution.graph.version>
+        <siddhi.execution.tensorflow.version>1.0.1</siddhi.execution.tensorflow.version>
 
-        <siddhi.io.file.version>1.0.1</siddhi.io.file.version>
-        <siddhi.io.tcp.version>2.0.9</siddhi.io.tcp.version>
-        <siddhi.io.jms.version>1.0.15</siddhi.io.jms.version>
-        <siddhi.io.email.version>1.0.4</siddhi.io.email.version>
-        <siddhi.io.rabbitmq.version>1.0.7</siddhi.io.rabbitmq.version>
-        <siddhi.io.mqtt.version>1.0.11</siddhi.io.mqtt.version>
-        <siddhi.io.kafka.version>4.0.15</siddhi.io.kafka.version>
-        <siddhi.io.wso2event.version>4.0.5</siddhi.io.wso2event.version>
-        <siddhi.io.http.version>1.0.7</siddhi.io.http.version>
+        <siddhi.io.file.version>1.0.5</siddhi.io.file.version>
+        <siddhi.io.tcp.version>2.0.13</siddhi.io.tcp.version>
+        <siddhi.io.jms.version>1.0.20</siddhi.io.jms.version>
+        <siddhi.io.email.version>1.0.9</siddhi.io.email.version>
+        <siddhi.io.rabbitmq.version>1.0.13</siddhi.io.rabbitmq.version>
+        <siddhi.io.mqtt.version>1.0.17</siddhi.io.mqtt.version>
+        <siddhi.io.kafka.version>4.1.3</siddhi.io.kafka.version>
+        <siddhi.io.wso2event.version>4.0.12</siddhi.io.wso2event.version>
+        <siddhi.io.http.version>1.0.18</siddhi.io.http.version>
 
-        <siddhi.map.json.version>4.0.11</siddhi.map.json.version>
-        <siddhi.map.wso2event.version>4.0.6</siddhi.map.wso2event.version>
-        <siddhi.map.binary.version>1.0.6</siddhi.map.binary.version>
-        <siddhi.map.text.version>1.0.8</siddhi.map.text.version>
-        <siddhi.map.xml.version>4.0.7</siddhi.map.xml.version>
-        <siddhi.map.keyvalue.version>1.0.6</siddhi.map.keyvalue.version>
+        <siddhi.map.json.version>4.0.15</siddhi.map.json.version>
+        <siddhi.map.wso2event.version>4.0.10</siddhi.map.wso2event.version>
+        <siddhi.map.binary.version>1.0.10</siddhi.map.binary.version>
+        <siddhi.map.text.version>1.0.13</siddhi.map.text.version>
+        <siddhi.map.xml.version>4.0.11</siddhi.map.xml.version>
+        <siddhi.map.keyvalue.version>1.0.10</siddhi.map.keyvalue.version>
+        <siddhi.map.csv.version>1.0.0</siddhi.map.csv.version>
 
-        <siddhi.store.mongodb.version>1.0.8</siddhi.store.mongodb.version>
-        <siddhi.store.rdbms.version>4.0.8</siddhi.store.rdbms.version>
-        <siddhi.store.solr.version>1.0.9</siddhi.store.solr.version>
-        <siddhi.store.hbase.version>4.0.1</siddhi.store.hbase.version>
+        <siddhi.store.mongodb.version>1.0.13</siddhi.store.mongodb.version>
+        <siddhi.store.rdbms.version>4.0.15</siddhi.store.rdbms.version>
+        <siddhi.store.solr.version>1.0.14</siddhi.store.solr.version>
+        <siddhi.store.hbase.version>4.0.6</siddhi.store.hbase.version>
 
-        <siddhi.script.js.version>4.0.5</siddhi.script.js.version>
+        <siddhi.script.js.version>4.0.8</siddhi.script.js.version>
 
         <!--Plugin versions-->
         <maven.dependency.plugin.version>3.0.1</maven.dependency.plugin.version>
