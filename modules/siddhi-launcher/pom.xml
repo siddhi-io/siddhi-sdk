@@ -115,6 +115,10 @@
             <groupId>org.wso2.extension.siddhi.execution.graph</groupId>
             <artifactId>siddhi-execution-graph</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.wso2.extension.siddhi.execution.tensorflow</groupId>
+            <artifactId>siddhi-execution-tensorflow</artifactId>
+        </dependency>
         <!--IO Extensions-->
         <dependency>
             <groupId>org.wso2.extension.siddhi.io.jms</groupId>
@@ -174,6 +178,10 @@
             <groupId>org.wso2.extension.siddhi.map.keyvalue</groupId>
             <artifactId>siddhi-map-keyvalue</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.wso2.extension.siddhi.map.csv</groupId>
+            <artifactId>siddhi-map-csv</artifactId>
+        </dependency>
         <!--Store Extensions-->
         <dependency>
             <groupId>org.wso2.extension.siddhi.store.solr</groupId>
@@ -190,11 +198,6 @@
         <dependency>
             <groupId>org.wso2.extension.siddhi.store.hbase</groupId>
             <artifactId>siddhi-store-hbase</artifactId>
-        </dependency>
-        <!--TODO remove after fixing jms-->
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jms_1.1_spec</artifactId>
         </dependency>
         <dependency>
             <groupId>org.wso2.extension.siddhi.io.mqtt</groupId>
