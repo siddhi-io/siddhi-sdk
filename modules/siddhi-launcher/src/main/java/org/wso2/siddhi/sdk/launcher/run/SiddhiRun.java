@@ -37,24 +37,21 @@ public class SiddhiRun {
 
     public void runSiddhi(String siddhiApp, String inputFile) throws InterruptedException {
 
-        while (true) {
-            try {
-                //Generating runtime
-                SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(siddhiApp);
+        try {
+            //Generating runtime
+            SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(siddhiApp);
 
-                //Starting event processing
-                siddhiAppRuntime.start();
+            //Starting event processing
+            siddhiAppRuntime.start();
 
-                if (!(inputFile == null || inputFile.equalsIgnoreCase(""))) {
-                    InputFeeder inputFeeder = new InputFeeder(siddhiAppRuntime, inputFile);
-                    //starting input feeder
-                    inputFeeder.start();
-                    break;
-                }
-            } catch (Exception e) {
-                log.error("Internal Siddhi Error Occurred: " + e);
-                break;
+            if (!(inputFile == null || inputFile.equalsIgnoreCase(""))) {
+                InputFeeder inputFeeder = new InputFeeder(siddhiAppRuntime, inputFile);
+                //starting input feeder
+                inputFeeder.start();
             }
+        } catch (Throwable e) {
+            log.error("Internal Siddhi Error Occurred: " + e);
         }
+
     }
 }
