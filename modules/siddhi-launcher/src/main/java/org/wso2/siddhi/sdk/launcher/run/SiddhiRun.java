@@ -49,7 +49,7 @@ public class SiddhiRun {
                 //starting input feeder
                 inputFeeder.start();
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("Internal Siddhi Error Occurred: " + e);
         }
 
