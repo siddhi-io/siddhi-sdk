@@ -105,7 +105,7 @@ rem ---------- Add jars to classpath ----------------
 
 set JAVA_ENDORSED="%JAVA_HOME%\jre\lib\endorsed";"%JAVA_HOME%\lib\endorsed"
 
-set CMD_LINE_ARGS=-Xbootclasspath/a:%SIDDHI_XBOOTCLASSPATH% -Xms256m -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="%SIDDHI_HOME%\heap-dump.hprof" -Dcom.sun.management.jmxremote %JAVA_OPTS% -Djava.endorsed.dirs=%JAVA_ENDORSED% -Dsiddhi.home=%SIDDHI_HOME% -classpath %SIDDHI_CLASSPATH% -Djava.command="%JAVA_HOME%\bin\java" -Djava.opts="%JAVA_OPTS%" -Djava.io.tmpdir="%SIDDHI_HOME%\tmp" -Denable.nonblocking=false -Dfile.encoding=UTF8 -Dlog4j.configuration=file:"%SIDDHI_HOME%\conf\log4j.properties"
+set CMD_LINE_ARGS=-Xms256m -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="%SIDDHI_HOME%\heap-dump.hprof" -Dcom.sun.management.jmxremote %JAVA_OPTS% -Djava.endorsed.dirs=%JAVA_ENDORSED% -Dsiddhi.home=%SIDDHI_HOME% -classpath %SIDDHI_CLASSPATH% -Djava.command="%JAVA_HOME%\bin\java" -Djava.opts="%JAVA_OPTS%" -Djava.io.tmpdir="%SIDDHI_HOME%\tmp" -Denable.nonblocking=false -Dfile.encoding=UTF8 -Dlog4j.configuration=file:"%SIDDHI_HOME%\conf\log4j.properties"
 
 :runJava
 "%JAVA_HOME%\bin\java" %CMD_LINE_ARGS% org.wso2.siddhi.sdk.launcher.Main %CMD%

@@ -145,15 +145,6 @@ if [ "$CMD" = "--debug" ]; then
   echo "Please start the remote debugging client to continue..."
 fi
 
-SIDDHI_XBOOTCLASSPATH=""
-for f in "$SIDDHI_HOME"/lib/*.jar
-do
-    if [ "$f" != "$SIDDHI_HOME/lib/*.jar" ];then
-        SIDDHI_XBOOTCLASSPATH="$SIDDHI_XBOOTCLASSPATH":$f
-    fi
-done
-
-
 SIDDHI_CLASSPATH=""
 for f in "$SIDDHI_HOME"/lib/*.jar
 do
@@ -178,7 +169,6 @@ fi
 #   cd "$SIDDHI_HOME"
 
 $JAVACMD \
-	-Xbootclasspath/a:"$SIDDHI_XBOOTCLASSPATH" \
 	-Xms256m -Xmx1024m \
 	-XX:+HeapDumpOnOutOfMemoryError \
 	-XX:HeapDumpPath="$SIDDHI_HOME/heap-dump.hprof" \
