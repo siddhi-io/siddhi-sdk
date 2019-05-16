@@ -23,9 +23,9 @@ import org.wso2.extension.siddhi.io.tcp.transport.TCPNettyServer;
 import org.wso2.extension.siddhi.io.tcp.transport.callback.StreamListener;
 import org.wso2.extension.siddhi.io.tcp.transport.config.ServerConfig;
 import org.wso2.extension.siddhi.map.binary.sourcemapper.SiddhiEventConverter;
-import org.wso2.siddhi.core.event.Event;
-import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.definition.StreamDefinition;
+import io.siddhi.core.event.Event;
+import io.siddhi.query.api.definition.Attribute;
+import io.siddhi.query.api.definition.StreamDefinition;
 
 import java.nio.ByteBuffer;
 
