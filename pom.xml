@@ -87,6 +87,11 @@
                 <artifactId>siddhi-execution-time</artifactId>
                 <version>${siddhi.execution.time.version}</version>
             </dependency>
+            <!--<dependency>
+                <groupId>io.siddhi.extension.execution.unique</groupId>
+                <artifactId>siddhi-execution-unique</artifactId>
+                <version>${siddhi.execution.unique.version}</version>
+            </dependency>-->
             <dependency>
                 <groupId>io.siddhi.extension.execution.regex</groupId>
                 <artifactId>siddhi-execution-regex</artifactId>
@@ -117,8 +122,13 @@
                 <artifactId>siddhi-execution-unitconversion</artifactId>
                 <version>${siddhi.execution.unitconversion.version}</version>
             </dependency>
+            <!--<dependency>
+                <groupId>io.siddhi.extension.execution.reorder</groupId>
+                <artifactId>siddhi-execution-reorder</artifactId>
+                <version>${siddhi.execution.reorder.version}</version>
+            </dependency>-->
             <dependency>
-                <groupId>org.wso2.extension.siddhi.execution.json</groupId>
+                <groupId>io.siddhi.extension.execution.json</groupId>
                 <artifactId>siddhi-execution-json</artifactId>
                 <version>${siddhi.execution.json.version}</version>
             </dependency>
@@ -154,7 +164,7 @@
                 <version>${siddhi.io.http.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.extension.siddhi.io.cdc</groupId>
+                <groupId>io.siddhi.extension.io.cdc</groupId>
                 <artifactId>siddhi-io-cdc</artifactId>
                 <version>${siddhi.io.cdc.version}</version>
             </dependency>
@@ -275,10 +285,10 @@
         <siddhi.execution.streamingml.version>2.0.1</siddhi.execution.streamingml.version>
         <siddhi.execution.string.version>5.0.3</siddhi.execution.string.version>
         <siddhi.execution.time.version>5.0.2</siddhi.execution.time.version>
-        <siddhi.execution.unique.version>4.1.2</siddhi.execution.unique.version>
+        <!--<siddhi.execution.unique.version>4.1.2</siddhi.execution.unique.version>-->
         <siddhi.execution.map.version>5.0.2</siddhi.execution.map.version>
-        <siddhi.execution.reorder.version>4.2.2</siddhi.execution.reorder.version>
-        <siddhi.execution.json.version>2.0.0</siddhi.execution.json.version>
+        <!--<siddhi.execution.reorder.version>4.2.2</siddhi.execution.reorder.version>-->
+        <siddhi.execution.json.version>2.0.1</siddhi.execution.json.version>
 
         <siddhi.io.file.version>2.0.1</siddhi.io.file.version>
         <siddhi.io.tcp.version>3.0.2</siddhi.io.tcp.version>
@@ -286,7 +296,7 @@
         <siddhi.io.email.version>2.0.2</siddhi.io.email.version>
         <siddhi.io.kafka.version>5.0.2</siddhi.io.kafka.version>
         <siddhi.io.http.version>2.0.6</siddhi.io.http.version>
-        <siddhi.io.cdc.version>2.0.0</siddhi.io.cdc.version>
+        <siddhi.io.cdc.version>2.0.1</siddhi.io.cdc.version>
         <siddhi.io.prometheus.version>2.0.1</siddhi.io.prometheus.version>
         <siddhi.io.nats.version>2.0.3</siddhi.io.nats.version>
         <siddhi.io.googlepubsub.version>2.0.1</siddhi.io.googlepubsub.version>
