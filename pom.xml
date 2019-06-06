@@ -139,7 +139,7 @@
                 <version>${siddhi.io.tcp.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.extension.siddhi.io.kafka</groupId>
+                <groupId>io.siddhi.extension.io.kafka</groupId>
                 <artifactId>siddhi-io-kafka</artifactId>
                 <version>${siddhi.io.kafka.version}</version>
             </dependency>
@@ -186,7 +186,7 @@
                 <version>${siddhi.map.json.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.extension.siddhi.map.avro</groupId>
+                <groupId>io.siddhi.extension.map.avro</groupId>
                 <artifactId>siddhi-map-avro</artifactId>
                 <version>${siddhi.map.avro.version}</version>
             </dependency>
@@ -284,7 +284,7 @@
         <siddhi.io.tcp.version>3.0.2</siddhi.io.tcp.version>
         <siddhi.io.jms.version>2.0.2</siddhi.io.jms.version>
         <siddhi.io.email.version>2.0.2</siddhi.io.email.version>
-        <siddhi.io.kafka.version>5.0.1</siddhi.io.kafka.version>
+        <siddhi.io.kafka.version>5.0.2</siddhi.io.kafka.version>
         <siddhi.io.http.version>2.0.6</siddhi.io.http.version>
         <siddhi.io.cdc.version>2.0.0</siddhi.io.cdc.version>
         <siddhi.io.prometheus.version>2.0.1</siddhi.io.prometheus.version>
@@ -292,7 +292,7 @@
         <siddhi.io.googlepubsub.version>2.0.1</siddhi.io.googlepubsub.version>
 
         <siddhi.map.json.version>5.0.3</siddhi.map.json.version>
-        <siddhi.map.avro.version>2.0.1</siddhi.map.avro.version>
+        <siddhi.map.avro.version>2.0.2</siddhi.map.avro.version>
         <siddhi.map.binary.version>2.0.2</siddhi.map.binary.version>
         <siddhi.map.text.version>2.0.2</siddhi.map.text.version>
         <siddhi.map.xml.version>5.0.3</siddhi.map.xml.version>
