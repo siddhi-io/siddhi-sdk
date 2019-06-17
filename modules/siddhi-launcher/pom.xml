@@ -43,10 +43,10 @@
             <groupId>io.siddhi.extension.execution.time</groupId>
             <artifactId>siddhi-execution-time</artifactId>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>io.siddhi.extension.execution.unique</groupId>
             <artifactId>siddhi-execution-unique</artifactId>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>io.siddhi.extension.execution.regex</groupId>
             <artifactId>siddhi-execution-regex</artifactId>
@@ -71,10 +71,10 @@
             <groupId>io.siddhi.extension.execution.unitconversion</groupId>
             <artifactId>siddhi-execution-unitconversion</artifactId>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>io.siddhi.extension.execution.reorder</groupId>
             <artifactId>siddhi-execution-reorder</artifactId>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>io.siddhi.extension.execution.json</groupId>
             <artifactId>siddhi-execution-json</artifactId>
