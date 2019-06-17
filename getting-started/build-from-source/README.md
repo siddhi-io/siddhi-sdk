@@ -7,7 +7,7 @@ and set the JAVA_HOME environment variable.
 
 3) Clone the siddi-sdk using the following command.
 ```
-git clone https://github.com/wso2/siddhi-sdk.git
+git clone https://github.com/siddhi-io/siddhi-sdk.git
 ```
 
 4) Navigate to the cloned repo using the following command.
@@ -20,6 +20,6 @@ cd siddhi-sdk
 mvn clean install
 ```
 
-6) Now the Siddhi SDK zip file (ex: siddhi-sdk-1.0.0-SNAPSHOT.zip) will be created inside the 
+6) Now the Siddhi SDK zip file (ex: siddhi-sdk-2.0.0-SNAPSHOT.zip) will be created inside the 
 {siddhi-sdk-home}/modules/siddhi-launcher/target/ . Unzip it.
  

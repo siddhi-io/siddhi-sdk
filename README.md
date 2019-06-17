@@ -35,10 +35,10 @@ Please refer the [Getting Started](getting-started) section.
 
 ## How to Contribute
  
-  * Please report issues at <a target="_blank" href="https://github.com/wso2/siddhi-sdk/issues">GitHub Issue 
+  * Please report issues at <a target="_blank" href="https://github.com/siddhi-io/siddhi-sdk/issues">GitHub Issue 
   Tracker</a>.
   
-  * Send your contributions as pull requests to <a target="_blank" href="https://github.com/wso2/siddhi-sdk/tree/master">master branch</a>. 
+  * Send your contributions as pull requests to <a target="_blank" href="https://github.com/siddhi-io/siddhi-sdk/tree/master">master branch</a>. 
  
 ## Contact us 
 
