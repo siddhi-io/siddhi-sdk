@@ -7,7 +7,7 @@ and set the JAVA_HOME environment variable.
 
 3) Clone the siddi-sdk using the following command.
 ```
-git clone https://github.com/wso2/siddhi-sdk.git
+git clone https://github.com/siddhi-io/siddhi-sdk.git
 ```
 
 4) Navigate to the cloned repo using the following command.

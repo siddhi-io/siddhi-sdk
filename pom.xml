@@ -33,9 +33,9 @@
     <url>http://wso2.org</url>
 
     <scm>
-        <url>https://github.com/wso2/siddhi-sdk.git</url>
-        <developerConnection>scm:git:https://github.com/wso2/siddhi-sdk.git</developerConnection>
-        <connection>scm:git:https://github.com/wso2/siddhi-sdk.git</connection>
+        <url>https://github.com/siddhi-io/siddhi-sdk.git</url>
+        <developerConnection>scm:git:https://github.com/siddhi-io/siddhi-sdk.git</developerConnection>
+        <connection>scm:git:https://github.com/siddhi-io/siddhi-sdk.git</connection>
         <tag>HEAD</tag>
     </scm>
 
