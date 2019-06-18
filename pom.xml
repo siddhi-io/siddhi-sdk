@@ -401,7 +401,7 @@
     </build>
 
     <properties>
-        <siddhi.version>4.3.10</siddhi.version>
+        <siddhi.version>4.5.11</siddhi.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
         <jackson.databind.version>2.4.1</jackson.databind.version>
