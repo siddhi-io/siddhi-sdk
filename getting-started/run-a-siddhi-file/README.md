@@ -6,7 +6,7 @@
 ```
 cd "{siddhi-sdk-home}\bin"
 ```
-* {siddhi-sdk-home} is the path to the siddhi-sdk. ex:C:\siddhi-sdk-1.0.0-SNAPSHOT   
+* {siddhi-sdk-home} is the path to the siddhi-sdk. ex:C:\siddhi-sdk-4.0.0-SNAPSHOT   
 
 2) Run the Siddhi file using the following command.
 ```
@@ -23,7 +23,7 @@ file.
 ```
 cd "{siddhi-sdk-home}/bin"
 ```
-* {siddhi-sdk-home} is the path to the siddhi-sdk. ex:/home/username/siddhi-sdk-1.0.0-SNAPSHOT
+* {siddhi-sdk-home} is the path to the siddhi-sdk. ex:/home/username/siddhi-sdk-4.0.0-SNAPSHOT
 
 2) Run the Siddhi file using the following command.
 ```

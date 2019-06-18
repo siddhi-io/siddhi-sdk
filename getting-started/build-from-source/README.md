@@ -20,6 +20,6 @@ cd siddhi-sdk
 mvn clean install
 ```
 
-6) Now the Siddhi SDK zip file (ex: siddhi-sdk-1.0.0-SNAPSHOT.zip) will be created inside the 
+6) Now the Siddhi SDK zip file (ex: siddhi-sdk-4.0.0-SNAPSHOT.zip) will be created inside the 
 {siddhi-sdk-home}/modules/siddhi-launcher/target/ . Unzip it.
  
