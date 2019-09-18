@@ -188,6 +188,11 @@
                 <artifactId>siddhi-io-googlepubsub</artifactId>
                 <version>${siddhi.io.googlepubsub.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.siddhi.extension.io.rabbitmq</groupId>
+                <artifactId>siddhi-io-rabbitmq</artifactId>
+                <version>${siddhi.io.rabbitmq.version}</version>
+            </dependency>
 <!--            <dependency>-->
 <!--                <groupId>io.siddhi.extension.io.grpc</groupId>-->
 <!--                <artifactId>siddhi-io-grpc</artifactId>-->
@@ -320,6 +325,7 @@
         <siddhi.io.prometheus.version>2.0.1</siddhi.io.prometheus.version>
         <siddhi.io.nats.version>2.0.4</siddhi.io.nats.version>
         <siddhi.io.googlepubsub.version>2.0.1</siddhi.io.googlepubsub.version>
+        <siddhi.io.rabbitmq.version>3.0.1</siddhi.io.rabbitmq.version>
         <siddhi.io.grpc.version>1.0.0-beta</siddhi.io.grpc.version>
 
         <siddhi.map.json.version>5.0.4</siddhi.map.json.version>

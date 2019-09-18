@@ -128,7 +128,10 @@
             <groupId>io.siddhi.extension.io.googlepubsub</groupId>
             <artifactId>siddhi-io-googlepubsub</artifactId>
         </dependency>
-        <!--Map Extensions-->
+        <dependency>
+            <groupId>io.siddhi.extension.io.rabbitmq</groupId>
+            <artifactId>siddhi-io-rabbitmq</artifactId>
+        </dependency>
         <!--Mapper Extensions-->
         <dependency>
             <groupId>io.siddhi.extension.map.xml</groupId>
