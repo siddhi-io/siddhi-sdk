@@ -132,6 +132,11 @@
                 <artifactId>siddhi-execution-json</artifactId>
                 <version>${siddhi.execution.json.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.siddhi.extension.execution.tensorflow</groupId>
+                <artifactId>siddhi-execution-tensorflow</artifactId>
+                <version>${siddhi.execution.tensorflow.version}</version>
+            </dependency>
             <!--IO Extensions-->
             <dependency>
                 <groupId>io.siddhi.extension.io.jms</groupId>
@@ -183,7 +188,16 @@
                 <artifactId>siddhi-io-googlepubsub</artifactId>
                 <version>${siddhi.io.googlepubsub.version}</version>
             </dependency>
-            <!--Map Extensions-->
+            <dependency>
+                <groupId>io.siddhi.extension.io.rabbitmq</groupId>
+                <artifactId>siddhi-io-rabbitmq</artifactId>
+                <version>${siddhi.io.rabbitmq.version}</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.siddhi.extension.io.grpc</groupId>-->
+<!--                <artifactId>siddhi-io-grpc</artifactId>-->
+<!--                <version>${siddhi.io.grpc.version}</version>-->
+<!--            </dependency>-->
             <!--Mapper Extensions-->
             <dependency>
                 <groupId>io.siddhi.extension.map.xml</groupId>
@@ -220,6 +234,11 @@
                 <artifactId>siddhi-map-csv</artifactId>
                 <version>${siddhi.map.csv.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.siddhi.extension.map.protobuf</groupId>
+                <artifactId>siddhi-map-protobuf</artifactId>
+                <version>${siddhi.map.protobuf.version}</version>
+            </dependency>
             <!--Store Extensions-->
             <dependency>
                 <groupId>io.siddhi.extension.store.mongodb</groupId>
@@ -230,6 +249,11 @@
                 <groupId>io.siddhi.extension.store.rdbms</groupId>
                 <artifactId>siddhi-store-rdbms</artifactId>
                 <version>${siddhi.store.rdbms.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.siddhi.extension.store.redis</groupId>
+                <artifactId>siddhi-store-redis</artifactId>
+                <version>${siddhi.store.redis.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.siddhi.extension.store.elasticsearch</groupId>
@@ -271,7 +295,7 @@
     </build>
 
     <properties>
-        <siddhi.version>5.0.0</siddhi.version>
+        <siddhi.version>5.1.4</siddhi.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
         <jackson.databind.version>2.4.1</jackson.databind.version>
@@ -279,41 +303,46 @@
         <project.scm.id>scm-server</project.scm.id>
 
         <!--Siddhi Extension Versions-->
-        <siddhi.execution.math.version>5.0.1</siddhi.execution.math.version>
-        <siddhi.execution.unitconversion.version>2.0.1</siddhi.execution.unitconversion.version>
-        <siddhi.execution.regex.version>5.0.3</siddhi.execution.regex.version>
-        <siddhi.execution.streamingml.version>2.0.1</siddhi.execution.streamingml.version>
-        <siddhi.execution.string.version>5.0.3</siddhi.execution.string.version>
-        <siddhi.execution.time.version>5.0.2</siddhi.execution.time.version>
-        <siddhi.execution.unique.version>5.0.0</siddhi.execution.unique.version>
-        <siddhi.execution.map.version>5.0.2</siddhi.execution.map.version>
-        <siddhi.execution.reorder.version>5.0.0</siddhi.execution.reorder.version>
-        <siddhi.execution.json.version>2.0.1</siddhi.execution.json.version>
+        <siddhi.execution.math.version>5.0.3</siddhi.execution.math.version>
+        <siddhi.execution.unitconversion.version>2.0.2</siddhi.execution.unitconversion.version>
+        <siddhi.execution.regex.version>5.0.5</siddhi.execution.regex.version>
+        <siddhi.execution.streamingml.version>2.0.2</siddhi.execution.streamingml.version>
+        <siddhi.execution.string.version>5.0.5</siddhi.execution.string.version>
+        <siddhi.execution.time.version>5.0.3</siddhi.execution.time.version>
+        <siddhi.execution.unique.version>5.0.3</siddhi.execution.unique.version>
+        <siddhi.execution.map.version>5.0.4</siddhi.execution.map.version>
+        <siddhi.execution.reorder.version>5.0.3</siddhi.execution.reorder.version>
+        <siddhi.execution.json.version>2.0.2</siddhi.execution.json.version>
+        <siddhi.execution.tensorflow.version>2.0.2</siddhi.execution.tensorflow.version>
 
         <siddhi.io.file.version>2.0.1</siddhi.io.file.version>
-        <siddhi.io.tcp.version>3.0.2</siddhi.io.tcp.version>
+        <siddhi.io.tcp.version>3.0.3</siddhi.io.tcp.version>
         <siddhi.io.jms.version>2.0.2</siddhi.io.jms.version>
-        <siddhi.io.email.version>2.0.2</siddhi.io.email.version>
-        <siddhi.io.kafka.version>5.0.2</siddhi.io.kafka.version>
-        <siddhi.io.http.version>2.0.6</siddhi.io.http.version>
-        <siddhi.io.cdc.version>2.0.1</siddhi.io.cdc.version>
+        <siddhi.io.email.version>2.0.3</siddhi.io.email.version>
+        <siddhi.io.kafka.version>5.0.3</siddhi.io.kafka.version>
+        <siddhi.io.http.version>2.1.1</siddhi.io.http.version>
+        <siddhi.io.cdc.version>2.0.3</siddhi.io.cdc.version>
         <siddhi.io.prometheus.version>2.0.1</siddhi.io.prometheus.version>
-        <siddhi.io.nats.version>2.0.3</siddhi.io.nats.version>
+        <siddhi.io.nats.version>2.0.4</siddhi.io.nats.version>
         <siddhi.io.googlepubsub.version>2.0.1</siddhi.io.googlepubsub.version>
+        <siddhi.io.rabbitmq.version>3.0.1</siddhi.io.rabbitmq.version>
+        <siddhi.io.grpc.version>1.0.0-beta</siddhi.io.grpc.version>
 
-        <siddhi.map.json.version>5.0.3</siddhi.map.json.version>
+        <siddhi.map.json.version>5.0.4</siddhi.map.json.version>
         <siddhi.map.avro.version>2.0.2</siddhi.map.avro.version>
         <siddhi.map.binary.version>2.0.2</siddhi.map.binary.version>
-        <siddhi.map.text.version>2.0.2</siddhi.map.text.version>
+        <siddhi.map.text.version>2.0.4</siddhi.map.text.version>
         <siddhi.map.xml.version>5.0.3</siddhi.map.xml.version>
-        <siddhi.map.keyvalue.version>2.0.2</siddhi.map.keyvalue.version>
+        <siddhi.map.keyvalue.version>2.0.3</siddhi.map.keyvalue.version>
         <siddhi.map.csv.version>2.0.2</siddhi.map.csv.version>
+        <siddhi.map.protobuf.version>1.0.0-beta</siddhi.map.protobuf.version>
 
         <siddhi.store.mongodb.version>2.0.1</siddhi.store.mongodb.version>
-        <siddhi.store.rdbms.version>6.0.1</siddhi.store.rdbms.version>
-        <siddhi.store.elasticsearch.version>3.0.0</siddhi.store.elasticsearch.version>
+        <siddhi.store.rdbms.version>6.0.3</siddhi.store.rdbms.version>
+        <siddhi.store.elasticsearch.version>3.1.1</siddhi.store.elasticsearch.version>
+        <siddhi.store.redis.version>3.1.1</siddhi.store.redis.version>
 
-        <siddhi.script.js.version>5.0.1</siddhi.script.js.version>
+        <siddhi.script.js.version>5.0.2</siddhi.script.js.version>
 
         <!--Plugin versions-->
         <maven.dependency.plugin.version>3.0.1</maven.dependency.plugin.version>
