@@ -108,11 +108,6 @@
                 <version>${siddhi.execution.math.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.siddhi.extension.execution.streamingml</groupId>
-                <artifactId>siddhi-execution-streamingml</artifactId>
-                <version>${siddhi.execution.streamingml.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.siddhi.extension.script.js</groupId>
                 <artifactId>siddhi-script-js</artifactId>
                 <version>${siddhi.script.js.version}</version>
@@ -131,11 +126,6 @@
                 <groupId>io.siddhi.extension.execution.json</groupId>
                 <artifactId>siddhi-execution-json</artifactId>
                 <version>${siddhi.execution.json.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.siddhi.extension.execution.tensorflow</groupId>
-                <artifactId>siddhi-execution-tensorflow</artifactId>
-                <version>${siddhi.execution.tensorflow.version}</version>
             </dependency>
             <!--IO Extensions-->
             <dependency>
@@ -182,11 +172,6 @@
                 <groupId>io.siddhi.extension.io.nats</groupId>
                 <artifactId>siddhi-io-nats</artifactId>
                 <version>${siddhi.io.nats.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.siddhi.extension.io.googlepubsub</groupId>
-                <artifactId>siddhi-io-googlepubsub</artifactId>
-                <version>${siddhi.io.googlepubsub.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.siddhi.extension.io.rabbitmq</groupId>
@@ -255,11 +240,29 @@
                 <artifactId>siddhi-store-redis</artifactId>
                 <version>${siddhi.store.redis.version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.siddhi.extension.store.elasticsearch</groupId>
-                <artifactId>siddhi-store-elasticsearch</artifactId>
-                <version>${siddhi.store.elasticsearch.version}</version>
-            </dependency>
+
+            <!-- Extensions removed from sdk due to size-->
+<!--            <dependency>-->
+<!--                <groupId>io.siddhi.extension.io.googlepubsub</groupId>-->
+<!--                <artifactId>siddhi-io-googlepubsub</artifactId>-->
+<!--                <version>${siddhi.io.googlepubsub.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.siddhi.extension.execution.tensorflow</groupId>-->
+<!--                <artifactId>siddhi-execution-tensorflow</artifactId>-->
+<!--                <version>${siddhi.execution.tensorflow.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.siddhi.extension.execution.streamingml</groupId>-->
+<!--                <artifactId>siddhi-execution-streamingml</artifactId>-->
+<!--                <version>${siddhi.execution.streamingml.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.siddhi.extension.store.elasticsearch</groupId>-->
+<!--                <artifactId>siddhi-store-elasticsearch</artifactId>-->
+<!--                <version>${siddhi.store.elasticsearch.version}</version>-->
+<!--            </dependency>-->
+
         </dependencies>
     </dependencyManagement>
     <build>
@@ -306,14 +309,17 @@
         <siddhi.execution.math.version>5.0.3</siddhi.execution.math.version>
         <siddhi.execution.unitconversion.version>2.0.2</siddhi.execution.unitconversion.version>
         <siddhi.execution.regex.version>5.0.5</siddhi.execution.regex.version>
-        <siddhi.execution.streamingml.version>2.0.2</siddhi.execution.streamingml.version>
         <siddhi.execution.string.version>5.0.5</siddhi.execution.string.version>
         <siddhi.execution.time.version>5.0.3</siddhi.execution.time.version>
         <siddhi.execution.unique.version>5.0.3</siddhi.execution.unique.version>
         <siddhi.execution.map.version>5.0.4</siddhi.execution.map.version>
         <siddhi.execution.reorder.version>5.0.3</siddhi.execution.reorder.version>
         <siddhi.execution.json.version>2.0.2</siddhi.execution.json.version>
+
+        <siddhi.execution.streamingml.version>2.0.2</siddhi.execution.streamingml.version>
         <siddhi.execution.tensorflow.version>2.0.2</siddhi.execution.tensorflow.version>
+        <siddhi.io.googlepubsub.version>2.0.1</siddhi.io.googlepubsub.version>
+        <siddhi.store.elasticsearch.version>3.1.1</siddhi.store.elasticsearch.version>
 
         <siddhi.io.file.version>2.0.1</siddhi.io.file.version>
         <siddhi.io.tcp.version>3.0.3</siddhi.io.tcp.version>
@@ -324,7 +330,6 @@
         <siddhi.io.cdc.version>2.0.3</siddhi.io.cdc.version>
         <siddhi.io.prometheus.version>2.0.1</siddhi.io.prometheus.version>
         <siddhi.io.nats.version>2.0.4</siddhi.io.nats.version>
-        <siddhi.io.googlepubsub.version>2.0.1</siddhi.io.googlepubsub.version>
         <siddhi.io.rabbitmq.version>3.0.1</siddhi.io.rabbitmq.version>
         <siddhi.io.grpc.version>1.0.0-beta</siddhi.io.grpc.version>
 
@@ -339,7 +344,6 @@
 
         <siddhi.store.mongodb.version>2.0.1</siddhi.store.mongodb.version>
         <siddhi.store.rdbms.version>6.0.3</siddhi.store.rdbms.version>
-        <siddhi.store.elasticsearch.version>3.1.1</siddhi.store.elasticsearch.version>
         <siddhi.store.redis.version>3.1.1</siddhi.store.redis.version>
 
         <siddhi.script.js.version>5.0.2</siddhi.script.js.version>
