@@ -60,10 +60,6 @@
             <artifactId>siddhi-execution-math</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.siddhi.extension.execution.streamingml</groupId>
-            <artifactId>siddhi-execution-streamingml</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.siddhi.extension.script.js</groupId>
             <artifactId>siddhi-script-js</artifactId>
         </dependency>
@@ -80,8 +76,8 @@
             <artifactId>siddhi-execution-json</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.siddhi.extension.execution.tensorflow</groupId>
-            <artifactId>siddhi-execution-tensorflow</artifactId>
+            <groupId>io.siddhi.extension.execution.list</groupId>
+            <artifactId>siddhi-execution-list</artifactId>
         </dependency>
         <!--IO Extensions-->
         <dependency>
@@ -124,10 +120,6 @@
 <!--            <groupId>io.siddhi.extension.io.grpc</groupId>-->
 <!--            <artifactId>siddhi-io-grpc</artifactId>-->
 <!--        </dependency>-->
-        <dependency>
-            <groupId>io.siddhi.extension.io.googlepubsub</groupId>
-            <artifactId>siddhi-io-googlepubsub</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.siddhi.extension.io.rabbitmq</groupId>
             <artifactId>siddhi-io-rabbitmq</artifactId>
@@ -173,10 +165,6 @@
         <dependency>
             <groupId>io.siddhi.extension.store.rdbms</groupId>
             <artifactId>siddhi-store-rdbms</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.siddhi.extension.store.elasticsearch</groupId>
-            <artifactId>siddhi-store-elasticsearch</artifactId>
         </dependency>
         <dependency>
             <groupId>io.siddhi.extension.store.redis</groupId>
