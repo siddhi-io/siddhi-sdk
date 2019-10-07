@@ -183,11 +183,11 @@
                 <artifactId>siddhi-io-rabbitmq</artifactId>
                 <version>${siddhi.io.rabbitmq.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.siddhi.extension.io.grpc</groupId>-->
-<!--                <artifactId>siddhi-io-grpc</artifactId>-->
-<!--                <version>${siddhi.io.grpc.version}</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>io.siddhi.extension.io.grpc</groupId>
+                <artifactId>siddhi-io-grpc</artifactId>
+                <version>${siddhi.io.grpc.version}</version>
+            </dependency>
             <!--Mapper Extensions-->
             <dependency>
                 <groupId>io.siddhi.extension.map.xml</groupId>
@@ -303,7 +303,7 @@
     </build>
 
     <properties>
-        <siddhi.version>5.1.4</siddhi.version>
+        <siddhi.version>5.1.7</siddhi.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
         <jackson.databind.version>2.4.1</jackson.databind.version>
@@ -311,7 +311,7 @@
         <project.scm.id>scm-server</project.scm.id>
 
         <!--Siddhi Extension Versions-->
-        <siddhi.execution.math.version>5.0.3</siddhi.execution.math.version>
+        <siddhi.execution.math.version>5.0.4</siddhi.execution.math.version>
         <siddhi.execution.unitconversion.version>2.0.2</siddhi.execution.unitconversion.version>
         <siddhi.execution.regex.version>5.0.5</siddhi.execution.regex.version>
         <siddhi.execution.string.version>5.0.7</siddhi.execution.string.version>
@@ -341,7 +341,7 @@
         <siddhi.map.xml.version>5.0.3</siddhi.map.xml.version>
         <siddhi.map.keyvalue.version>2.0.4</siddhi.map.keyvalue.version>
         <siddhi.map.csv.version>2.0.3</siddhi.map.csv.version>
-        <siddhi.map.protobuf.version>1.0.0</siddhi.map.protobuf.version>
+        <siddhi.map.protobuf.version>1.0.1</siddhi.map.protobuf.version>
 
         <siddhi.store.mongodb.version>2.0.3</siddhi.store.mongodb.version>
         <siddhi.store.rdbms.version>7.0.0</siddhi.store.rdbms.version>
