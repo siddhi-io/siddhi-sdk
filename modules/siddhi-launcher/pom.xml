@@ -121,6 +121,10 @@
             <artifactId>siddhi-io-grpc</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.siddhi.extension.io.s3</groupId>
+            <artifactId>siddhi-io-s3</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.siddhi.extension.io.rabbitmq</groupId>
             <artifactId>siddhi-io-rabbitmq</artifactId>
         </dependency>
