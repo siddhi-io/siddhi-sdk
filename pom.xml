@@ -27,7 +27,7 @@
     <groupId>io.siddhi.sdk</groupId>
     <artifactId>siddhi-sdk-parent</artifactId>
     <packaging>pom</packaging>
-    <version>5.1.1-SNAPSHOT</version>
+    <version>5.1.1</version>
     <name>WSO2 Siddhi SDK</name>
 
     <url>http://wso2.org</url>
@@ -36,7 +36,7 @@
         <url>https://github.com/siddhi-io/siddhi-sdk.git</url>
         <developerConnection>scm:git:https://github.com/siddhi-io/siddhi-sdk.git</developerConnection>
         <connection>scm:git:https://github.com/siddhi-io/siddhi-sdk.git</connection>
-        <tag>HEAD</tag>
+        <tag>v5.1.1</tag>
     </scm>
 
     <modules>
