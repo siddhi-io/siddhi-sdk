@@ -311,7 +311,7 @@
         <siddhi.version>5.1.11</siddhi.version>
         <jcommander.version>1.64</jcommander.version>
         <jackson.core.version>2.7.4</jackson.core.version>
-        <jackson.databind.version>2.9.10.1</jackson.databind.version>
+        <jackson.databind.version>2.9.10.7</jackson.databind.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
         <project.scm.id>scm-server</project.scm.id>
 
